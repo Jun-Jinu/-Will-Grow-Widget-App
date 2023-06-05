@@ -54,8 +54,24 @@ struct iosWidgetView: View {
 
     var body: some View {
         ZStack {
-            Color(.yellow)
-            Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
+        ContainerRelativeShape().fill(.gray.gradient)
+    
+
+        Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
+            .font(.system(size: 20, weight: .heavy))
+            .foregroundColor(.white.opacity(0.8))
+        
+        VStack {
+            Spacer()
+            
+            HStack {
+                Spacer()
+                Text("우측하단 텍스트 추가")
+                    .font(.system(size: 14))
+                    .foregroundColor(.white.opacity(0.8))
+                    .padding(10) // 필요에 따라 여백을 조정하세요.
+                }
+            }
         }
     }
 }
