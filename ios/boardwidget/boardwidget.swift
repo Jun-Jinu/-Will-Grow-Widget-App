@@ -20,11 +20,11 @@ struct FlutterEntry: TimelineEntry {
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> FlutterEntry {
-        FlutterEntry(date: Date(), widgetData: WidgetData(text:"Flutter IOS widget"))
+        FlutterEntry(date: Date(), widgetData: WidgetData(text:"Flutter IOS widget입니다."))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (FlutterEntry) -> ()) {
-        let entry = FlutterEntry(date: Date(), widgetData: WidgetData(text: "Flutter IOS widget"))
+        let entry = FlutterEntry(date: Date(), widgetData: WidgetData(text: "Flutter IOS widget입니다."))
         completion(entry)
     }
 
@@ -55,7 +55,7 @@ struct iosWidgetView: View {
     var body: some View {
         ZStack {
             Color(.yellow)
-            Text("Hello World!")
+            Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
         }
     }
 }
