@@ -57,6 +57,7 @@ struct iosWidgetView: View {
         ContainerRelativeShape().fill(.gray.gradient)
     
 
+        // TODO: 텍스트 폰트 변경, 배경 색 설정 추가
         Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
             .font(.system(size: 24, weight: .heavy))
             .foregroundColor(.white.opacity(0.8))

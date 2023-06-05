@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import './post_viewmodel.dart';
 
 class PostListView extends StatelessWidget {
   late PostListViewModel viewModel;
+
+  PostListView({super.key});
 
   @override
   Widget build(BuildContext context) {
