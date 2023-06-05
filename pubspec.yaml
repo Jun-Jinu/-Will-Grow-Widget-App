@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   widgetkit: ^0.3.1
   flutter_widgetkit: ^1.0.3
+  hive: ^2.2.3
 
 dev_dependencies:
   flutter_test:
