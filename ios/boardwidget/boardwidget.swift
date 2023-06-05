@@ -53,6 +53,9 @@ struct iosWidgetView: View {
     var entry: Provider.Entry
 
     var body: some View {
-        Text(entry.widgetData?.text ?? "Tap to set message")
+        ZStack {
+            Color(.yellow)
+            Text("Hello World!")
+        }
     }
 }
