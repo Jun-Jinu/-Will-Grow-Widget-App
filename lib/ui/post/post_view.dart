@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './post_viewmodel.dart';
 
+import 'package:board_widget/ui/widgets/menu_bottom.dart';
+
 class PostListView extends StatelessWidget {
   late PostListViewModel viewModel;
 
@@ -12,8 +14,9 @@ class PostListView extends StatelessWidget {
     viewModel =
         Provider.of<PostListViewModel>(context); // Provider로 viewModel을 가져온다.
     return Scaffold(
-      appBar: AppBar(title: Text('Post List')),
+      appBar: AppBar(title: const Text('일기')),
       body: _buildPostList(),
+      bottomNavigationBar: const MenuBottom(),
     );
   }
 
