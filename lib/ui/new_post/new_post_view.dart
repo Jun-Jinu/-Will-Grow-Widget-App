@@ -11,6 +11,7 @@ class NewPostView extends StatelessWidget {
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+  final TextEditingController _promiseController = TextEditingController();
   late NewPostViewModel viewModel;
 
   @override
@@ -19,7 +20,7 @@ class NewPostView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Post'),
+        title: Text('오늘 일기'),
       ),
       bottomNavigationBar: MenuBottom(
         selectedIndex: 1,
@@ -31,32 +32,52 @@ class NewPostView extends StatelessWidget {
             TextField(
               controller: _titleController,
               decoration: InputDecoration(
-                labelText: 'Title',
+                labelText: '제목',
+                hintText: "필수사항",
               ),
             ),
             SizedBox(height: 16.0),
             TextField(
               controller: _contentController,
               decoration: InputDecoration(
-                labelText: 'Content',
+                labelText: '일기',
+                hintText: "선택사항",
               ),
               maxLines: null,
             ),
             SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                final title = _titleController.text;
-                final content = _contentController.text;
+            TextField(
+              controller: _promiseController,
+              decoration: InputDecoration(
+                labelText: '오늘의 다짐',
+                hintText: "필수사항",
+              ),
+            ),
 
-                // Validate the inputs, e.g., check if title and content are not empty
+            // TODO: 며칠간 할지 적기! (일 수 입력받는 빈칸 추가)
 
-                // Call the postRepository to save the new post
-                // postRepository.savePost(title, content);
-
-                // Navigate back to the previous screen
-                Navigator.pop(context);
-              },
-              child: Text('Save'),
+            SizedBox(height: 32.0),
+            SizedBox(
+              width: double.infinity,
+              height: 40,
+              child: OutlinedButton(
+                onPressed: () {
+                  // Handle button press
+                },
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(
+                    color: Colors.lightBlue,
+                    width: 1.0,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  '저장하기',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
             ),
           ],
         ),
