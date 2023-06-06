@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:board_widget/data/repository/post_repository.dart';
 
+import './new_post_viewmodel.dart';
+
+import 'package:board_widget/ui/widgets/menu_bottom.dart';
+
 class NewPostView extends StatelessWidget {
+  NewPostView({super.key});
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
+  late NewPostViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    final postRepository = Provider.of<PostRepository>(context);
+    viewModel = Provider.of<NewPostViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('New Post'),
+      ),
+      bottomNavigationBar: MenuBottom(
+        selectedIndex: 1,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

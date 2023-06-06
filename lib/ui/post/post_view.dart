@@ -13,10 +13,13 @@ class PostListView extends StatelessWidget {
   Widget build(BuildContext context) {
     viewModel =
         Provider.of<PostListViewModel>(context); // Provider로 viewModel을 가져온다.
+
     return Scaffold(
       appBar: AppBar(title: const Text('일기')),
+      bottomNavigationBar: MenuBottom(
+        selectedIndex: 0,
+      ),
       body: _buildPostList(),
-      bottomNavigationBar: const MenuBottom(),
     );
   }
 

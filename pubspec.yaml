@@ -39,6 +39,7 @@ dependencies:
   flutter_widgetkit: ^1.0.3
   hive: ^2.2.3
   provider: ^6.0.5
+  settings_ui: ^2.0.2
 
 dev_dependencies:
   flutter_test:
