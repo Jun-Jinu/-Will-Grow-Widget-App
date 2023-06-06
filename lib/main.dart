@@ -28,8 +28,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -46,8 +44,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: '나의 앱 ~',
         theme: ThemeData(
-          appBarTheme: const AppBarTheme(),
-          primarySwatch: Colors.purple,
+          primaryColor: Colors.black87,
+          appBarTheme: const AppBarTheme(
+            elevation: 0.5,
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+          ),
+          primarySwatch: Colors.lightBlue,
         ),
         initialRoute: '/',
       ),
@@ -55,7 +58,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// 라우팅
+// 라우팅 설정
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
@@ -65,7 +68,6 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case '/settings':
       return CustomPageRoute(page: SettingsView());
     default:
-      // Handle unknown routes here
       return null;
   }
 }
@@ -91,7 +93,7 @@ class CustomPageRoute extends PageRouteBuilder {
 
 
 
-
+// 위젯을 테스트했던 코드
 // void main() {
 //   runApp(const MaterialApp(home: TextPage()));
 // }
