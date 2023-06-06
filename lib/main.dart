@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 import './ui/post/post_viewmodel.dart';
 import './ui/post/post_view.dart';
 
+import './ui/new_post/new_post_view.dart';
+import './ui/new_post/new_post_viewmodel.dart';
+
 import 'dart:convert';
 
 void main() {
@@ -30,6 +33,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<PostListViewModel>(
             create: (_) => PostListViewModel(), child: PostListView()),
+        ChangeNotifierProvider<NewPostViewModel>(
+            create: (_) => NewPostViewModel(), child: NewPostView()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -41,6 +46,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => PostListView(),
+          '/newpost': (context) => NewPostView(),
+          '/settings': (context) => PostListView(),
         },
       ),
     );

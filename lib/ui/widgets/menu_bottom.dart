@@ -12,10 +12,10 @@ class MenuBottom extends StatelessWidget {
             Navigator.pushNamed(context, '/');
             break;
           case 1:
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/newpost');
             break;
           case 2:
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/settings');
             break;
           default:
             break;
