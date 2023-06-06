@@ -19,47 +19,81 @@ class SettingsView extends StatelessWidget {
 }
 
 class SettingsBody extends StatelessWidget {
-  const SettingsBody({super.key});
+  const SettingsBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SettingsList(
+      contentPadding:
+          const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
       sections: [
         SettingsSection(
-          title: Text('General'),
+          margin: EdgeInsetsDirectional.only(bottom: 20.0),
           tiles: [
             SettingsTile(
-              title: Text('Language'),
-              leading: Icon(Icons.language),
+              title: const Text('프리미엄 혜택'),
               onPressed: (BuildContext context) {
-                // Handle language settings
-              },
-            ),
-            SettingsTile(
-              title: Text('Notifications'),
-              leading: Icon(Icons.notifications),
-              onPressed: (BuildContext context) {
-                // Handle notification settings
+                // Handle premium benefits settings
               },
             ),
           ],
         ),
         SettingsSection(
-          title: Text('Appearance'),
+          margin: EdgeInsetsDirectional.only(bottom: 20.0),
+          title: const Text('테마 설정'),
           tiles: [
-            SettingsTile.switchTile(
-              title: Text('Dark Mode'),
-              leading: Icon(Icons.lightbulb_outline),
-              initialValue: false,
-              onToggle: (bool value) {
-                // Handle dark mode setting
+            SettingsTile(
+              title: const Text('위젯 스킨 설정'),
+              onPressed: (BuildContext context) {
+                // Handle widget skin settings
               },
             ),
             SettingsTile(
-              title: Text('Font Size'),
-              leading: Icon(Icons.text_fields),
+              title: const Text('앱 스킨 설정'),
               onPressed: (BuildContext context) {
-                // Handle font size settings
+                // Handle app skin settings
+              },
+            ),
+          ],
+        ),
+        SettingsSection(
+          margin: EdgeInsetsDirectional.symmetric(vertical: 20.0),
+          tiles: [
+            SettingsTile(
+              title: const Text('문의'),
+              onPressed: (BuildContext context) {
+                // Handle contact us settings
+              },
+            ),
+            SettingsTile(
+              title: const Text('의견 보내기'),
+              onPressed: (BuildContext context) {
+                // Handle send feedback settings
+              },
+            ),
+            SettingsTile(
+              title: const Text('앱 공유하기'),
+              onPressed: (BuildContext context) {
+                // Handle share app settings
+              },
+            ),
+          ],
+        ),
+        SettingsSection(
+          margin: EdgeInsetsDirectional.only(bottom: 20.0),
+          tiles: [
+            SettingsTile(
+              title: const Text('버전'),
+              value: const Text('v1.0.0'), // Displayed on the right side
+              onPressed: (BuildContext context) {
+                // Handle version settings
+              },
+            ),
+            SettingsTile(
+              title: const Text('개발자'),
+              value: Text('Jun Jinu'), // Displayed on the right side
+              onPressed: (BuildContext context) {
+                // Handle developer settings
               },
             ),
           ],
