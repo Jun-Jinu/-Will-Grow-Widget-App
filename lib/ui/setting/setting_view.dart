@@ -61,7 +61,7 @@ class SettingsBody extends StatelessWidget {
           title: const Text('지원'),
           tiles: [
             SettingsTile(
-              title: const Text('문의하기'),
+              title: const Text('앱 리뷰 남기기'),
               onPressed: (BuildContext context) {
                 // Handle contact us settings
               },
@@ -93,7 +93,7 @@ class SettingsBody extends StatelessWidget {
             ),
             SettingsTile(
               title: const Text('개발자'),
-              value: Text('Jun Jinu'), // Displayed on the right side
+              value: Text('Jinu'), // Displayed on the right side
               onPressed: (BuildContext context) {
                 // Handle developer settings
               },
