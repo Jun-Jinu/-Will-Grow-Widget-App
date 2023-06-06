@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
             create: (_) => SettingsViewModel(), child: SettingsView()),
       ],
       child: MaterialApp(
+        onGenerateRoute: (route) => onGenerateRoute(route),
         debugShowCheckedModeBanner: false,
         title: '나의 앱 ~',
         theme: ThemeData(
@@ -49,17 +50,40 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.purple,
         ),
         initialRoute: '/',
-        routes: {
-          '/': (context) => PostListView(),
-          '/newpost': (context) => NewPostView(),
-          '/settings': (context) => SettingsView(),
-        },
       ),
     );
   }
 }
 
+// 라우팅
+Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+  switch (settings.name) {
+    case '/':
+      return CustomPageRoute(page: PostListView());
+    case '/newpost':
+      return CustomPageRoute(page: NewPostView());
+    case '/settings':
+      return CustomPageRoute(page: SettingsView());
+    default:
+      // Handle unknown routes here
+      return null;
+  }
+}
 
+// 화면 전환 애니메이션 제거 라우터
+class CustomPageRoute extends PageRouteBuilder {
+  final Widget page;
+
+  CustomPageRoute({required this.page})
+      : super(
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              child,
+        );
+
+  @override
+  Duration get transitionDuration => const Duration(milliseconds: 0);
+}
 
 
 
