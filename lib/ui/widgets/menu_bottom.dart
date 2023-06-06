@@ -23,42 +23,32 @@ class _MenuBottomState extends State<MenuBottom> {
   }
 
   @override
-  void didUpdateWidget(covariant MenuBottom oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _selectedIndex = widget.selectedIndex;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    List<String> routes = [
+      '/',
+      '/newpost',
+      '/settings',
+    ];
+
     return BottomNavigationBar(
       currentIndex: _selectedIndex,
       onTap: (int index) {
-        switch (index) {
-          case 0:
-            Navigator.pushNamed(context, '/');
-            break;
-          case 1:
-            Navigator.pushNamed(context, '/newpost');
-            break;
-          case 2:
-            Navigator.pushNamed(context, '/settings');
-            break;
-          default:
-            break;
+        if (index >= 0 && index < routes.length && _selectedIndex != index) {
+          Navigator.pushNamed(context, routes[index]);
         }
       },
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          label: 'Home',
+          label: '나의 일기',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.edit),
-          label: 'Write Diary',
+          label: '일기 쓰기',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),
-          label: 'Preferences',
+          label: '설정',
         ),
       ],
     );
