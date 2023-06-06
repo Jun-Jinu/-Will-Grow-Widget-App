@@ -8,7 +8,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Preferences'),
+        title: const Text('설정'),
       ),
       bottomNavigationBar: MenuBottom(
         selectedIndex: 2,
@@ -57,10 +57,11 @@ class SettingsBody extends StatelessWidget {
           ],
         ),
         SettingsSection(
-          margin: EdgeInsetsDirectional.symmetric(vertical: 20.0),
+          margin: EdgeInsetsDirectional.only(bottom: 20.0),
+          title: const Text('지원'),
           tiles: [
             SettingsTile(
-              title: const Text('문의'),
+              title: const Text('문의하기'),
               onPressed: (BuildContext context) {
                 // Handle contact us settings
               },
@@ -81,6 +82,7 @@ class SettingsBody extends StatelessWidget {
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
+          title: const Text('성장다짐'),
           tiles: [
             SettingsTile(
               title: const Text('버전'),
