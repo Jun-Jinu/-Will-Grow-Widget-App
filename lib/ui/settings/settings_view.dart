@@ -51,7 +51,7 @@ class SettingsBody extends StatelessWidget {
             SettingsTile(
               title: const Text('앱 스킨 설정'),
               onPressed: (BuildContext context) {
-                // Handle app skin settings
+                Navigator.pushNamed(context, '/settings/app');
               },
             ),
           ],
@@ -85,6 +85,7 @@ class SettingsBody extends StatelessWidget {
           title: const Text('성장다짐'),
           tiles: [
             SettingsTile(
+              enabled: false,
               title: const Text('버전'),
               value: const Text('v1.0.0'), // Displayed on the right side
               onPressed: (BuildContext context) {
@@ -92,6 +93,7 @@ class SettingsBody extends StatelessWidget {
               },
             ),
             SettingsTile(
+              enabled: false,
               title: const Text('개발자'),
               value: Text('Jinu'), // Displayed on the right side
               onPressed: (BuildContext context) {

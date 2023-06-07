@@ -100,7 +100,7 @@ class WidgetSettingBody extends StatelessWidget {
           title: const Text('글자 크기'),
           tiles: [
             SettingsTile(
-              title: const Text('작게'),
+              title: const Text('크게'),
               onPressed: (BuildContext context) {
                 // Handle version settings
               },
@@ -112,7 +112,7 @@ class WidgetSettingBody extends StatelessWidget {
               },
             ),
             SettingsTile(
-              title: const Text('크게'),
+              title: const Text('작게'),
               onPressed: (BuildContext context) {
                 // Handle developer settings
               },

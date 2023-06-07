@@ -11,11 +11,14 @@ import './ui/post/post_view.dart';
 import './ui/new_post/new_post_view.dart';
 import './ui/new_post/new_post_viewmodel.dart';
 
-import './ui/setting/setting_view.dart';
-import './ui/setting/setting_viewmodel.dart';
+import 'ui/settings/settings_view.dart';
+import 'ui/settings/settings_viewmodel.dart';
 
-import './ui/setting/widget_setting/widget_setting_view.dart';
-import './ui/setting/widget_setting/widget_setting_viewmodel.dart';
+import 'ui/settings/widget_setting/widget_settings_view.dart';
+import 'ui/settings/widget_setting/widget_settings_viewmodel.dart';
+
+import 'ui/settings/app_setting/app_settings_view.dart';
+import 'ui/settings/app_setting/app_settings_viewmodel.dart';
 
 import 'dart:convert';
 
@@ -44,6 +47,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<WidgetSettingsViewModel>(
             create: (_) => WidgetSettingsViewModel(),
             child: WidgetSettingView()),
+        ChangeNotifierProvider<AppSettingsViewModel>(
+            create: (_) => AppSettingsViewModel(), child: AppSettingView()),
       ],
       child: MaterialApp(
         onGenerateRoute: (route) => onGenerateRoute(route),
@@ -75,6 +80,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return CustomPageRoute(page: SettingsView());
     case '/settings/widget':
       return CustomPageRoute(page: WidgetSettingView());
+    case '/settings/app':
+      return CustomPageRoute(page: AppSettingView());
     default:
       return null;
   }
