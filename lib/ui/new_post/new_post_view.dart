@@ -5,13 +5,21 @@ import './new_post_viewmodel.dart';
 
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
 
-class NewPostView extends StatelessWidget {
+class NewPostView extends StatefulWidget {
   NewPostView({Key? key}) : super(key: key);
 
+  @override
+  _NewPostViewState createState() => _NewPostViewState();
+}
+
+class _NewPostViewState extends State<NewPostView> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   final TextEditingController _promiseController = TextEditingController();
   late NewPostViewModel viewModel;
+
+  final int promiseDuration = 1;
+  bool onDirect = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,27 +85,61 @@ class NewPostView extends StatelessWidget {
             Row(
               children: [
                 SizedBox(width: 8.0),
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    '얼마만에 이뤄볼까요?',
-                    style: TextStyle(fontSize: 16),
+                Container(
+                  width: 100,
+                  child: DropdownButtonFormField<int>(
+                    value: promiseDuration,
+                    alignment: AlignmentDirectional.centerEnd,
+                    items: [
+                      DropdownMenuItem<int>(
+                        value: 1,
+                        child: Center(child: Text('1')),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: 7,
+                        child: Center(child: Text('7')),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: 30,
+                        child: Center(child: Text('30')),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: -2,
+                        child: Center(child: Text('무제한')),
+                      ),
+                      DropdownMenuItem<int>(
+                        value: -3,
+                        child: Center(child: Text('직접입력')),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        value == -3 ? onDirect = true : onDirect = false;
+                      });
+                    },
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 4.0, horizontal: 12.0),
+                if (onDirect)
+                  Container(
+                    width: 80,
+                    height: 40,
+                    margin: EdgeInsets.only(left: 30.0, right: 5.0),
+                    child: TextField(
+                      maxLines: 1,
+                      maxLength: 5,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.right,
+                      decoration: InputDecoration(
+                        counterText: "",
+                        border: OutlineInputBorder(),
+                        labelStyle: TextStyle(fontSize: 14),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                Container(
+                  width: 120,
                   child: Text(
-                    '일',
+                    '일의 다짐',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
@@ -122,7 +164,7 @@ class NewPostView extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    'Save',
+                    '기록하기',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
