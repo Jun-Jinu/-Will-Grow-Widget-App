@@ -45,7 +45,7 @@ class SettingsBody extends StatelessWidget {
             SettingsTile(
               title: const Text('위젯 스킨 설정'),
               onPressed: (BuildContext context) {
-                // Handle widget skin settings
+                Navigator.pushNamed(context, '/settings/widget');
               },
             ),
             SettingsTile(

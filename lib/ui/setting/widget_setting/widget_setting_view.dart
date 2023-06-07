@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
-
-import 'package:board_widget/ui/widgets/menu_bottom.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class WidgetSettingView extends StatelessWidget {
   @override
@@ -9,9 +8,6 @@ class WidgetSettingView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정'),
-      ),
-      bottomNavigationBar: MenuBottom(
-        selectedIndex: 2,
       ),
       body: const WidgetSettingBody(),
     );
@@ -29,18 +25,36 @@ class WidgetSettingBody extends StatelessWidget {
       sections: [
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
+          title: const Text('다짐'),
           tiles: [
+            SettingsTile.switchTile(
+              onToggle: (value) {},
+              initialValue: true,
+              title: Text('시간별 텍스트 변경'),
+            ),
             SettingsTile(
-              title: const Text('프리미엄 혜택'),
+              title: const Text('시간1'),
               onPressed: (BuildContext context) {
-                // Handle premium benefits settings
+                // Handle contact us settings
+              },
+            ),
+            SettingsTile(
+              title: const Text('시간1'),
+              onPressed: (BuildContext context) {
+                // Handle send feedback settings
+              },
+            ),
+            SettingsTile(
+              title: const Text('시간1'),
+              onPressed: (BuildContext context) {
+                // Handle share app settings
               },
             ),
           ],
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
-          title: const Text('배경'),
+          title: const Text('배경색'),
           tiles: [
             SettingsTile(
               title: const Text('배경화면1'),
@@ -64,24 +78,43 @@ class WidgetSettingBody extends StatelessWidget {
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
-          title: const Text('다짐 변환 주기'),
+          title: const Text('폰트'),
           tiles: [
             SettingsTile(
-              title: const Text('시간1'),
+              title: const Text('폰트1'),
               onPressed: (BuildContext context) {
-                // Handle contact us settings
+                // Handle version settings
               },
             ),
             SettingsTile(
-              title: const Text('시간1'),
+              title: const Text('폰트2'),
               onPressed: (BuildContext context) {
-                // Handle send feedback settings
+                // Handle developer settings
+              },
+              // TODO: 요일 표시 체크박스 만들기
+            ),
+          ],
+        ),
+        SettingsSection(
+          margin: EdgeInsetsDirectional.only(bottom: 20.0),
+          title: const Text('글자 크기'),
+          tiles: [
+            SettingsTile(
+              title: const Text('작게'),
+              onPressed: (BuildContext context) {
+                // Handle version settings
               },
             ),
             SettingsTile(
-              title: const Text('시간1'),
+              title: const Text('보통'),
               onPressed: (BuildContext context) {
-                // Handle share app settings
+                // Handle developer settings
+              },
+            ),
+            SettingsTile(
+              title: const Text('크게'),
+              onPressed: (BuildContext context) {
+                // Handle developer settings
               },
             ),
           ],
@@ -101,9 +134,11 @@ class WidgetSettingBody extends StatelessWidget {
               onPressed: (BuildContext context) {
                 // Handle developer settings
               },
+              // TODO: 요일 표시 체크박스 만들기
             ),
           ],
         ),
+        // TODO:  글자 크기 조절하기
       ],
     );
   }
