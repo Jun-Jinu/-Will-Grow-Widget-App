@@ -43,6 +43,7 @@ dependencies:
   toggle_switch: ^2.1.0
   table_calendar: ^3.0.9
   intl: ^0.18.1
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:
