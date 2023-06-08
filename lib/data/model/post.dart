@@ -11,16 +11,16 @@ import 'package:hive/hive.dart';
 //     required this.id,
 //     required this.content,
 //     required this.promise,
-//     required this.promiseEndDate,
 //     required this.date,
+//     required this.promiseEndDate,
 //   });
 
 //   factory Post.fromJson(Map<String, dynamic> json) {
 //     return Post(
 //       id: json['id'],
-//       date: DateTime.parse(json['date']),
 //       content: json['content'],
 //       promise: json['promise'],
+//       date: DateTime.parse(json['date']),
 //       promiseEndDate: DateTime.parse(json['promiseEndDate']),
 //     );
 //   }
@@ -53,3 +53,7 @@ class Post {
   @HiveField(4)
   DateTime promiseEndDate;
 }
+
+
+// flutter packages pub run build_runner build
+// 를 사용해서 해당 모델의 g.dart파일 생성

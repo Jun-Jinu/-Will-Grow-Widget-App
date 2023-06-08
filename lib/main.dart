@@ -1,3 +1,4 @@
+import 'package:board_widget/data/model/post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+
 import './ui/post/post_viewmodel.dart';
 import './ui/post/post_view.dart';
 
@@ -24,6 +27,29 @@ import 'dart:convert';
 
 void main() async {
   await Hive.initFlutter();
+
+  Hive.registerAdapter(PostAdapter());
+
+  // 테스트 코드
+  var box = await Hive.openBox<Post>('postbox');
+
+  box.put(
+      1,
+      Post(
+          id: 1,
+          content: 'test content',
+          promise: 'test promise',
+          date: DateTime.now(),
+          promiseEndDate: DateTime.now()));
+  box.put(
+      2,
+      Post(
+          id: 2,
+          content: 'test content',
+          promise: 'test promise',
+          date: DateTime.now(),
+          promiseEndDate: DateTime.now()));
+
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations(
