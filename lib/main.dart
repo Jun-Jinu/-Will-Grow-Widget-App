@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<PostListViewModel>(
-            create: (_) => PostListViewModel(), child: PostListView()),
         ChangeNotifierProvider<NewPostViewModel>(
             create: (_) => NewPostViewModel(), child: NewPostView()),
+        ChangeNotifierProvider<PostListViewModel>(
+            create: (_) => PostListViewModel(), child: PostListView()),
         ChangeNotifierProvider<SettingsViewModel>(
             create: (_) => SettingsViewModel(), child: SettingsView()),
         ChangeNotifierProvider<WidgetSettingsViewModel>(
@@ -73,9 +73,9 @@ class MyApp extends StatelessWidget {
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
-      return CustomPageRoute(page: PostListView());
-    case '/newpost':
       return CustomPageRoute(page: NewPostView());
+    case '/post':
+      return CustomPageRoute(page: PostListView());
     case '/settings':
       return CustomPageRoute(page: SettingsView());
     case '/settings/widget':

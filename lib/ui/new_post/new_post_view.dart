@@ -30,27 +30,27 @@ class _NewPostViewState extends State<NewPostView> {
         title: Text('오늘의 일기'),
       ),
       bottomNavigationBar: MenuBottom(
-        selectedIndex: 1,
+        selectedIndex: 0,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0, style: BorderStyle.none),
-                ),
-                hintText: "제목(필수)",
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.grey,
-              margin: EdgeInsets.symmetric(vertical: 4.0),
-            ),
+            // TextField(
+            //   controller: _titleController,
+            //   decoration: InputDecoration(
+            //     border: OutlineInputBorder(
+            //       borderSide: BorderSide(width: 0, style: BorderStyle.none),
+            //     ),
+            //     hintText: "제목(필수)",
+            //   ),
+            // ),
+            // Container(
+            //   width: double.infinity,
+            //   height: 1,
+            //   color: Colors.grey,
+            //   margin: EdgeInsets.symmetric(vertical: 4.0),
+            // ),
             TextField(
               controller: _contentController,
               decoration: InputDecoration(

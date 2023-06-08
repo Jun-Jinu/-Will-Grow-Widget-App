@@ -26,7 +26,7 @@ class _MenuBottomState extends State<MenuBottom> {
   Widget build(BuildContext context) {
     List<String> routes = [
       '/',
-      '/newpost',
+      '/post',
       '/settings',
     ];
 
@@ -39,12 +39,12 @@ class _MenuBottomState extends State<MenuBottom> {
       },
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: '나의 일기',
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.edit),
           label: '일기 쓰기',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.book_outlined),
+          label: '나의 일기',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings),

@@ -14,12 +14,12 @@ class PostListView extends StatelessWidget {
     viewModel =
         Provider.of<PostListViewModel>(context); // Provider로 viewModel을 가져온다.
 
-    viewModel.setSelectedIndex(0);
+    viewModel.setSelectedIndex(1);
 
     return Scaffold(
       appBar: AppBar(title: const Text('일기')),
       bottomNavigationBar: MenuBottom(
-        selectedIndex: 0,
+        selectedIndex: 1,
       ),
       body: _buildPostList(),
     );
