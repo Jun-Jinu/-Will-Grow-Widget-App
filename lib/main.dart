@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:provider/provider.dart';
+import 'package:hive/hive.dart';
 
 import './ui/post/post_viewmodel.dart';
 import './ui/post/post_view.dart';
@@ -22,7 +23,7 @@ import 'ui/settings/app_setting/app_settings_viewmodel.dart';
 
 import 'dart:convert';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations(
