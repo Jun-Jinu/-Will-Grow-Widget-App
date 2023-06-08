@@ -8,8 +8,11 @@ import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
-import './ui/post/post_viewmodel.dart';
-import './ui/post/post_view.dart';
+import 'ui/post/post_list/post_viewmodel.dart';
+import 'ui/post/post_list/post_view.dart';
+
+import './ui/post/post_detail/post_detail_view.dart';
+import './ui/post/post_detail/post_detail_viewmodel.dart';
 
 import './ui/new_post/new_post_view.dart';
 import './ui/new_post/new_post_viewmodel.dart';
@@ -69,6 +72,8 @@ class MyApp extends StatelessWidget {
             create: (_) => NewPostViewModel(), child: NewPostView()),
         ChangeNotifierProvider<PostListViewModel>(
             create: (_) => PostListViewModel(), child: PostListView()),
+        ChangeNotifierProvider<PostDetailViewModel>(
+            create: (_) => PostDetailViewModel(), child: PostDetailView(id: 1)),
         ChangeNotifierProvider<SettingsViewModel>(
             create: (_) => SettingsViewModel(), child: SettingsView()),
         ChangeNotifierProvider<WidgetSettingsViewModel>(
@@ -103,6 +108,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return CustomPageRoute(page: NewPostView());
     case '/post':
       return CustomPageRoute(page: PostListView());
+    case '/post/detail':
+      return CustomPageRoute(page: PostDetailView(id: 1));
     case '/settings':
       return CustomPageRoute(page: SettingsView());
     case '/settings/widget':

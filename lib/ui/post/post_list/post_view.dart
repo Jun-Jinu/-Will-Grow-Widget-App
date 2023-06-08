@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './post_viewmodel.dart';
+import 'post_viewmodel.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:board_widget/data/model/post.dart';
@@ -45,7 +45,9 @@ class PostListView extends StatelessWidget {
             "${item.promiseEndDate.month}월 ${item.promiseEndDate.day}일까지 다짐";
 
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, '/post/detail');
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
             child: Column(
