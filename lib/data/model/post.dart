@@ -1,25 +1,25 @@
 class Post {
-  final String title;
+  final int id;
   final String content;
-  final String summary;
-  final DateTime summaryEndDate;
+  final String promise;
+  final DateTime promiseEndDate;
   final DateTime date;
 
   Post({
-    required this.title,
+    required this.id,
     required this.content,
-    required this.summary,
-    required this.summaryEndDate,
+    required this.promise,
+    required this.promiseEndDate,
     required this.date,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      title: json['title'],
-      content: json['content'],
-      summary: json['summary'],
-      summaryEndDate: DateTime.parse(json['summaryEndDate']),
+      id: json['id'],
       date: DateTime.parse(json['date']),
+      content: json['content'],
+      promise: json['promise'],
+      promiseEndDate: DateTime.parse(json['promiseEndDate']),
     );
   }
 }
