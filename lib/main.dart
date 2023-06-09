@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
-import 'ui/post/post_list/post_viewmodel.dart';
-import 'ui/post/post_list/post_view.dart';
+import 'ui/post/post_list/post_list_viewmodel.dart';
+import 'ui/post/post_list/post_list_view.dart';
 
 import './ui/post/post_detail/post_detail_view.dart';
 import './ui/post/post_detail/post_detail_viewmodel.dart';
@@ -25,6 +25,9 @@ import 'ui/settings/widget_setting/widget_settings_viewmodel.dart';
 
 import 'ui/settings/app_setting/app_settings_view.dart';
 import 'ui/settings/app_setting/app_settings_viewmodel.dart';
+
+import 'ui/post/post_edit/post_edit_view.dart';
+import 'ui/post/post_edit/post_edit_viewmodel.dart';
 
 import 'dart:convert';
 
@@ -67,6 +70,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
+      // TODO: 프로바이더 분리 가능?
       providers: [
         ChangeNotifierProvider<NewPostViewModel>(
             create: (_) => NewPostViewModel(), child: NewPostView()),
@@ -74,6 +78,8 @@ class MyApp extends StatelessWidget {
             create: (_) => PostListViewModel(), child: PostListView()),
         ChangeNotifierProvider<PostDetailViewModel>(
             create: (_) => PostDetailViewModel(), child: PostDetailView(id: 1)),
+        ChangeNotifierProvider<PostEditViewModel>(
+            create: (_) => PostEditViewModel(), child: PostEditView()),
         ChangeNotifierProvider<SettingsViewModel>(
             create: (_) => SettingsViewModel(), child: SettingsView()),
         ChangeNotifierProvider<WidgetSettingsViewModel>(
@@ -110,6 +116,9 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return CustomPageRoute(page: PostListView());
     case '/post/detail':
       return CustomPageRoute(page: PostDetailView(id: 1));
+    case '/post/edit':
+      return MaterialPageRoute(
+          builder: (context) => PostEditView(), settings: settings);
     case '/settings':
       return CustomPageRoute(page: SettingsView());
     case '/settings/widget':

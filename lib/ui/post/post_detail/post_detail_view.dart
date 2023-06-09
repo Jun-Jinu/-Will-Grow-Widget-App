@@ -32,7 +32,7 @@ class PostDetailView extends StatelessWidget {
     }
 
     final now = DateTime.now();
-    final daysLeft = post.promiseEndDate.difference(now).inDays;
+    final daysLeft = post.promiseEndDate.difference(now).inDays + 1;
     final dDayText = daysLeft > 0 ? 'D-${daysLeft}' : 'D+${daysLeft.abs()}';
 
     return Scaffold(
@@ -45,12 +45,14 @@ class PostDetailView extends StatelessWidget {
             onSelected: (value) {
               if (value == 'edit') {
                 // 수정 옵션 선택 시 처리
-                // TODO: 수정 기능 구현
-                print('수정');
+                Navigator.pushNamed(
+                  context,
+                  '/post/edit',
+                  arguments: post,
+                );
               } else if (value == 'delete') {
                 // 삭제 옵션 선택 시 처리
                 showDeleteConfirmationDialog(context);
-                print('삭제');
               }
             },
             itemBuilder: (context) => [
@@ -114,8 +116,7 @@ class PostDetailView extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     // 수정 아이콘 클릭 시 처리
-                    // TODO: 수정 기능 구현
-                    print('수정');
+                    // Navigator.pushNamed(context, '/post/edit');
                   },
                   icon: Icon(
                     CupertinoIcons.pencil,

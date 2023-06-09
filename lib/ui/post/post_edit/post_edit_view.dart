@@ -3,27 +3,26 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import './new_post_viewmodel.dart';
-
-import 'package:board_widget/ui/widgets/menu_bottom.dart';
+import './post_edit_viewmodel.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:board_widget/data/model/post.dart';
 
-class NewPostView extends StatefulWidget {
-  const NewPostView({Key? key}) : super(key: key);
+class PostEditView extends StatefulWidget {
+  const PostEditView({Key? key}) : super(key: key);
 
   @override
-  _NewPostViewState createState() => _NewPostViewState();
+  _PostEidtViewState createState() => _PostEidtViewState();
 }
 
-class _NewPostViewState extends State<NewPostView>
+class _PostEidtViewState extends State<PostEditView>
     with SingleTickerProviderStateMixin {
   final TextEditingController _contentController = TextEditingController();
   final TextEditingController _promiseController = TextEditingController();
+  final TextEditingController _promiseDateController = TextEditingController();
 
-  late NewPostViewModel viewModel;
+  late PostEditViewModel viewModel;
 
   final int promiseDuration = 1;
   bool onDirect = false;
@@ -43,34 +42,39 @@ class _NewPostViewState extends State<NewPostView>
     toggleCalendar();
   }
 
-  void savePost() async {
-    var box = await Hive.openBox<Post>('postbox');
-
-    // TODO: ID를 업데이트해서 앞 index와 id에 넣을것
-    box.put(
-      3,
-      Post(
-        id: 3,
-        content: _contentController.text,
-        promise: _promiseController.text,
-        date: selectedDay,
-        promiseEndDate: selectedDay.add(Duration(days: promiseDuration)),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    viewModel = Provider.of<NewPostViewModel>(context);
+    final Post post = ModalRoute.of(context)!.settings.arguments as Post;
+
+    void editPost() async {
+      var box = await Hive.openBox<Post>('postbox');
+
+      // 해당 id의 post를 업데이트해서 넣음
+      box.put(
+        post.id,
+        Post(
+          id: post.id,
+          content: _contentController.text,
+          promise: _promiseController.text,
+          date: selectedDay,
+          promiseEndDate: selectedDay.add(Duration(days: promiseDuration)),
+        ),
+      );
+    }
+
+    viewModel = Provider.of<PostEditViewModel>(context);
 
     String formattedDate = DateFormat('yyyy.MM.dd').format(selectedDay);
 
+    _contentController.text = post.content;
+    _promiseController.text = post.promise;
+    _promiseDateController.text =
+        (post.promiseEndDate.difference(DateTime.now()).inDays + 1).toString();
+    selectedDay = post.date;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('오늘의 일기'),
-      ),
-      bottomNavigationBar: MenuBottom(
-        selectedIndex: 0,
+        title: Text('수정하기'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -92,7 +96,7 @@ class _NewPostViewState extends State<NewPostView>
               ),
               AnimatedContainer(
                 height: showCalendar ? 400 : 0,
-                duration: Duration(milliseconds: 400),
+                duration: Duration(milliseconds: 150),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -160,7 +164,7 @@ class _NewPostViewState extends State<NewPostView>
                   border: OutlineInputBorder(
                     borderSide: BorderSide(width: 0, style: BorderStyle.none),
                   ),
-                  hintText: "오늘의 다짐",
+                  hintText: "다짐",
                 ),
               ),
               Container(
@@ -171,62 +175,28 @@ class _NewPostViewState extends State<NewPostView>
               ),
               Row(
                 children: [
-                  SizedBox(width: 8.0),
                   Container(
-                    width: 100,
-                    child: DropdownButtonFormField<int>(
-                      value: promiseDuration,
-                      alignment: AlignmentDirectional.centerEnd,
-                      items: [
-                        DropdownMenuItem<int>(
-                          value: 1,
-                          child: Center(child: Text('1일')),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 7,
-                          child: Center(child: Text('7일')),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: 30,
-                          child: Center(child: Text('30일')),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: -2,
-                          child: Center(child: Text('평생')),
-                        ),
-                        DropdownMenuItem<int>(
-                          value: -3,
-                          child: Center(child: Text('직접입력')),
-                        ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          value == -3 ? onDirect = true : onDirect = false;
-                        });
-                      },
-                    ),
-                  ),
-                  if (onDirect)
-                    Container(
-                      width: 80,
-                      height: 40,
-                      margin: EdgeInsets.only(left: 30.0, right: 5.0),
-                      child: TextField(
-                        maxLines: 1,
-                        maxLength: 5,
-                        keyboardType: TextInputType.number,
-                        textAlign: TextAlign.right,
-                        decoration: InputDecoration(
-                          counterText: "",
-                          border: OutlineInputBorder(),
-                          labelStyle: TextStyle(fontSize: 14),
-                        ),
+                    width: 80,
+                    height: 40,
+                    margin: EdgeInsets.only(left: 4.0, right: 5.0),
+                    child: TextField(
+                      controller: _promiseDateController,
+                      maxLines: 1,
+                      maxLength: 5,
+                      keyboardType: TextInputType.number,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(height: 1.0),
+                      decoration: InputDecoration(
+                        counterText: "",
+                        border: OutlineInputBorder(),
+                        labelStyle: TextStyle(fontSize: 14),
                       ),
                     ),
+                  ),
                   Container(
                     width: 120,
                     child: Text(
-                      '의 다짐',
+                      '일의 다짐',
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -240,7 +210,7 @@ class _NewPostViewState extends State<NewPostView>
                   height: 40,
                   child: OutlinedButton(
                     onPressed: () {
-                      savePost();
+                      editPost();
                       // TODO: 화면 애니메이션이나 알림 추가
                       Navigator.pushNamed(context, '/post');
                     },
@@ -254,7 +224,7 @@ class _NewPostViewState extends State<NewPostView>
                       ),
                     ),
                     child: Text(
-                      '기록하기',
+                      '수정하기',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),

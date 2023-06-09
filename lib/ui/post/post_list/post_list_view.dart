@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'post_viewmodel.dart';
+import 'post_list_viewmodel.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:board_widget/data/model/post.dart';
