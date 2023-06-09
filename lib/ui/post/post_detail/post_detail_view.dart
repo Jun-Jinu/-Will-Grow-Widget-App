@@ -9,10 +9,14 @@ class PostDetailView extends StatelessWidget {
   final int id;
 
   PostDetailView({required this.id});
+  final box = Hive.box<Post>('postbox');
+
+  void deletePost(int id) {
+    box.delete(id);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final box = Hive.box<Post>('postbox');
     final post = box.get(id);
 
     if (post == null) {
@@ -45,7 +49,7 @@ class PostDetailView extends StatelessWidget {
                 print('수정');
               } else if (value == 'delete') {
                 // 삭제 옵션 선택 시 처리
-                // TODO: 삭제 기능 구현
+                showDeleteConfirmationDialog(context);
                 print('삭제');
               }
             },
@@ -121,8 +125,7 @@ class PostDetailView extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     // 삭제 아이콘 클릭 시 처리
-                    // TODO: 삭제 기능 구현
-                    print('삭제');
+                    showDeleteConfirmationDialog(context);
                   },
                   icon: Icon(
                     CupertinoIcons.delete,
@@ -135,6 +138,54 @@ class PostDetailView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(
+              child: Text(
+            '다짐 삭제',
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(child: Text('정말 일기를 삭제하시겠습니까?')),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // 취소 버튼 클릭 시 동작(창닫기)
+                Navigator.of(context).pop();
+              },
+              child: Icon(
+                CupertinoIcons.clear,
+                color: Colors.black,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                // 삭제 버튼 클릭 시 동작
+                deletePost(3); // 여기서 id는 삭제할 post의 id입니다.
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/post');
+              },
+              child: Icon(
+                CupertinoIcons.delete,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
