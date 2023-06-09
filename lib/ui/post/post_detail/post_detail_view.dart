@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:board_widget/data/model/post.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 
 class PostDetailView extends StatelessWidget {
   final int id;
@@ -112,8 +114,8 @@ class PostDetailView extends StatelessWidget {
                     print('수정');
                   },
                   icon: Icon(
-                    Icons.edit,
-                    size: 28,
+                    CupertinoIcons.pencil,
+                    size: 32,
                   ),
                 ),
                 IconButton(
@@ -123,11 +125,11 @@ class PostDetailView extends StatelessWidget {
                     print('삭제');
                   },
                   icon: Icon(
-                    Icons.delete,
+                    CupertinoIcons.delete,
                     size: 28,
                   ),
                 ),
-                SizedBox(width: 4.0)
+                SizedBox(width: 6.0)
               ],
             )
           ],
