@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:board_widget/data/model/post.dart';
 
@@ -24,20 +25,46 @@ class PostDetailView extends StatelessWidget {
       );
     }
 
+    final now = DateTime.now();
+    final daysLeft = post.promiseEndDate.difference(now).inDays;
+    final dDayText = daysLeft > 0 ? 'D-${daysLeft}' : 'D+${daysLeft.abs()}';
+
     return Scaffold(
       appBar: AppBar(
         title: Text('글 상세 정보'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'edit') {
+                // 수정 옵션 선택 시 처리
+                // TODO: 수정 기능 구현
+                print('수정');
+              } else if (value == 'delete') {
+                // 삭제 옵션 선택 시 처리
+                // TODO: 삭제 기능 구현
+                print('삭제');
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem<String>(
+                value: 'edit',
+                child: Text('수정'),
+              ),
+              PopupMenuItem<String>(
+                value: 'delete',
+                child: Text('삭제'),
+              ),
+            ],
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        child: Padding(
+        child: Container(
+          width: double.infinity,
           padding: EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Text(
-                '${post.id}번째 일기',
-                style: TextStyle(fontSize: 28.0),
-              ),
               SizedBox(height: 8.0),
               Text(
                 '${post.date.year}.${post.date.month}.${post.date.day}',
@@ -45,32 +72,26 @@ class PostDetailView extends StatelessWidget {
               ),
               SizedBox(height: 8.0),
               Text(
-                '${post.promise}',
+                '- ${post.promise} -',
                 style: TextStyle(fontSize: 24.0),
               ),
-              SizedBox(height: 32.0),
+              SizedBox(height: 8.0),
               Text(
-                post.content,
+                dDayText,
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 18.0,
+                  color: Colors.grey,
                 ),
               ),
-              SizedBox(height: 8.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '다짐 종료일',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+              SizedBox(height: 32.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: Text(
+                  post.content,
+                  style: TextStyle(
+                    fontSize: 20.0,
                   ),
-                  Text(
-                    '${post.promiseEndDate.year}년 ${post.promiseEndDate.month}월 ${post.promiseEndDate.day}일',
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                ],
+                ),
               ),
             ],
           ),

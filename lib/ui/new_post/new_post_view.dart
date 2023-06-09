@@ -7,6 +7,10 @@ import './new_post_viewmodel.dart';
 
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
 
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive/hive.dart';
+import 'package:board_widget/data/model/post.dart';
+
 class NewPostView extends StatefulWidget {
   const NewPostView({Key? key}) : super(key: key);
 
@@ -18,6 +22,7 @@ class _NewPostViewState extends State<NewPostView>
     with SingleTickerProviderStateMixin {
   final TextEditingController _contentController = TextEditingController();
   final TextEditingController _promiseController = TextEditingController();
+
   late NewPostViewModel viewModel;
 
   final int promiseDuration = 1;
@@ -36,6 +41,22 @@ class _NewPostViewState extends State<NewPostView>
 
   void onConfirmPressed() {
     toggleCalendar();
+  }
+
+  void savePost() async {
+    var box = await Hive.openBox<Post>('postbox');
+
+    // TODO: ID를 업데이트해서 앞 index와 id에 넣을것
+    box.put(
+      3,
+      Post(
+        id: 3,
+        content: _contentController.text,
+        promise: _promiseController.text,
+        date: selectedDay,
+        promiseEndDate: selectedDay.add(Duration(days: promiseDuration)),
+      ),
+    );
   }
 
   @override
@@ -57,7 +78,7 @@ class _NewPostViewState extends State<NewPostView>
           child: Column(
             children: [
               GestureDetector(
-                onTap: toggleCalendar, // toggleCalendar 함수로 변경
+                onTap: toggleCalendar,
                 child: Container(
                   width: 300,
                   height: 60.0,
@@ -219,7 +240,9 @@ class _NewPostViewState extends State<NewPostView>
                   height: 40,
                   child: OutlinedButton(
                     onPressed: () {
-                      // Handle button press
+                      savePost();
+                      // TODO: 화면 애니메이션이나 알림 추가
+                      Navigator.pushNamed(context, '/post');
                     },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
