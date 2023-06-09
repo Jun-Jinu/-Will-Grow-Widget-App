@@ -31,7 +31,9 @@ class PostDetailView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('글 상세 정보'),
+        title: Text(
+          '${post.date.year}.${post.date.month}.${post.date.day}',
+        ),
         actions: [
           PopupMenuButton<String>(
             onSelected: (value) {
@@ -59,42 +61,76 @@ class PostDetailView extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              SizedBox(height: 8.0),
-              Text(
-                '${post.date.year}.${post.date.month}.${post.date.day}',
-                style: TextStyle(fontSize: 24.0),
-              ),
-              SizedBox(height: 8.0),
-              Text(
-                '- ${post.promise} -',
-                style: TextStyle(fontSize: 24.0),
-              ),
-              SizedBox(height: 8.0),
-              Text(
-                dDayText,
-                style: TextStyle(
-                  fontSize: 18.0,
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity, // 화면 가로를 100%로 설정
+              margin: EdgeInsets.only(
+                  top: 16.0, left: 16.0, bottom: 4.0, right: 16.0),
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                border: Border.all(
                   color: Colors.grey,
+                  width: 1.0,
                 ),
               ),
-              SizedBox(height: 32.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40.0),
-                child: Text(
-                  post.content,
-                  style: TextStyle(
-                    fontSize: 20.0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center, // 중앙 정렬
+                children: [
+                  SizedBox(height: 8.0),
+                  Text(
+                    '${post.promise}',
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                  SizedBox(height: 8.0),
+                  Text(
+                    dDayText,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 60.0),
+                    child: Text(
+                      post.content,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    // 수정 아이콘 클릭 시 처리
+                    // TODO: 수정 기능 구현
+                    print('수정');
+                  },
+                  icon: Icon(
+                    Icons.edit,
+                    size: 28,
                   ),
                 ),
-              ),
-            ],
-          ),
+                IconButton(
+                  onPressed: () {
+                    // 삭제 아이콘 클릭 시 처리
+                    // TODO: 삭제 기능 구현
+                    print('삭제');
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                    size: 28,
+                  ),
+                ),
+                SizedBox(width: 4.0)
+              ],
+            )
+          ],
         ),
       ),
     );
