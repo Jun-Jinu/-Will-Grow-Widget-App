@@ -20,6 +20,10 @@ class PostDetailViewModel extends ChangeNotifier {
     return daysLeft > 0 ? 'D-${daysLeft}' : 'D+${daysLeft.abs()}';
   }
 
+  void deletePost(int id) {
+    _box.delete(id);
+  }
+
   void showDeleteConfirmationDialog(BuildContext context, Post post) {
     showDialog(
       context: context,
@@ -65,9 +69,5 @@ class PostDetailViewModel extends ChangeNotifier {
         );
       },
     );
-  }
-
-  void deletePost(int id) {
-    _box.delete(id);
   }
 }

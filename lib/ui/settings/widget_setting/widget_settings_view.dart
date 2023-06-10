@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
-import './widget_settings_viewmodel.dart';
+import '../main_setting/widget_settings_viewmodel.dart';
 
 const BIG_FONT_SIZE = 28.0;
 const NOMAL_FONT_SIZE = 24.0;
