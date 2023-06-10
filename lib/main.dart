@@ -17,11 +17,11 @@ import './ui/post/post_detail/post_detail_viewmodel.dart';
 import './ui/new_post/new_post_view.dart';
 import './ui/new_post/new_post_viewmodel.dart';
 
-import 'ui/settings/settings_main_view.dart';
+import 'ui/settings/main_setting/settings_main_view.dart';
 import 'ui/settings/settings_main_viewmodel.dart';
 
 import 'ui/settings/widget_setting/widget_settings_view.dart';
-import 'ui/settings/widget_setting/widget_settings_viewmodel.dart';
+import 'ui/settings/main_setting/widget_settings_viewmodel.dart';
 
 import 'ui/settings/app_setting/app_settings_view.dart';
 import 'ui/settings/app_setting/app_settings_viewmodel.dart';
@@ -70,7 +70,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      // TODO: 프로바이더 분리 가능?
       providers: [
         ChangeNotifierProvider<NewPostViewModel>(
             create: (_) => NewPostViewModel(), child: NewPostView()),

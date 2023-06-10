@@ -11,8 +11,8 @@ class LocalDataSource {
   /// ID로 특정 일기를 가져옴
   Future<Post> getPostById(int id) async {
     var postBox = Hive.box<Post>('postBox');
-
     var post = postBox.get(id);
+
     if (post == null) {
       throw Exception('일기를 찾을 수 없습니다.'); // 예외 처리
     }

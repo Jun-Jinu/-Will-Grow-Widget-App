@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:board_widget/data/model/post.dart';
 import 'package:board_widget/data/repository/post_repository.dart';
+import 'package:board_widget/data/model/post.dart';
 
 class PostListViewModel with ChangeNotifier {
   late final PostRepository _postRepository;
@@ -11,7 +9,6 @@ class PostListViewModel with ChangeNotifier {
   List<Post> _items = [];
 
   PostListViewModel() {
-    _postRepository = PostRepository();
     _loadItems();
   }
 

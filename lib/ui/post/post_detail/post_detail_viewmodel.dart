@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:board_widget/data/model/post.dart';
+import 'package:board_widget/data/repository/post_repository.dart';
 
 class PostDetailViewModel extends ChangeNotifier {
-  late final Box<Post> _box;
-
-  Future<void> getPostBoxFuture() async {
-    _box = await Hive.openBox<Post>('postbox');
-  }
-
-  Post? getPost(int id) {
-    return _box.get(id);
-  }
+  final PostRepository _postRepository = PostRepository();
 
   String getDDayText(Post post) {
     final now = DateTime.now();
@@ -20,8 +12,28 @@ class PostDetailViewModel extends ChangeNotifier {
     return daysLeft > 0 ? 'D-${daysLeft}' : 'D+${daysLeft.abs()}';
   }
 
-  void deletePost(int id) {
-    _box.delete(id);
+  Future<Post?> getPostById(int id) async {
+    try {
+      return _postRepository.getPostById(id);
+    } catch (e) {
+      // 예외 처리
+      print('일기 조회 중 오류 발생: $e');
+      // 오류 메시지를 보여주거나 다른 작업 수행
+      return null;
+    }
+  }
+
+  Future<void> deletePost(BuildContext context, Post post) async {
+    try {
+      // 일기 삭제
+      await _postRepository.deletePostById(post.id);
+      Navigator.of(context).pop();
+      Navigator.pushNamed(context, '/post');
+    } catch (e) {
+      // 예외 처리
+      print('일기 삭제 중 오류 발생: $e');
+      // 오류 메시지를 보여주거나 다른 작업 수행
+    }
   }
 
   void showDeleteConfirmationDialog(BuildContext context, Post post) {
@@ -56,9 +68,7 @@ class PostDetailViewModel extends ChangeNotifier {
             ),
             TextButton(
               onPressed: () {
-                deletePost(post.id);
-                Navigator.of(context).pop();
-                Navigator.pushNamed(context, '/post');
+                deletePost(context, post);
               },
               child: Icon(
                 CupertinoIcons.delete,
