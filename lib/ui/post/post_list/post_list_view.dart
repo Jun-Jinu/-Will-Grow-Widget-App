@@ -14,8 +14,6 @@ class PostListView extends StatelessWidget {
   Widget build(BuildContext context) {
     viewModel = Provider.of<PostListViewModel>(context);
 
-    viewModel.setSelectedIndex(1);
-
     return Scaffold(
       appBar: AppBar(title: const Text('일기')),
       bottomNavigationBar: MenuBottom(selectedIndex: 1),
