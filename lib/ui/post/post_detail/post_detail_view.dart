@@ -5,14 +5,14 @@ import 'package:board_widget/data/model/post.dart';
 import './post_detail_viewmodel.dart';
 
 class PostDetailView extends StatelessWidget {
-  final int id;
-
-  const PostDetailView({Key? key, required this.id}) : super(key: key);
+  const PostDetailView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final postId = ModalRoute.of(context)!.settings.arguments as int;
+
     return FutureBuilder<Post?>(
-      future: Provider.of<PostDetailViewModel>(context).getPostById(id),
+      future: Provider.of<PostDetailViewModel>(context).getPostById(postId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           final post = snapshot.data;

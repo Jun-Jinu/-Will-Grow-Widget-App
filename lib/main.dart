@@ -18,10 +18,10 @@ import './ui/new_post/new_post_view.dart';
 import './ui/new_post/new_post_viewmodel.dart';
 
 import 'ui/settings/main_setting/settings_main_view.dart';
-import 'ui/settings/settings_main_viewmodel.dart';
+import 'ui/settings/main_setting/settings_main_viewmodel.dart';
 
 import 'ui/settings/widget_setting/widget_settings_view.dart';
-import 'ui/settings/main_setting/widget_settings_viewmodel.dart';
+import 'ui/settings/widget_setting/widget_settings_viewmodel.dart';
 
 import 'ui/settings/app_setting/app_settings_view.dart';
 import 'ui/settings/app_setting/app_settings_viewmodel.dart';
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PostListViewModel>(
             create: (_) => PostListViewModel(), child: PostListView()),
         ChangeNotifierProvider<PostDetailViewModel>(
-            create: (_) => PostDetailViewModel(), child: PostDetailView(id: 1)),
+            create: (_) => PostDetailViewModel(), child: PostDetailView()),
         ChangeNotifierProvider<PostEditViewModel>(
             create: (_) => PostEditViewModel(), child: PostEditView()),
         ChangeNotifierProvider<SettingsMainViewModel>(
@@ -114,7 +114,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case '/post':
       return CustomPageRoute(page: PostListView());
     case '/post/detail':
-      return CustomPageRoute(page: PostDetailView(id: 1));
+      return MaterialPageRoute(
+          builder: (context) => PostDetailView(), settings: settings);
     case '/post/edit':
       return MaterialPageRoute(
           builder: (context) => PostEditView(), settings: settings);

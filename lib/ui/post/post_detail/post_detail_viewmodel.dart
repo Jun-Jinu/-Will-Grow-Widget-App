@@ -4,7 +4,11 @@ import 'package:board_widget/data/model/post.dart';
 import 'package:board_widget/data/repository/post_repository.dart';
 
 class PostDetailViewModel extends ChangeNotifier {
-  final PostRepository _postRepository = PostRepository();
+  late final PostRepository _postRepository;
+
+  PostDetailViewModel() {
+    _postRepository = PostRepository();
+  }
 
   String getDDayText(Post post) {
     final now = DateTime.now();

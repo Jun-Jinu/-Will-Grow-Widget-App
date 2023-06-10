@@ -1,39 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'post_list_viewmodel.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:board_widget/data/model/post.dart';
+import './post_list_viewmodel.dart';
 
 class PostListView extends StatelessWidget {
-  late PostListViewModel viewModel;
-
-  PostListView({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    viewModel = Provider.of<PostListViewModel>(context);
-
     return Scaffold(
       appBar: AppBar(title: const Text('일기')),
       bottomNavigationBar: MenuBottom(selectedIndex: 1),
-      body: FutureBuilder(
-        future: Hive.openBox<Post>('postbox'),
-        builder: (context, AsyncSnapshot<Box<Post>> snapshot) {
+      body: FutureBuilder<List<Post>?>(
+        future: Provider.of<PostListViewModel>(context).loadItems(),
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            final box = snapshot.data;
-            if (box != null) {
-              final postList = box.values.toList();
-              return _buildPostList(postList);
-            }
+            final List<Post> postList = snapshot.data ?? [];
+            return _buildPostList(postList, context);
+          } else {
+            return Center(child: CircularProgressIndicator());
           }
-          return Center(child: CircularProgressIndicator());
         },
       ),
     );
   }
 
-  Widget _buildPostList(List<Post> postList) {
+  Widget _buildPostList(List<Post> postList, BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
         final post = postList[index];
@@ -44,7 +35,7 @@ class PostListView extends StatelessWidget {
 
         return InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/post/detail');
+            Navigator.pushNamed(context, '/post/detail', arguments: post.id);
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),

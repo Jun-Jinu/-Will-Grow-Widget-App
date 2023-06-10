@@ -5,15 +5,15 @@ import 'package:board_widget/data/model/post.dart';
 class PostListViewModel with ChangeNotifier {
   late final PostRepository _postRepository;
 
-  List<Post> get items => _items;
-  List<Post> _items = [];
-
   PostListViewModel() {
-    _loadItems();
+    _postRepository = PostRepository();
   }
 
-  Future<void> _loadItems() async {
-    _items = await _postRepository.getPosts();
-    notifyListeners();
+  Future<List<Post>?> loadItems() async {
+    try {
+      return _postRepository.getPosts();
+    } catch (e) {
+      return null;
+    }
   }
 }
