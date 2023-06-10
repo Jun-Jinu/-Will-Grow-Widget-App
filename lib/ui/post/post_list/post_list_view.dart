@@ -36,11 +36,11 @@ class PostListView extends StatelessWidget {
   Widget _buildPostList(List<Post> postList) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        final item = postList[index];
+        final post = postList[index];
         final formattedDate =
-            "${item.date.year}.${item.date.month}.${item.date.day}";
+            "${post.date.year}.${post.date.month}.${post.date.day}";
         final formattedEndDate =
-            "${item.promiseEndDate.month}월 ${item.promiseEndDate.day}일까지 다짐";
+            "${post.promiseEndDate.month}월 ${post.promiseEndDate.day}일까지 다짐";
 
         return InkWell(
           onTap: () {
@@ -54,7 +54,7 @@ class PostListView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 2.0, horizontal: 4.0),
                   child: ListTile(
-                    title: Text(item.promise),
+                    title: Text(post.promise),
                     subtitle: Text(formattedDate),
                     trailing: Text(formattedEndDate),
                   ),

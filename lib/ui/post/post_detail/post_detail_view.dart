@@ -135,7 +135,11 @@ class PostDetailViewContent extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     // 수정 아이콘 클릭 시 처리
-                    // Navigator.pushNamed(context, '/post/edit');
+                    Navigator.pushNamed(
+                      context,
+                      '/post/edit',
+                      arguments: post,
+                    );
                   },
                   icon: Icon(
                     CupertinoIcons.pencil,
