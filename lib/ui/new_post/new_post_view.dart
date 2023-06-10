@@ -185,8 +185,8 @@ class _NewPostView extends State<NewPostView>
                   width: double.infinity,
                   height: 40,
                   child: OutlinedButton(
-                    onPressed: () {
-                      viewModel.savePost(context);
+                    onPressed: () async {
+                      await viewModel.savePost(context);
                     },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(

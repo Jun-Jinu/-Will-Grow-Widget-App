@@ -37,9 +37,12 @@ void main() async {
   Hive.registerAdapter(PostAdapter());
 
   // 테스트 코드
-  var box = await Hive.openBox<Post>('postbox');
+  var postBox = await Hive.openBox<Post>('postbox');
+  var postIndexBox = await Hive.openBox<int>('postIndexBox');
 
-  box.put(
+  int? currentCounter = postIndexBox.isEmpty ? 1 : postIndexBox.getAt(0);
+
+  postBox.put(
       1,
       Post(
           id: 1,
@@ -47,7 +50,7 @@ void main() async {
           promise: 'test promise',
           date: DateTime.now(),
           promiseEndDate: DateTime.now()));
-  box.put(
+  postBox.put(
       2,
       Post(
           id: 2,
@@ -110,9 +113,9 @@ class MyApp extends StatelessWidget {
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
-      return CustomPageRoute(page: NewPostView());
+      return delAnimationPageRoute(page: NewPostView());
     case '/post':
-      return CustomPageRoute(page: PostListView());
+      return delAnimationPageRoute(page: PostListView());
     case '/post/detail':
       return MaterialPageRoute(
           builder: (context) => PostDetailView(), settings: settings);
@@ -120,21 +123,21 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => PostEditView(), settings: settings);
     case '/settings':
-      return CustomPageRoute(page: SettingsMainView());
+      return delAnimationPageRoute(page: SettingsMainView());
     case '/settings/widget':
-      return CustomPageRoute(page: WidgetSettingView());
+      return delAnimationPageRoute(page: WidgetSettingView());
     case '/settings/app':
-      return CustomPageRoute(page: AppSettingsView());
+      return delAnimationPageRoute(page: AppSettingsView());
     default:
       return null;
   }
 }
 
 // 화면 전환 애니메이션 제거 라우터
-class CustomPageRoute extends PageRouteBuilder {
+class delAnimationPageRoute extends PageRouteBuilder {
   final Widget page;
 
-  CustomPageRoute({required this.page})
+  delAnimationPageRoute({required this.page})
       : super(
           pageBuilder: (context, animation, secondaryAnimation) => page,
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>

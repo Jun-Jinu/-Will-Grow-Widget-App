@@ -3,7 +3,7 @@ import 'package:settings_ui/settings_ui.dart';
 
 import 'package:provider/provider.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
-import '../settings_main_viewmodel.dart';
+import './settings_main_viewmodel.dart';
 
 class SettingsMainView extends StatelessWidget {
   const SettingsMainView({

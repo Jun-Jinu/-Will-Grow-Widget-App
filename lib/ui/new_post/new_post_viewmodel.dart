@@ -6,11 +6,19 @@ import 'package:hive/hive.dart';
 
 import 'package:board_widget/data/model/post.dart';
 
+import 'package:board_widget/data/repository/post_repository.dart';
+
 class NewPostViewModel extends ChangeNotifier {
+  late final PostRepository _postRepository;
+
+  NewPostViewModel() {
+    _postRepository = PostRepository();
+  }
+
   final TextEditingController contentController = TextEditingController();
   final TextEditingController promiseController = TextEditingController();
 
-  final int promiseDuration = 1;
+  int promiseDuration = 1;
   bool onDirect = false;
   bool showCalendar = false;
 
@@ -18,11 +26,17 @@ class NewPostViewModel extends ChangeNotifier {
   DateTime focusedDay = DateTime.now();
   List<String> days = ['_', '월', '화', '수', '목', '금', '토', '일'];
 
-  String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
-
-  void init() {
-    // ViewModel 초기화 로직
+  void initController() {
+    contentController.text = "";
+    promiseController.text = "";
+    promiseDuration = 1;
+    onDirect = false;
+    showCalendar = false;
+    selectedDay = DateTime.now();
+    focusedDay = DateTime.now();
   }
+
+  String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
 
   void toggleCalendar() {
     showCalendar = !showCalendar;
@@ -33,25 +47,25 @@ class NewPostViewModel extends ChangeNotifier {
     toggleCalendar();
   }
 
-  void savePost(BuildContext context) async {
+  Future<void> savePost(BuildContext context) async {
     try {
-      var box = await Hive.openBox<Post>('postbox');
-
-      // TODO: ID를 업데이트해서 앞 index와 id에 넣을것, repo에 연관짓기
-      box.put(
-        3,
-        Post(
-          id: 3,
-          content: contentController.text,
-          promise: promiseController.text,
-          date: selectedDay,
-          promiseEndDate: selectedDay.add(Duration(days: promiseDuration)),
-        ),
+      final post = Post(
+        // id는 local_datasource에서 길이 + 1 로 재정의
+        id: 0,
+        content: contentController.text,
+        promise: promiseController.text,
+        date: selectedDay,
+        promiseEndDate: selectedDay.add(Duration(days: promiseDuration)),
       );
+
+      _postRepository.addPost(post);
+
+      initController();
 
       Navigator.pushNamed(context, "/post");
     } catch (e) {
       // 실패시 경고 알림
+      print(e);
       showDialog(
         context: context,
         builder: (BuildContext context) {
