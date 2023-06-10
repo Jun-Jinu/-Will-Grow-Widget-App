@@ -17,8 +17,8 @@ import './ui/post/post_detail/post_detail_viewmodel.dart';
 import './ui/new_post/new_post_view.dart';
 import './ui/new_post/new_post_viewmodel.dart';
 
-import 'ui/settings/settings_view.dart';
-import 'ui/settings/settings_viewmodel.dart';
+import 'ui/settings/settings_main_view.dart';
+import 'ui/settings/settings_main_viewmodel.dart';
 
 import 'ui/settings/widget_setting/widget_settings_view.dart';
 import 'ui/settings/widget_setting/widget_settings_viewmodel.dart';
@@ -80,8 +80,8 @@ class MyApp extends StatelessWidget {
             create: (_) => PostDetailViewModel(), child: PostDetailView(id: 1)),
         ChangeNotifierProvider<PostEditViewModel>(
             create: (_) => PostEditViewModel(), child: PostEditView()),
-        ChangeNotifierProvider<SettingsViewModel>(
-            create: (_) => SettingsViewModel(), child: SettingsView()),
+        ChangeNotifierProvider<SettingsMainViewModel>(
+            create: (_) => SettingsMainViewModel(), child: SettingsMainView()),
         ChangeNotifierProvider<WidgetSettingsViewModel>(
             create: (_) => WidgetSettingsViewModel(),
             child: WidgetSettingView()),
@@ -120,7 +120,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => PostEditView(), settings: settings);
     case '/settings':
-      return CustomPageRoute(page: SettingsView());
+      return CustomPageRoute(page: SettingsMainView());
     case '/settings/widget':
       return CustomPageRoute(page: WidgetSettingView());
     case '/settings/app':

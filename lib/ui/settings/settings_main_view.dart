@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+import 'package:provider/provider.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
+import 'settings_main_viewmodel.dart';
 
-class SettingsView extends StatelessWidget {
+class SettingsMainView extends StatelessWidget {
+  const SettingsMainView({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,16 +19,17 @@ class SettingsView extends StatelessWidget {
       bottomNavigationBar: MenuBottom(
         selectedIndex: 2,
       ),
-      body: const SettingsBody(),
+      body: const SettingsMainBody(),
     );
   }
 }
 
-class SettingsBody extends StatelessWidget {
-  const SettingsBody({Key? key}) : super(key: key);
+class SettingsMainBody extends StatelessWidget {
+  const SettingsMainBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<SettingsMainViewModel>(context);
     return SettingsList(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
@@ -45,13 +52,13 @@ class SettingsBody extends StatelessWidget {
             SettingsTile(
               title: const Text('위젯 스킨 설정'),
               onPressed: (BuildContext context) {
-                Navigator.pushNamed(context, '/settings/widget');
+                viewModel.handleWidgetSkinSettings(context);
               },
             ),
             SettingsTile(
               title: const Text('앱 스킨 설정'),
               onPressed: (BuildContext context) {
-                Navigator.pushNamed(context, '/settings/app');
+                viewModel.handleAppSkinSettings(context);
               },
             ),
           ],

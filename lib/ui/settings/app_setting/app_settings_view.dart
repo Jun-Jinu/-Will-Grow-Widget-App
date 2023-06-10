@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 class AppSettingView extends StatelessWidget {
   @override
