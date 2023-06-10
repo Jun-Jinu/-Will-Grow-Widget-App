@@ -1,21 +1,62 @@
 import 'package:flutter/material.dart';
 
-class AppSettingsViewModel with ChangeNotifier {
-  bool _darkMode = false;
-  String _selectedLanguage = 'English';
+class AppSettingsViewModel extends ChangeNotifier {
+  bool _isDarkModeEnabled = true;
+  int _selectedBackgroundIndex = 0;
+  int _selectedFontIndex = 0;
+  int _selectedFontSizeIndex = 0;
+  int _selectedDateFormatIndex = 0;
 
-  bool get darkMode => _darkMode;
-  String get selectedLanguage => _selectedLanguage;
+  bool get isDarkModeEnabled => _isDarkModeEnabled;
+  int get selectedBackgroundIndex => _selectedBackgroundIndex;
+  int get selectedFontIndex => _selectedFontIndex;
+  int get selectedFontSizeIndex => _selectedFontSizeIndex;
+  int get selectedDateFormatIndex => _selectedDateFormatIndex;
 
-  void toggleDarkMode(bool value) {
-    _darkMode = value;
-    // Perform any necessary operations related to toggling dark mode
+  List<String> get backgroundColors => [
+        '배경색1',
+        '배경색2',
+        '배경색3',
+      ];
+
+  List<String> get fonts => [
+        '폰트1',
+        '폰트2',
+      ];
+
+  List<String> get fontSizes => [
+        '크게',
+        '보통',
+        '작게',
+      ];
+
+  List<String> get dateFormats => [
+        '방법1',
+        '방법2',
+      ];
+
+  void setDarkModeEnabled(bool value) {
+    _isDarkModeEnabled = value;
     notifyListeners();
   }
 
-  void setLanguage(String language) {
-    _selectedLanguage = language;
-    // Perform any necessary operations related to setting the language
+  void selectBackground(int index) {
+    _selectedBackgroundIndex = index;
+    notifyListeners();
+  }
+
+  void selectFont(int index) {
+    _selectedFontIndex = index;
+    notifyListeners();
+  }
+
+  void selectFontSize(int index) {
+    _selectedFontSizeIndex = index;
+    notifyListeners();
+  }
+
+  void selectDateFormat(int index) {
+    _selectedDateFormatIndex = index;
     notifyListeners();
   }
 }

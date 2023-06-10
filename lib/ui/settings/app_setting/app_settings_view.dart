@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
+import './app_settings_viewmodel.dart';
 
-class AppSettingView extends StatelessWidget {
+class AppSettingsView extends StatelessWidget {
+  const AppSettingsView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정'),
       ),
-      body: const AppSettingBody(),
+      body: AppSettingBody(),
     );
   }
 }
 
-class AppSettingBody extends StatelessWidget {
+class AppSettingBody extends StatefulWidget {
   const AppSettingBody({Key? key}) : super(key: key);
 
   @override
+  _AppSettingBodyState createState() => _AppSettingBodyState();
+}
+
+class _AppSettingBodyState extends State<AppSettingBody> {
+  @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<AppSettingsViewModel>(context);
     return SettingsList(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
@@ -28,8 +38,10 @@ class AppSettingBody extends StatelessWidget {
           tiles: [
             SettingsTile.switchTile(
               leading: Icon(Icons.dark_mode),
-              onToggle: (value) {},
-              initialValue: true,
+              initialValue: viewModel.isDarkModeEnabled,
+              onToggle: (value) {
+                viewModel.setDarkModeEnabled(value);
+              },
               title: Text('다크모드'),
             ),
           ],
@@ -37,91 +49,104 @@ class AppSettingBody extends StatelessWidget {
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('배경색'),
-          tiles: [
-            SettingsTile(
-              title: const Text('배경화면1'),
-              onPressed: (BuildContext context) {
-                // Handle background settings
-              },
-            ),
-            SettingsTile(
-              title: const Text('배경화면1'),
-              onPressed: (BuildContext context) {
-                // Handle font settings
-              },
-            ),
-            SettingsTile(
-              title: const Text('배경화면1'),
-              onPressed: (BuildContext context) {
-                // Handle conversion cycle settings
-              },
-            ),
-          ],
+          tiles: buildBackgroundTiles(),
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('폰트'),
-          tiles: [
-            SettingsTile(
-              title: const Text('폰트1'),
-              onPressed: (BuildContext context) {
-                // Handle version settings
-              },
-            ),
-            SettingsTile(
-              title: const Text('폰트2'),
-              onPressed: (BuildContext context) {
-                // Handle developer settings
-              },
-              // TODO: 요일 표시 체크박스 만들기
-            ),
-          ],
+          tiles: buildFontTiles(),
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('글자 크기'),
-          tiles: [
-            SettingsTile(
-              title: const Text('크게'),
-              onPressed: (BuildContext context) {
-                // Handle version settings
-              },
-            ),
-            SettingsTile(
-              title: const Text('보통'),
-              onPressed: (BuildContext context) {
-                // Handle developer settings
-              },
-            ),
-            SettingsTile(
-              title: const Text('작게'),
-              onPressed: (BuildContext context) {
-                // Handle developer settings
-              },
-            ),
-          ],
+          tiles: buildFontSizeTiles(),
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('날짜 형식'),
-          tiles: [
-            SettingsTile(
-              title: const Text('방법1'),
-              onPressed: (BuildContext context) {
-                // Handle version settings
-              },
-            ),
-            SettingsTile(
-              title: const Text('방법2'),
-              onPressed: (BuildContext context) {
-                // Handle developer settings
-              },
-              // TODO: 요일 표시 체크박스 만들기
-            ),
-          ],
+          tiles: buildDateFormatTiles(),
         ),
-        // TODO:  글자 크기 조절하기
       ],
     );
+  }
+
+  List<SettingsTile> buildBackgroundTiles() {
+    final viewModel = Provider.of<AppSettingsViewModel>(context);
+    return viewModel.backgroundColors
+        .asMap()
+        .map((index, backgroundColor) => MapEntry(
+              index,
+              SettingsTile(
+                title: Text('배경화면${index + 1}'),
+                onPressed: (BuildContext context) {
+                  viewModel.selectBackground(index);
+                },
+                trailing: viewModel.selectedBackgroundIndex == index
+                    ? Icon(Icons.check, color: Colors.blue)
+                    : null,
+              ),
+            ))
+        .values
+        .toList();
+  }
+
+  List<SettingsTile> buildFontTiles() {
+    final viewModel = Provider.of<AppSettingsViewModel>(context);
+    return viewModel.fonts
+        .asMap()
+        .map((index, font) => MapEntry(
+              index,
+              SettingsTile(
+                title: Text(font),
+                onPressed: (BuildContext context) {
+                  viewModel.selectFont(index);
+                },
+                trailing: viewModel.selectedFontIndex == index
+                    ? Icon(Icons.check, color: Colors.blue)
+                    : null,
+              ),
+            ))
+        .values
+        .toList();
+  }
+
+  List<SettingsTile> buildFontSizeTiles() {
+    final viewModel = Provider.of<AppSettingsViewModel>(context);
+    return viewModel.fontSizes
+        .asMap()
+        .map((index, fontSize) => MapEntry(
+              index,
+              SettingsTile(
+                title: Text(fontSize),
+                onPressed: (BuildContext context) {
+                  viewModel.selectFontSize(index);
+                },
+                trailing: viewModel.selectedFontSizeIndex == index
+                    ? Icon(Icons.check, color: Colors.blue)
+                    : null,
+              ),
+            ))
+        .values
+        .toList();
+  }
+
+  List<SettingsTile> buildDateFormatTiles() {
+    final viewModel = Provider.of<AppSettingsViewModel>(context);
+    return viewModel.dateFormats
+        .asMap()
+        .map((index, dateFormat) => MapEntry(
+              index,
+              SettingsTile(
+                title: Text(dateFormat),
+                onPressed: (BuildContext context) {
+                  viewModel.selectDateFormat(index);
+                },
+                trailing: viewModel.selectedDateFormatIndex == index
+                    ? Icon(Icons.check, color: Colors.blue)
+                    : null,
+              ),
+            ))
+        .values
+        .toList();
   }
 }

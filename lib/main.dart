@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
             create: (_) => WidgetSettingsViewModel(),
             child: WidgetSettingView()),
         ChangeNotifierProvider<AppSettingsViewModel>(
-            create: (_) => AppSettingsViewModel(), child: AppSettingView()),
+            create: (_) => AppSettingsViewModel(), child: AppSettingsView()),
       ],
       child: MaterialApp(
         onGenerateRoute: (route) => onGenerateRoute(route),
@@ -124,7 +124,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case '/settings/widget':
       return CustomPageRoute(page: WidgetSettingView());
     case '/settings/app':
-      return CustomPageRoute(page: AppSettingView());
+      return CustomPageRoute(page: AppSettingsView());
     default:
       return null;
   }
