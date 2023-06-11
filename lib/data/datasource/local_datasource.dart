@@ -1,8 +1,12 @@
+import 'package:flutter/material.dart';
+
 import '../model/post/post.dart';
+import '../model/theme/app/app_settings.dart';
+import '../model/theme/widget/widget_settings.dart';
 import 'package:hive/hive.dart';
 
 class LocalDataSource {
-  /// 캐싱한 일기를 가져옴
+  /// 일기를 가져옴
   Future<List<Post>> getPosts() async {
     var postBox = Hive.box<Post>('postBox');
     return postBox.values.toList();
@@ -44,5 +48,46 @@ class LocalDataSource {
 
     // 새로운 일기 추가
     await postBox.add(newPost);
+  }
+
+  // -------------------------------- //
+
+  /// 앱 세팅을 가져옴
+  Future<AppSettings> getAppSettings() async {
+    var appSettingsBox = Hive.box<AppSettings>('appSettingsBox');
+    return appSettingsBox.get(0)!;
+  }
+
+  /// 앱 세팅을 업데이트
+  Future<void> updateAppSettings({
+    bool? isDarkModeEnabled,
+    Color? backgroundColor,
+    String? fontFamily,
+    double? fontSize,
+    String? dateFormat,
+  }) async {
+    var appSettingsBox = Hive.box<AppSettings>('appSettingsBox');
+    var settings = appSettingsBox.get(0);
+
+    if (settings != null) {
+      // Update the fields that are provided
+      if (isDarkModeEnabled != null) {
+        settings.isDarkModeEnabled = isDarkModeEnabled;
+      }
+      if (backgroundColor != null) {
+        settings.backgroundColor = backgroundColor;
+      }
+      if (fontFamily != null) {
+        settings.fontFamily = fontFamily;
+      }
+      if (fontSize != null) {
+        settings.fontSize = fontSize;
+      }
+      if (dateFormat != null) {
+        settings.dateFormat = dateFormat;
+      }
+
+      await appSettingsBox.put(0, settings);
+    }
   }
 }

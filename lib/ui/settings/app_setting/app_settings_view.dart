@@ -2,23 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import './app_settings_viewmodel.dart';
+import 'package:board_widget/data/model/theme/app/app_settings.dart';
 
 class AppSettingsView extends StatelessWidget {
   const AppSettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<AppSettingsViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정'),
       ),
-      body: AppSettingBody(),
+      body: FutureBuilder<AppSettings>(
+        future: viewModel.loadSettings(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('오류가 발생했습니다.'));
+          } else {
+            final appSettings =
+                snapshot.data; // loadSettings()에서 반환한 AppSettings 클래스
+            return AppSettingBody(appSettings: appSettings);
+          }
+        },
+      ),
     );
   }
 }
 
 class AppSettingBody extends StatefulWidget {
-  const AppSettingBody({Key? key}) : super(key: key);
+  final AppSettings? appSettings;
+
+  const AppSettingBody({Key? key, this.appSettings}) : super(key: key);
 
   @override
   _AppSettingBodyState createState() => _AppSettingBodyState();
@@ -28,6 +46,13 @@ class _AppSettingBodyState extends State<AppSettingBody> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<AppSettingsViewModel>(context);
+    final appSettings =
+        widget.appSettings; // AppSettingBody 위젯의 appSettings 속성 사용
+
+    if (appSettings == null) {
+      return Center(child: Text('앱 설정을 불러오는데 문제가 발생했습니다.'));
+    }
+
     return SettingsList(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
@@ -38,7 +63,8 @@ class _AppSettingBodyState extends State<AppSettingBody> {
           tiles: [
             SettingsTile.switchTile(
               leading: Icon(Icons.dark_mode),
-              initialValue: viewModel.isDarkModeEnabled,
+              initialValue:
+                  appSettings.isDarkModeEnabled, // appSettings에서 값을 가져옴
               onToggle: (value) {
                 viewModel.setDarkModeEnabled(value);
               },
@@ -49,29 +75,28 @@ class _AppSettingBodyState extends State<AppSettingBody> {
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('배경색'),
-          tiles: buildBackgroundTiles(),
+          tiles: buildBackgroundTiles(viewModel),
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('폰트'),
-          tiles: buildFontTiles(),
+          tiles: buildFontTiles(viewModel),
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('글자 크기'),
-          tiles: buildFontSizeTiles(),
+          tiles: buildFontSizeTiles(viewModel),
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('날짜 형식'),
-          tiles: buildDateFormatTiles(),
+          tiles: buildDateFormatTiles(viewModel),
         ),
       ],
     );
   }
 
-  List<SettingsTile> buildBackgroundTiles() {
-    final viewModel = Provider.of<AppSettingsViewModel>(context);
+  List<SettingsTile> buildBackgroundTiles(AppSettingsViewModel viewModel) {
     return viewModel.backgroundColors
         .asMap()
         .map((index, backgroundColor) => MapEntry(
@@ -90,8 +115,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
         .toList();
   }
 
-  List<SettingsTile> buildFontTiles() {
-    final viewModel = Provider.of<AppSettingsViewModel>(context);
+  List<SettingsTile> buildFontTiles(AppSettingsViewModel viewModel) {
     return viewModel.fonts
         .asMap()
         .map((index, font) => MapEntry(
@@ -110,14 +134,13 @@ class _AppSettingBodyState extends State<AppSettingBody> {
         .toList();
   }
 
-  List<SettingsTile> buildFontSizeTiles() {
-    final viewModel = Provider.of<AppSettingsViewModel>(context);
+  List<SettingsTile> buildFontSizeTiles(AppSettingsViewModel viewModel) {
     return viewModel.fontSizes
         .asMap()
         .map((index, fontSize) => MapEntry(
               index,
               SettingsTile(
-                title: Text(fontSize),
+                title: Text(fontSize.toString()),
                 onPressed: (BuildContext context) {
                   viewModel.selectFontSize(index);
                 },
@@ -130,8 +153,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
         .toList();
   }
 
-  List<SettingsTile> buildDateFormatTiles() {
-    final viewModel = Provider.of<AppSettingsViewModel>(context);
+  List<SettingsTile> buildDateFormatTiles(AppSettingsViewModel viewModel) {
     return viewModel.dateFormats
         .asMap()
         .map((index, dateFormat) => MapEntry(

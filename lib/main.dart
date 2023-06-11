@@ -1,4 +1,3 @@
-import 'package:board_widget/data/model/post/post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,14 +30,43 @@ import 'ui/post/post_edit/post_edit_viewmodel.dart';
 
 import 'dart:convert';
 
+import 'package:board_widget/data/model/post/post.dart';
+import 'package:board_widget/data/model/theme/app/app_settings.dart';
+import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
+import 'package:board_widget/data/model/adapters/color_apapter.dart';
+
 void main() async {
   await Hive.initFlutter();
 
-  Hive.registerAdapter(PostAdapter());
+  registerHiveAdapters();
 
-  // 테스트 코드
+  Hive.registerAdapter(PostAdapter());
+  Hive.registerAdapter(AppSettingsAdapter());
+  Hive.registerAdapter(WidgetSettingsAdapter());
+
+  // 로컬스토리지(HIVE) 불러오기
   await Hive.openBox<Post>('postbox');
   await Hive.openBox<int>('postIndexBox');
+  var box = await Hive.openBox<AppSettings>('appSettingsBox');
+  await Hive.openBox<WidgetSettings>('widgetSettingsBox');
+
+  // 앱 설정 로드
+  final appSettings = AppSettings(
+      isDarkModeEnabled: false,
+      backgroundColor: Colors.white,
+      fontFamily: "",
+      fontSize: 24.0,
+      dateFormat: "");
+
+  // 초기값 설정
+  box.put(0, appSettings);
+
+  // initializeAppSettings();
+
+  var appSettingsBox = Hive.box<AppSettings>('appSettingsBox');
+
+  print("Main");
+  print(appSettingsBox.get(0));
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -129,10 +157,24 @@ class delAnimationPageRoute extends PageRouteBuilder {
   Duration get transitionDuration => const Duration(milliseconds: 0);
 }
 
+Future<void> initializeAppSettings() async {
+  final appSettingsBox = await Hive.openBox<AppSettings>('appSettingsBox');
 
+  // 앱 설정 로드
+  final appSettings = AppSettings(
+      isDarkModeEnabled: false,
+      backgroundColor: Colors.white,
+      fontFamily: "",
+      fontSize: 24.0,
+      dateFormat: "");
 
+  // 초기값 설정
+  appSettingsBox.put(0, appSettings);
+}
 
-
+void registerHiveAdapters() {
+  Hive.registerAdapter<Color>(ColorAdapter());
+}
 
 
 // 위젯을 테스트했던 코드

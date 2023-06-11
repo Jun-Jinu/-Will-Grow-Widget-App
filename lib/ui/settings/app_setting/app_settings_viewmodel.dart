@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:board_widget/data/model/theme/app/app_settings.dart';
+import 'package:board_widget/data/repository/app_settings_repository.dart';
+import 'package:hive/hive.dart';
 
 class AppSettingsViewModel extends ChangeNotifier {
-  bool _isDarkModeEnabled = true;
+  late final AppSettingsRepository _appSettingsRepository;
+
+  AppSettingsViewModel() {
+    _appSettingsRepository = AppSettingsRepository();
+  }
   int _selectedBackgroundIndex = 0;
   int _selectedFontIndex = 0;
   int _selectedFontSizeIndex = 0;
   int _selectedDateFormatIndex = 0;
 
-  bool get isDarkModeEnabled => _isDarkModeEnabled;
   int get selectedBackgroundIndex => _selectedBackgroundIndex;
   int get selectedFontIndex => _selectedFontIndex;
   int get selectedFontSizeIndex => _selectedFontSizeIndex;
@@ -35,8 +41,16 @@ class AppSettingsViewModel extends ChangeNotifier {
         '방법2',
       ];
 
+  Future<AppSettings> loadSettings() {
+    var appSettingsBox = Hive.box<AppSettings>('appSettingsBox');
+
+    print("AppSettingsViewModel");
+    print(appSettingsBox.get(0)!);
+    return _appSettingsRepository.loadSettings();
+  }
+
   void setDarkModeEnabled(bool value) {
-    _isDarkModeEnabled = value;
+    _appSettingsRepository.updateIsDarkModeEnabled(value);
     notifyListeners();
   }
 
