@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
-import 'package:board_widget/data/model/post.dart';
+import 'package:board_widget/data/model/post/post.dart';
 import './post_list_viewmodel.dart';
 
 class PostListView extends StatelessWidget {

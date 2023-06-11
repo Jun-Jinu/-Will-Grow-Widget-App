@@ -1,4 +1,4 @@
-import '../model/post.dart';
+import '../model/post/post.dart';
 import '../datasource/local_datasource.dart';
 
 class PostRepository {

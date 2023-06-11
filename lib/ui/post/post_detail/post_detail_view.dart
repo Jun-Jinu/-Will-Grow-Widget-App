@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:board_widget/data/model/post.dart';
+import 'package:board_widget/data/model/post/post.dart';
 import './post_detail_viewmodel.dart';
 
 class PostDetailView extends StatelessWidget {

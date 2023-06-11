@@ -7,7 +7,7 @@ import './post_edit_viewmodel.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:board_widget/data/model/post.dart';
+import 'package:board_widget/data/model/post/post.dart';
 
 class PostEditView extends StatefulWidget {
   const PostEditView({Key? key}) : super(key: key);

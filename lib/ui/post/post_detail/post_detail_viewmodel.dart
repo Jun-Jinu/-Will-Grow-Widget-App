@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:board_widget/data/model/post.dart';
+import 'package:board_widget/data/model/post/post.dart';
 import 'package:board_widget/data/repository/post_repository.dart';
 
 class PostDetailViewModel extends ChangeNotifier {

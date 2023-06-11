@@ -1,4 +1,4 @@
-import '../model/post.dart';
+import '../model/post/post.dart';
 import 'package:hive/hive.dart';
 
 class LocalDataSource {

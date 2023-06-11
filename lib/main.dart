@@ -1,4 +1,4 @@
-import 'package:board_widget/data/model/post.dart';
+import 'package:board_widget/data/model/post/post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,27 +37,8 @@ void main() async {
   Hive.registerAdapter(PostAdapter());
 
   // 테스트 코드
-  var postBox = await Hive.openBox<Post>('postbox');
-  var postIndexBox = await Hive.openBox<int>('postIndexBox');
-
-  int? currentCounter = postIndexBox.isEmpty ? 1 : postIndexBox.getAt(0);
-
-  postBox.put(
-      1,
-      Post(
-          id: 1,
-          content: 'test content',
-          promise: 'test promise',
-          date: DateTime.now(),
-          promiseEndDate: DateTime.now()));
-  postBox.put(
-      2,
-      Post(
-          id: 2,
-          content: 'test content',
-          promise: 'test promise',
-          date: DateTime.now(),
-          promiseEndDate: DateTime.now()));
+  await Hive.openBox<Post>('postbox');
+  await Hive.openBox<int>('postIndexBox');
 
   WidgetsFlutterBinding.ensureInitialized();
 
