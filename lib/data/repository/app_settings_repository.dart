@@ -18,6 +18,26 @@ class AppSettingsRepository {
     return settings.isDarkModeEnabled;
   }
 
+  Future<Color> getBackgroundColor() async {
+    AppSettings settings = await _localDataSource.getAppSettings();
+    return settings.backgroundColor;
+  }
+
+  Future<String> getFontFamily() async {
+    AppSettings settings = await _localDataSource.getAppSettings();
+    return settings.fontFamily;
+  }
+
+  Future<double> getFontSize() async {
+    AppSettings settings = await _localDataSource.getAppSettings();
+    return settings.fontSize;
+  }
+
+  Future<String> getDateFormat() async {
+    AppSettings settings = await _localDataSource.getAppSettings();
+    return settings.dateFormat;
+  }
+
   /// 다크 모드 설정 업데이트
   Future<void> updateIsDarkModeEnabled(bool isDarkModeEnabled) {
     return _localDataSource.updateAppSettings(
