@@ -38,8 +38,10 @@ import 'package:board_widget/data/model/adapters/color_apapter.dart';
 void main() async {
   await Hive.initFlutter();
 
-  registerHiveAdapters();
+  // HIVE Color 추가
+  Hive.registerAdapter<Color>(ColorAdapter());
 
+  // HIVE Adapter 등록
   Hive.registerAdapter(PostAdapter());
   Hive.registerAdapter(AppSettingsAdapter());
   Hive.registerAdapter(WidgetSettingsAdapter());
@@ -62,11 +64,6 @@ void main() async {
   box.put(0, appSettings);
 
   // initializeAppSettings();
-
-  var appSettingsBox = Hive.box<AppSettings>('appSettingsBox');
-
-  print("Main");
-  print(appSettingsBox.get(0));
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -173,9 +170,6 @@ Future<void> initializeAppSettings() async {
   appSettingsBox.put(0, appSettings);
 }
 
-void registerHiveAdapters() {
-  Hive.registerAdapter<Color>(ColorAdapter());
-}
 
 
 // 위젯을 테스트했던 코드

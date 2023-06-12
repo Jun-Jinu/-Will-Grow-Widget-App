@@ -56,6 +56,7 @@ class NewPostViewModel extends ChangeNotifier {
 
       _postRepository.addPost(post);
 
+      // 모든 입력칸을 초기화
       initController();
 
       Navigator.pushNamed(context, "/post");

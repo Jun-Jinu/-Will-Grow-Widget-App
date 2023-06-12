@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 class MenuBottom extends StatefulWidget {
   final int selectedIndex;
@@ -30,25 +31,26 @@ class _MenuBottomState extends State<MenuBottom> {
       '/settings',
     ];
 
-    return BottomNavigationBar(
-      currentIndex: _selectedIndex,
+    return ConvexAppBar(
+      initialActiveIndex: _selectedIndex,
+      style: TabStyle.reactCircle,
       onTap: (int index) {
         if (index >= 0 && index < routes.length && _selectedIndex != index) {
           Navigator.pushNamed(context, routes[index]);
         }
       },
       items: const [
-        BottomNavigationBarItem(
+        TabItem(
           icon: Icon(Icons.edit),
-          label: '일기 쓰기',
+          title: '일기 쓰기',
         ),
-        BottomNavigationBarItem(
+        TabItem(
           icon: Icon(Icons.book_outlined),
-          label: '나의 일기',
+          title: '나의 일기',
         ),
-        BottomNavigationBarItem(
+        TabItem(
           icon: Icon(Icons.settings),
-          label: '설정',
+          title: '설정',
         ),
       ],
     );
