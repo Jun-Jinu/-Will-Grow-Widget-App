@@ -57,7 +57,7 @@ void main() async {
       isDarkModeEnabled: false,
       backgroundColor: Colors.white,
       fontFamily: "KyoboHandwriting",
-      fontSize: 24.0,
+      fontSize: 1.0,
       dateFormat: "");
 
   // 초기값 설정
@@ -115,9 +115,9 @@ class AppContainer extends StatelessWidget {
     return MaterialApp(
       onGenerateRoute: (route) => onGenerateRoute(route),
       debugShowCheckedModeBanner: false,
-      title: '나의 앱 ~',
       theme: ThemeData(
         primaryColor: Colors.black87,
+        scaffoldBackgroundColor: appSettingsViewModel.backgroundColor,
         appBarTheme: const AppBarTheme(
           elevation: 0.5,
           foregroundColor: Colors.black,
@@ -131,6 +131,12 @@ class AppContainer extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
       initialRoute: '/',
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaleFactor: appSettingsViewModel.fontSize,
+        ),
+        child: child!,
+      ),
     );
   }
 }
@@ -182,7 +188,7 @@ Future<void> initializeAppSettings() async {
       isDarkModeEnabled: false,
       backgroundColor: Colors.white,
       fontFamily: "",
-      fontSize: 24.0,
+      fontSize: 1.0,
       dateFormat: "");
 
   // 초기값 설정

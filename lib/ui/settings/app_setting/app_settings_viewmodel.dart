@@ -9,7 +9,7 @@ class AppSettingsViewModel extends ChangeNotifier {
       isDarkModeEnabled: false,
       backgroundColor: Colors.white,
       fontFamily: "KyoboHandwriting",
-      fontSize: 24.0,
+      fontSize: 1.0,
       dateFormat: "");
 
   AppSettingsViewModel() {

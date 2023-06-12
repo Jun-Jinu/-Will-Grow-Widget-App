@@ -55,9 +55,27 @@ class _AppSettingBodyState extends State<AppSettingBody> {
             SettingsTile(
               title: Text('흰색'),
               onPressed: (BuildContext context) {
-                // viewModel.selectBackground(index);
+                viewModel.selectBackground(Colors.white);
               },
-              trailing: viewModel == 'white'
+              trailing: viewModel.backgroundColor == Colors.white
+                  ? Icon(Icons.check, color: Colors.blue)
+                  : null,
+            ),
+            SettingsTile(
+              title: Text('연한 노란색'),
+              onPressed: (BuildContext context) {
+                viewModel.selectBackground(Colors.yellowAccent);
+              },
+              trailing: viewModel.backgroundColor == Colors.yellowAccent
+                  ? Icon(Icons.check, color: Colors.blue)
+                  : null,
+            ),
+            SettingsTile(
+              title: Text('하늘색'),
+              onPressed: (BuildContext context) {
+                viewModel.selectBackground(Colors.lightBlue);
+              },
+              trailing: viewModel.backgroundColor == Colors.lightBlue
                   ? Icon(Icons.check, color: Colors.blue)
                   : null,
             ),
@@ -68,7 +86,10 @@ class _AppSettingBodyState extends State<AppSettingBody> {
           title: const Text('폰트'),
           tiles: [
             SettingsTile(
-              title: Text("교보손글씨 2019"),
+              title: Text(
+                "교보손글씨 2019",
+                style: TextStyle(fontFamily: "KyoboHandwriting"),
+              ),
               onPressed: (BuildContext context) {
                 viewModel.selectFont(context, "KyoboHandwriting");
               },
@@ -77,7 +98,8 @@ class _AppSettingBodyState extends State<AppSettingBody> {
                   : null,
             ),
             SettingsTile(
-              title: Text("Montserrat"),
+              title: Text("Montserrat",
+                  style: TextStyle(fontFamily: "Montserrat")),
               onPressed: (BuildContext context) {
                 viewModel.selectFont(context, "Montserrat");
               },
@@ -94,47 +116,48 @@ class _AppSettingBodyState extends State<AppSettingBody> {
             SettingsTile(
               title: Text("작게"),
               onPressed: (BuildContext context) {
-                viewModel.selectFontSize(20.0);
+                viewModel.selectFontSize(0.8);
               },
-              trailing: viewModel.fontSize == 20.0
+              trailing: viewModel.fontSize == 0.8
                   ? Icon(Icons.check, color: Colors.blue)
                   : null,
             ),
             SettingsTile(
               title: Text("보통"),
               onPressed: (BuildContext context) {
-                viewModel.selectFontSize(24.0);
+                viewModel.selectFontSize(1.0);
               },
-              trailing: viewModel.fontSize == 24.0
+              trailing: viewModel.fontSize == 1.0
                   ? Icon(Icons.check, color: Colors.blue)
                   : null,
             ),
             SettingsTile(
               title: Text("크게"),
               onPressed: (BuildContext context) {
-                viewModel.selectFontSize(28.0);
+                viewModel.selectFontSize(1.2);
               },
-              trailing: viewModel.fontSize == 28.0
+              trailing: viewModel.fontSize == 1.2
                   ? Icon(Icons.check, color: Colors.blue)
                   : null,
             ),
           ],
         ),
-        SettingsSection(
-          margin: EdgeInsetsDirectional.only(bottom: 20.0),
-          title: const Text('날짜 형식'),
-          tiles: [
-            SettingsTile(
-              title: Text("2023/03/02"),
-              onPressed: (BuildContext context) {
-                viewModel.selectDateFormat("22");
-              },
-              trailing: viewModel.dateFormat == "22"
-                  ? Icon(Icons.check, color: Colors.blue)
-                  : null,
-            ),
-          ],
-        ),
+        //TODO: 날짜 형식 선택 추가(보류)
+        // SettingsSection(
+        //   margin: EdgeInsetsDirectional.only(bottom: 20.0),
+        //   title: const Text('날짜 형식'),
+        //   tiles: [
+        //     SettingsTile(
+        //       title: Text("2023/03/02"),
+        //       onPressed: (BuildContext context) {
+        //         viewModel.selectDateFormat("22");
+        //       },
+        //       trailing: viewModel.dateFormat == "22"
+        //           ? Icon(Icons.check, color: Colors.blue)
+        //           : null,
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }
