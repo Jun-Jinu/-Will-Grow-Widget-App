@@ -49,8 +49,8 @@ void main() async {
   // 로컬스토리지(HIVE) 불러오기
   await Hive.openBox<Post>('postbox');
   await Hive.openBox<int>('postIndexBox');
-  var box = await Hive.openBox<AppSettings>('appSettingsBox');
-  await Hive.openBox<WidgetSettings>('widgetSettingsBox');
+  var appBox = await Hive.openBox<AppSettings>('appSettingsBox');
+  var widgetBox = await Hive.openBox<WidgetSettings>('widgetSettingsBox');
 
   // 앱 설정 로드
   final appSettings = AppSettings(
@@ -60,8 +60,18 @@ void main() async {
       fontSize: 1.0,
       dateFormat: "");
 
+  final widgetSettings = WidgetSettings(
+    isTextChangeHourly: true,
+    isTextChangeHour: 24,
+    fontColor: Colors.black,
+    backgroundColor: Colors.white,
+    fontFamily: "KyoboHandwriting",
+    fontSize: 24.0,
+  );
+
   // 초기값 설정
-  box.put(0, appSettings);
+  appBox.put(0, appSettings);
+  widgetBox.put(0, widgetSettings);
 
   // initializeAppSettings();
 
@@ -227,11 +237,11 @@ Future<void> initializeAppSettings() async {
 //             ),
 //             ElevatedButton(
 //                 onPressed: () {
-//                   WidgetKit.setItem(
-//                       'widgetData',
-//                       jsonEncode(WidgetData(textController.text)),
-//                       'group.boardwidget');
-//                   WidgetKit.reloadAllTimelines();
+                  // WidgetKit.setItem(
+                  //     'widgetData',
+                  //     jsonEncode(WidgetData(textController.text)),
+                  //     'group.boardwidget');
+                  // WidgetKit.reloadAllTimelines();
 //                 },
 //                 child: Text("Push to Widget"))
 //           ],

@@ -55,11 +55,12 @@ struct iosWidgetView: View {
     var body: some View {
         ZStack {
         ContainerRelativeShape().fill(.gray.gradient)
+        }
     
 
         // TODO: 텍스트 폰트 변경, 배경 색 설정 추가
         Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
-            .font(.system(size: 24, weight: .heavy))
+            .font(Font.custom("KyoboHandwriting2019", size: 20))
             .foregroundColor(.white.opacity(0.8))
         
         VStack {
@@ -68,11 +69,19 @@ struct iosWidgetView: View {
             HStack {
                 Spacer()
                 Text("우측하단")
-                    .font(.system(size: 14))
+                    .font(Font.custom("KyoboHandwriting2019", size: 20))
                     .foregroundColor(.white.opacity(0.8))
-                    .padding(14) // 필요에 따라 여백을 조정하세요.
-                }
+                    .padding(14)
+//                    .onAppear {
+//                        for family: String in UIFont.familyNames {
+//                            print(family)
+//                            for names: String in UIFont.fontNames(forFamilyName: family) {
+//                                print("=== \(names)")
+//                            }
+//                        }
+//                }
             }
+            
         }
     }
 }
