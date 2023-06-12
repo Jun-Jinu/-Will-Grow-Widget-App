@@ -126,6 +126,10 @@ class AppContainer extends StatelessWidget {
         primarySwatch: Colors.lightBlue,
         fontFamily: appSettingsViewModel.fontFamily,
       ),
+      darkTheme: ThemeData.dark(),
+      themeMode: appSettingsViewModel.isDarkModeEnabled
+          ? ThemeMode.dark
+          : ThemeMode.light,
       initialRoute: '/',
     );
   }
