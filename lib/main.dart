@@ -56,7 +56,7 @@ void main() async {
   final appSettings = AppSettings(
       isDarkModeEnabled: false,
       backgroundColor: Colors.white,
-      fontFamily: "",
+      fontFamily: "KyoboHandwriting",
       fontSize: 24.0,
       dateFormat: "");
 
@@ -78,6 +78,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final appSettingsViewModel = Provider.of<AppSettingsViewModel>(context);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<NewPostViewModel>(
@@ -95,23 +97,36 @@ class MyApp extends StatelessWidget {
             child: WidgetSettingView()),
         ChangeNotifierProvider<AppSettingsViewModel>(
             create: (_) => AppSettingsViewModel(), child: AppSettingsView()),
+        ChangeNotifierProvider<AppSettingsViewModel>(
+            create: (_) => AppSettingsViewModel(), child: AppContainer()),
       ],
-      child: MaterialApp(
-        onGenerateRoute: (route) => onGenerateRoute(route),
-        debugShowCheckedModeBanner: false,
-        title: '나의 앱 ~',
-        theme: ThemeData(
-          primaryColor: Colors.black87,
-          appBarTheme: const AppBarTheme(
-            elevation: 0.5,
-            foregroundColor: Colors.black,
-            backgroundColor: Colors.white,
-          ),
-          primarySwatch: Colors.lightBlue,
-          fontFamily: "KyoboHandwriting",
+      child: const AppContainer(),
+    );
+  }
+}
+
+class AppContainer extends StatelessWidget {
+  const AppContainer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final appSettingsViewModel = Provider.of<AppSettingsViewModel>(context);
+
+    return MaterialApp(
+      onGenerateRoute: (route) => onGenerateRoute(route),
+      debugShowCheckedModeBanner: false,
+      title: '나의 앱 ~',
+      theme: ThemeData(
+        primaryColor: Colors.black87,
+        appBarTheme: const AppBarTheme(
+          elevation: 0.5,
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.white,
         ),
-        initialRoute: '/',
+        primarySwatch: Colors.lightBlue,
+        fontFamily: appSettingsViewModel.fontFamily,
       ),
+      initialRoute: '/',
     );
   }
 }

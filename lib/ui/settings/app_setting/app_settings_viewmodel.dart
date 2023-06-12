@@ -8,7 +8,7 @@ class AppSettingsViewModel extends ChangeNotifier {
   final AppSettings _appSettings = AppSettings(
       isDarkModeEnabled: false,
       backgroundColor: Colors.white,
-      fontFamily: "",
+      fontFamily: "KyoboHandwriting",
       fontSize: 24.0,
       dateFormat: "");
 
@@ -46,7 +46,7 @@ class AppSettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectFont(String value) {
+  void selectFont(BuildContext context, String value) {
     _appSettingsRepository.updateFontFamily(value);
     _appSettings.fontFamily = value;
     notifyListeners();

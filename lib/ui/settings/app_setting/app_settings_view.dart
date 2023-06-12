@@ -68,11 +68,20 @@ class _AppSettingBodyState extends State<AppSettingBody> {
           title: const Text('폰트'),
           tiles: [
             SettingsTile(
-              title: Text("font"),
+              title: Text("교보손글씨 2019"),
               onPressed: (BuildContext context) {
-                viewModel.selectFont("");
+                viewModel.selectFont(context, "KyoboHandwriting");
               },
-              trailing: viewModel.fontFamily == "default"
+              trailing: viewModel.fontFamily == "KyoboHandwriting"
+                  ? Icon(Icons.check, color: Colors.blue)
+                  : null,
+            ),
+            SettingsTile(
+              title: Text("Montserrat"),
+              onPressed: (BuildContext context) {
+                viewModel.selectFont(context, "Montserrat");
+              },
+              trailing: viewModel.fontFamily == "Montserrat"
                   ? Icon(Icons.check, color: Colors.blue)
                   : null,
             ),
