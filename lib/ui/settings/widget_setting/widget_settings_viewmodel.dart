@@ -1,41 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
+import 'package:board_widget/data/repository/widget_settings_repository.dart';
 
 class WidgetSettingsViewModel extends ChangeNotifier {
-  //TODO: 다 정해지면 MODEL 만들기
-  bool isTextChangeHourly = false;
-  int isTextChangeHour = 24; // 위젯 텍스트 변환 주기
-  Color _fontColor = Colors.white;
-  Color _backgroundColor = Colors.blueAccent;
-  String fontFamily = "";
-  double _fontSize = 24.0;
-  //날짜 표시, 날짜 형식도?
+  late final WidgetSettingsRepository _widgetSettingsRepository;
 
-  Color get fontColor => _fontColor;
-  Color get backgroundColor => _backgroundColor;
-  double get fontSize => _fontSize;
+  final WidgetSettings _widgetSettings = WidgetSettings(
+    isTextChangeHourly: true,
+    isTextChangeHour: 24,
+    fontColor: Colors.black,
+    backgroundColor: Colors.white,
+    fontFamily: "KyoboHandwriting",
+    fontSize: 24.0,
+  );
 
-  void toggleTextChangeHourly(bool value) {
-    isTextChangeHourly = value;
+  WidgetSettingsViewModel() {
+    _widgetSettingsRepository = WidgetSettingsRepository();
+    getAllSettingsData();
+  }
+
+  // 앱 세팅 값을 받아와서 해당 변수에 저장합니다
+  Future<void> getAllSettingsData() async {
+    _widgetSettings.isTextChangeHourly =
+        await _widgetSettingsRepository.getIsTextChangeHourly();
+    _widgetSettings.isTextChangeHour =
+        await _widgetSettingsRepository.getIsTextChangeHour();
+    _widgetSettings.fontColor = await _widgetSettingsRepository.getFontColor();
+    _widgetSettings.backgroundColor =
+        await _widgetSettingsRepository.getBackgroundColor();
+    _widgetSettings.fontFamily =
+        await _widgetSettingsRepository.getFontFamily();
+    _widgetSettings.fontSize = await _widgetSettingsRepository.getFontSize();
+  }
+
+  bool get isTextChangeHourly => _widgetSettings.isTextChangeHourly;
+  int get isTextChangeHour => _widgetSettings.isTextChangeHour;
+  Color get fontColor => _widgetSettings.fontColor;
+  Color get backgroundColor => _widgetSettings.backgroundColor;
+  String get fontFamily => _widgetSettings.fontFamily;
+  double get fontSize => _widgetSettings.fontSize;
+
+  void setIsTextChangeHourly(bool value) {
+    _widgetSettingsRepository.updateIsTextChangeHourly(value);
+    _widgetSettings.isTextChangeHourly = value;
     notifyListeners();
   }
 
-  void onChangeTextChangeHour(int hour) {
-    isTextChangeHour = hour;
+  void setIsTextChangeHour(int value) {
+    _widgetSettingsRepository.updateIsTextChangeHour(value);
+    _widgetSettings.isTextChangeHour = value;
     notifyListeners();
   }
 
-  void setBackgroundColor(Color color) {
-    _backgroundColor = color;
+  void setFontColor(Color value) {
+    _widgetSettingsRepository.updateFontColor(value);
+    _widgetSettings.fontColor = value;
     notifyListeners();
   }
 
-  void setFontColor(Color color) {
-    _fontColor = color;
+  void setBackgroundColor(Color value) {
+    _widgetSettingsRepository.updateBackgroundColor(value);
+    _widgetSettings.backgroundColor = value;
     notifyListeners();
   }
 
-  void setFontSize(double fontSize) {
-    _fontSize = fontSize;
+  void setFontFamily(String value) {
+    _widgetSettingsRepository.updateFontFamily(value);
+    _widgetSettings.fontFamily = value;
+    notifyListeners();
+  }
+
+  void setFontSize(double value) {
+    _widgetSettingsRepository.updateFontSize(value);
+    _widgetSettings.fontSize = value;
     notifyListeners();
   }
 }

@@ -40,7 +40,7 @@ class WidgetSettingBody extends StatelessWidget {
             child: Text(
               '파이팅 해야지!',
               style: TextStyle(
-                  fontSize: viewModel.fontSize, color: viewModel.fontColor),
+                  color: viewModel.fontColor, fontSize: viewModel.fontSize),
             ),
           ),
         ),
@@ -55,7 +55,7 @@ class WidgetSettingBody extends StatelessWidget {
                 tiles: [
                   SettingsTile.switchTile(
                     onToggle: (value) {
-                      viewModel.toggleTextChangeHourly(value);
+                      viewModel.setIsTextChangeHourly(value);
                     },
                     initialValue: viewModel.isTextChangeHourly,
                     title: const Text('시간별 텍스트 변경'),
@@ -64,7 +64,7 @@ class WidgetSettingBody extends StatelessWidget {
                     SettingsTile(
                       title: const Text('2시간'),
                       onPressed: (BuildContext context) {
-                        viewModel.onChangeTextChangeHour(2);
+                        viewModel.setIsTextChangeHour(2);
                       },
                       trailing: viewModel.isTextChangeHour == 2
                           ? const Icon(Icons.check, color: Colors.blue)
@@ -73,7 +73,7 @@ class WidgetSettingBody extends StatelessWidget {
                     SettingsTile(
                       title: const Text('6시간'),
                       onPressed: (BuildContext context) {
-                        viewModel.onChangeTextChangeHour(6);
+                        viewModel.setIsTextChangeHour(6);
                       },
                       trailing: viewModel.isTextChangeHour == 6
                           ? const Icon(Icons.check, color: Colors.blue)
@@ -82,7 +82,7 @@ class WidgetSettingBody extends StatelessWidget {
                     SettingsTile(
                       title: const Text('12시간'),
                       onPressed: (BuildContext context) {
-                        viewModel.onChangeTextChangeHour(12);
+                        viewModel.setIsTextChangeHour(12);
                       },
                       trailing: viewModel.isTextChangeHour == 12
                           ? const Icon(Icons.check, color: Colors.blue)
@@ -91,7 +91,7 @@ class WidgetSettingBody extends StatelessWidget {
                     SettingsTile(
                       title: const Text('하루'),
                       onPressed: (BuildContext context) {
-                        viewModel.onChangeTextChangeHour(24);
+                        viewModel.setIsTextChangeHour(24);
                       },
                       trailing: viewModel.isTextChangeHour == 24
                           ? const Icon(Icons.check, color: Colors.blue)
@@ -100,7 +100,7 @@ class WidgetSettingBody extends StatelessWidget {
                     SettingsTile(
                       title: const Text('일주일'),
                       onPressed: (BuildContext context) {
-                        viewModel.onChangeTextChangeHour(168);
+                        viewModel.setIsTextChangeHour(168);
                       },
                       trailing: viewModel.isTextChangeHour == 168
                           ? const Icon(Icons.check, color: Colors.blue)

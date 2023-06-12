@@ -51,6 +51,7 @@ class LocalDataSource {
   }
 
   // -------------------------------- //
+  // 앱 세팅 메서드
 
   /// 앱 세팅을 가져옴
   Future<AppSettings> getAppSettings() async {
@@ -70,7 +71,6 @@ class LocalDataSource {
     var settings = appSettingsBox.get(0);
 
     if (settings != null) {
-      // Update the fields that are provided
       if (isDarkModeEnabled != null) {
         settings.isDarkModeEnabled = isDarkModeEnabled;
       }
@@ -88,6 +88,50 @@ class LocalDataSource {
       }
 
       await appSettingsBox.put(0, settings);
+    }
+  }
+  // -------------------------------- //
+  // 위젯 세팅 매서드
+
+  /// 앱 세팅을 가져옴
+  Future<WidgetSettings> getWidgetSettings() async {
+    var widgetSettingsBox = Hive.box<WidgetSettings>('widgetSettingsBox');
+    return widgetSettingsBox.get(0)!;
+  }
+
+  /// 앱 세팅을 업데이트
+  Future<void> updateWidgetSettings({
+    bool? isTextChangeHourly,
+    int? isTextChangeHour,
+    Color? fontColor,
+    Color? backgroundColor,
+    String? fontFamily,
+    double? fontSize,
+  }) async {
+    var widgetSettingsBox = Hive.box<WidgetSettings>('widgetSettingsBox');
+    var settings = widgetSettingsBox.get(0);
+
+    if (settings != null) {
+      if (isTextChangeHourly != null) {
+        settings.isTextChangeHourly = isTextChangeHourly;
+      }
+      if (isTextChangeHour != null) {
+        settings.isTextChangeHour = isTextChangeHour;
+      }
+      if (fontColor != null) {
+        settings.fontColor = fontColor;
+      }
+      if (backgroundColor != null) {
+        settings.backgroundColor = backgroundColor;
+      }
+      if (fontFamily != null) {
+        settings.fontFamily = fontFamily;
+      }
+      if (fontSize != null) {
+        settings.fontSize = fontSize;
+      }
+
+      await widgetSettingsBox.put(0, settings);
     }
   }
 }
