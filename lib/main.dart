@@ -111,6 +111,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.white,
           ),
           primarySwatch: Colors.lightBlue,
+          fontFamily: "KyoboHandwriting",
         ),
         initialRoute: '/',
       ),
