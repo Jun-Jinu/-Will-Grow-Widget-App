@@ -30,6 +30,7 @@ class SettingsMainBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<SettingsMainViewModel>(context);
+
     return SettingsList(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
@@ -69,21 +70,17 @@ class SettingsMainBody extends StatelessWidget {
           tiles: [
             SettingsTile(
               title: const Text('앱 리뷰 남기기'),
-              onPressed: (BuildContext context) {
-                // Handle contact us settings
-              },
+              onPressed: (BuildContext context) {},
             ),
             SettingsTile(
               title: const Text('의견 보내기'),
               onPressed: (BuildContext context) {
-                // Handle send feedback settings
+                viewModel.sendEmail();
               },
             ),
             SettingsTile(
               title: const Text('앱 공유하기'),
-              onPressed: (BuildContext context) {
-                // Handle share app settings
-              },
+              onPressed: (BuildContext context) {},
             ),
           ],
         ),
@@ -94,7 +91,7 @@ class SettingsMainBody extends StatelessWidget {
             SettingsTile(
               enabled: false,
               title: const Text('버전'),
-              value: const Text('v1.0.0'), // Displayed on the right side
+              value: const Text('v1.0.0'),
               onPressed: (BuildContext context) {
                 // Handle version settings
               },
