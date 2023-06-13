@@ -41,9 +41,9 @@ class LocalDataSource {
 
     // post의 index만 기록하는 LOCAL STORAGE
     var postIndexBox = Hive.box<int>('postIndexBox');
-    int currentCounter = postIndexBox.isEmpty ? 1 : postIndexBox.getAt(0)!;
+    int currentCounter = postIndexBox.isEmpty ? -1 : postIndexBox.getAt(0)!;
 
-    // 이전 값에서 id를 1씩 올리면서 부여(삭제할 경우 비는 id가 됨)
+    // 이전 값에서 id를 1씩 올리면서 부여(삭제할 경우 빈 id가 됨)
     newPost.id = currentCounter + 1;
 
     // 새로운 일기 추가

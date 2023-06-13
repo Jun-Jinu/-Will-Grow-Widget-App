@@ -46,7 +46,7 @@ class NewPostViewModel extends ChangeNotifier {
   Future<void> savePost(BuildContext context) async {
     try {
       final post = Post(
-        // id는 local_datasource에서 길이 + 1 로 재정의
+        // id는 local_datasource에서 길이값으로 재정의
         id: 0,
         content: contentController.text,
         promise: promiseController.text,
