@@ -37,14 +37,14 @@ class WidgetSettingBody extends StatelessWidget {
             height: 140,
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             decoration: BoxDecoration(
-              // color: viewModel.backgroundColor,
+              color: viewModel.backgroundColorExample,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Center(
               child: Text(
                 '오랫동안 꿈을 그리는 사람은 \n마침내 그 꿈을 닮아간다',
                 style: TextStyle(
-                  // color: viewModel.fontColor,
+                  color: viewModel.fontColorExample,
                   fontSize: viewModel.fontSize,
                 ),
                 textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('흰색'),
                     onPressed: (BuildContext context) {
-                      // viewModel.setBackgroundColor(Colors.white);
+                      viewModel.setBackgroundColor("white");
                     },
                     trailing: viewModel.backgroundColor == "white"
                         ? Icon(Icons.check, color: Colors.blue)
@@ -134,7 +134,7 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('회색'),
                     onPressed: (BuildContext context) {
-                      // viewModel.setBackgroundColor(Colors.grey);
+                      viewModel.setBackgroundColor("grey");
                     },
                     trailing: viewModel.backgroundColor == "grey"
                         ? Icon(Icons.check, color: Colors.blue)
@@ -143,7 +143,7 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('검정색'),
                     onPressed: (BuildContext context) {
-                      // viewModel.setBackgroundColor(Colors.black);
+                      viewModel.setBackgroundColor("black");
                     },
                     trailing: viewModel.backgroundColor == "black"
                         ? Icon(Icons.check, color: Colors.blue)
@@ -158,7 +158,7 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('흰색'),
                     onPressed: (BuildContext context) {
-                      // viewModel.setFontColor(Colors.white);
+                      viewModel.setFontColor("white");
                     },
                     trailing: viewModel.fontColor == "white"
                         ? Icon(Icons.check, color: Colors.blue)
@@ -167,7 +167,7 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('회색'),
                     onPressed: (BuildContext context) {
-                      // viewModel.setFontColor(Colors.grey);
+                      viewModel.setFontColor("grey");
                     },
                     trailing: viewModel.fontColor == "grey"
                         ? Icon(Icons.check, color: Colors.blue)
@@ -176,7 +176,7 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('검정색'),
                     onPressed: (BuildContext context) {
-                      // viewModel.setFontColor(Colors.black);
+                      viewModel.setFontColor("black");
                     },
                     trailing: viewModel.fontColor == "black"
                         ? Icon(Icons.check, color: Colors.blue)

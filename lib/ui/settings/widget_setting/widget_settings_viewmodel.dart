@@ -42,6 +42,10 @@ class WidgetSettingsViewModel extends ChangeNotifier {
   String get fontFamily => _widgetSettings.fontFamily;
   double get fontSize => _widgetSettings.fontSize;
 
+  Color get fontColorExample => getColorFromString(_widgetSettings.fontColor);
+  Color get backgroundColorExample =>
+      getColorFromString(_widgetSettings.backgroundColor);
+
   void setIsTextChangeHourly(bool value) {
     _widgetSettingsRepository.updateIsTextChangeHourly(value);
     _widgetSettings.isTextChangeHourly = value;
@@ -71,14 +75,14 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     // _widgetSettings.fontFamily = value;
 
     WidgetKit.setItem(
-        'widgetData',
+        'WidgetSettings',
         jsonEncode(WidgetSettings(
-          isTextChangeHourly: true,
-          isTextChangeHour: 24,
-          fontColor: 'black',
-          backgroundColor: 'grey',
-          fontFamily: "KyoboHandwriting2019",
-          fontSize: 24.0,
+          isTextChangeHourly: _widgetSettings.isTextChangeHourly,
+          isTextChangeHour: _widgetSettings.isTextChangeHour,
+          fontColor: _widgetSettings.fontColor,
+          backgroundColor: _widgetSettings.backgroundColor,
+          fontFamily: _widgetSettings.fontFamily,
+          fontSize: _widgetSettings.fontSize,
         )),
         'group.boardwidget');
     WidgetKit.reloadAllTimelines();
@@ -91,29 +95,18 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     _widgetSettings.fontSize = value;
     notifyListeners();
   }
+
+  Color getColorFromString(String colorString) {
+    switch (colorString.toLowerCase()) {
+      case 'black':
+        return Colors.black;
+      case 'grey':
+        return Colors.grey;
+      case 'white':
+        return Colors.white;
+      default:
+        // 기본적으로 검정색을 반환합니다.
+        return Colors.black;
+    }
+  }
 }
-
-
-// class WidgetData {
-//   final String text;
-//   WidgetData(this.text);
-
-//   WidgetData.fromJson(Map<String, dynamic> json) : text = json['text'];
-//   Map<String, dynamic> toJson() => {'text': text};
-
-// }
-
-// class WidgetData {
-//   String text;
-//   WidgetSettings settings;
-//   WidgetData(this.text, this.settings);
-
-//   WidgetData.fromJson(Map<String, dynamic> json)
-//       : text = json['text'],
-//         settings = WidgetSettings.fromJson(json['settings']);
-
-//   Map<String, dynamic> toJson() => {
-//         'text': text,
-//         'settings': settings.toJson(),
-//       };
-// }
