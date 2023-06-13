@@ -62,8 +62,8 @@ void main() async {
   final widgetSettings = WidgetSettings(
     isTextChangeHourly: true,
     isTextChangeHour: 24,
-    fontColor: Colors.black,
-    backgroundColor: Colors.white,
+    fontColor: "black",
+    backgroundColor: "white",
     fontFamily: "KyoboHandwriting",
     fontSize: 24.0,
   );

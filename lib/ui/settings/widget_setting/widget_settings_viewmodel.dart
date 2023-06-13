@@ -10,8 +10,8 @@ class WidgetSettingsViewModel extends ChangeNotifier {
   final WidgetSettings _widgetSettings = WidgetSettings(
     isTextChangeHourly: true,
     isTextChangeHour: 24,
-    fontColor: Colors.black,
-    backgroundColor: Colors.grey,
+    fontColor: 'black',
+    backgroundColor: 'grey',
     fontFamily: "KyoboHandwriting2019",
     fontSize: 24.0,
   );
@@ -37,8 +37,8 @@ class WidgetSettingsViewModel extends ChangeNotifier {
 
   bool get isTextChangeHourly => _widgetSettings.isTextChangeHourly;
   int get isTextChangeHour => _widgetSettings.isTextChangeHour;
-  Color get fontColor => _widgetSettings.fontColor;
-  Color get backgroundColor => _widgetSettings.backgroundColor;
+  String get fontColor => _widgetSettings.fontColor;
+  String get backgroundColor => _widgetSettings.backgroundColor;
   String get fontFamily => _widgetSettings.fontFamily;
   double get fontSize => _widgetSettings.fontSize;
 
@@ -54,13 +54,13 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setFontColor(Color value) {
+  void setFontColor(String value) {
     _widgetSettingsRepository.updateFontColor(value);
     _widgetSettings.fontColor = value;
     notifyListeners();
   }
 
-  void setBackgroundColor(Color value) {
+  void setBackgroundColor(String value) {
     _widgetSettingsRepository.updateBackgroundColor(value);
     _widgetSettings.backgroundColor = value;
     notifyListeners();
@@ -71,7 +71,16 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     // _widgetSettings.fontFamily = value;
 
     WidgetKit.setItem(
-        'widgetData', jsonEncode(_widgetSettings), 'group.boardwidget');
+        'widgetData',
+        jsonEncode(WidgetSettings(
+          isTextChangeHourly: true,
+          isTextChangeHour: 24,
+          fontColor: 'black',
+          backgroundColor: 'grey',
+          fontFamily: "KyoboHandwriting2019",
+          fontSize: 24.0,
+        )),
+        'group.boardwidget');
     WidgetKit.reloadAllTimelines();
 
     notifyListeners();
@@ -83,3 +92,28 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+
+// class WidgetData {
+//   final String text;
+//   WidgetData(this.text);
+
+//   WidgetData.fromJson(Map<String, dynamic> json) : text = json['text'];
+//   Map<String, dynamic> toJson() => {'text': text};
+
+// }
+
+// class WidgetData {
+//   String text;
+//   WidgetSettings settings;
+//   WidgetData(this.text, this.settings);
+
+//   WidgetData.fromJson(Map<String, dynamic> json)
+//       : text = json['text'],
+//         settings = WidgetSettings.fromJson(json['settings']);
+
+//   Map<String, dynamic> toJson() => {
+//         'text': text,
+//         'settings': settings.toJson(),
+//       };
+// }

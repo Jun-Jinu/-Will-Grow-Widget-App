@@ -37,14 +37,16 @@ class WidgetSettingBody extends StatelessWidget {
             height: 140,
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             decoration: BoxDecoration(
-              color: viewModel.backgroundColor,
+              // color: viewModel.backgroundColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Center(
               child: Text(
                 '오랫동안 꿈을 그리는 사람은 \n마침내 그 꿈을 닮아간다',
                 style: TextStyle(
-                    color: viewModel.fontColor, fontSize: viewModel.fontSize),
+                  // color: viewModel.fontColor,
+                  fontSize: viewModel.fontSize,
+                ),
                 textAlign: TextAlign.center,
               ),
             ),
@@ -123,27 +125,27 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('흰색'),
                     onPressed: (BuildContext context) {
-                      viewModel.setBackgroundColor(Colors.white);
+                      // viewModel.setBackgroundColor(Colors.white);
                     },
-                    trailing: viewModel.backgroundColor == Colors.white
+                    trailing: viewModel.backgroundColor == "white"
                         ? Icon(Icons.check, color: Colors.blue)
                         : null,
                   ),
                   SettingsTile(
                     title: const Text('회색'),
                     onPressed: (BuildContext context) {
-                      viewModel.setBackgroundColor(Colors.grey);
+                      // viewModel.setBackgroundColor(Colors.grey);
                     },
-                    trailing: viewModel.backgroundColor == Colors.grey
+                    trailing: viewModel.backgroundColor == "grey"
                         ? Icon(Icons.check, color: Colors.blue)
                         : null,
                   ),
                   SettingsTile(
                     title: const Text('검정색'),
                     onPressed: (BuildContext context) {
-                      viewModel.setBackgroundColor(Colors.black);
+                      // viewModel.setBackgroundColor(Colors.black);
                     },
-                    trailing: viewModel.backgroundColor == Colors.black
+                    trailing: viewModel.backgroundColor == "black"
                         ? Icon(Icons.check, color: Colors.blue)
                         : null,
                   ),
@@ -156,27 +158,27 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('흰색'),
                     onPressed: (BuildContext context) {
-                      viewModel.setFontColor(Colors.white);
+                      // viewModel.setFontColor(Colors.white);
                     },
-                    trailing: viewModel.fontColor == Colors.white
+                    trailing: viewModel.fontColor == "white"
                         ? Icon(Icons.check, color: Colors.blue)
                         : null,
                   ),
                   SettingsTile(
                     title: const Text('회색'),
                     onPressed: (BuildContext context) {
-                      viewModel.setFontColor(Colors.grey);
+                      // viewModel.setFontColor(Colors.grey);
                     },
-                    trailing: viewModel.fontColor == Colors.grey
+                    trailing: viewModel.fontColor == "grey"
                         ? Icon(Icons.check, color: Colors.blue)
                         : null,
                   ),
                   SettingsTile(
                     title: const Text('검정색'),
                     onPressed: (BuildContext context) {
-                      viewModel.setFontColor(Colors.black);
+                      // viewModel.setFontColor(Colors.black);
                     },
-                    trailing: viewModel.fontColor == Colors.black
+                    trailing: viewModel.fontColor == "black"
                         ? Icon(Icons.check, color: Colors.blue)
                         : null,
                   ),

@@ -103,8 +103,8 @@ class LocalDataSource {
   Future<void> updateWidgetSettings({
     bool? isTextChangeHourly,
     int? isTextChangeHour,
-    Color? fontColor,
-    Color? backgroundColor,
+    String? fontColor,
+    String? backgroundColor,
     String? fontFamily,
     double? fontSize,
   }) async {

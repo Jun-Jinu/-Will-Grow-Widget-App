@@ -19,8 +19,8 @@ class WidgetSettingsAdapter extends TypeAdapter<WidgetSettings> {
     return WidgetSettings(
       isTextChangeHourly: fields[0] as bool,
       isTextChangeHour: fields[1] as int,
-      fontColor: fields[2] as Color,
-      backgroundColor: fields[3] as Color,
+      fontColor: fields[2] as String,
+      backgroundColor: fields[3] as String,
       fontFamily: fields[4] as String,
       fontSize: fields[5] as double,
     );

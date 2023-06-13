@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'widget_settings.g.dart';
@@ -41,5 +40,16 @@ class WidgetSettings {
       fontFamily: json['fontFamily'],
       fontSize: json['fontSize'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'isTextChangeHourly': isTextChangeHourly,
+      'isTextChangeHour': isTextChangeHour,
+      'fontColor': fontColor,
+      'backgroundColor': backgroundColor,
+      'fontFamily': fontFamily,
+      'fontSize': fontSize,
+    };
   }
 }

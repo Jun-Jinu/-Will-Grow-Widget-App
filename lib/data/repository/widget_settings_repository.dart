@@ -29,13 +29,13 @@ class WidgetSettingsRepository {
   }
 
   // 위젯 설정에서 폰트 색상을 가져옵니다.
-  Future<Color> getFontColor() async {
+  Future<String> getFontColor() async {
     WidgetSettings settings = await _localDataSource.getWidgetSettings();
     return settings.fontColor;
   }
 
   // 위젯 설정에서 배경색을 가져옵니다.
-  Future<Color> getBackgroundColor() async {
+  Future<String> getBackgroundColor() async {
     WidgetSettings settings = await _localDataSource.getWidgetSettings();
     return settings.backgroundColor;
   }
@@ -67,12 +67,12 @@ class WidgetSettingsRepository {
   }
 
   // 위젯 설정에서 폰트 색상을 업데이트합니다.
-  Future<void> updateFontColor(Color fontColor) {
+  Future<void> updateFontColor(String fontColor) {
     return _localDataSource.updateWidgetSettings(fontColor: fontColor);
   }
 
   // 위젯 설정에서 배경색을 업데이트합니다.
-  Future<void> updateBackgroundColor(Color backgroundColor) {
+  Future<void> updateBackgroundColor(String backgroundColor) {
     return _localDataSource.updateWidgetSettings(
         backgroundColor: backgroundColor);
   }
