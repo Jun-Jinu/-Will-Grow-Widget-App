@@ -13,6 +13,7 @@ class NewPostViewModel extends ChangeNotifier {
 
   final TextEditingController contentController = TextEditingController();
   final TextEditingController promiseController = TextEditingController();
+  final TextEditingController directInputController = TextEditingController();
 
   int promiseDuration = 1;
   bool onDirect = false;
@@ -22,11 +23,11 @@ class NewPostViewModel extends ChangeNotifier {
   DateTime focusedDay = DateTime.now();
   List<String> days = ['_', '월', '화', '수', '목', '금', '토', '일'];
 
-  void initController() {
+  void delControllerValue() {
     contentController.text = "";
     promiseController.text = "";
     promiseDuration = 1;
-    onDirect = false;
+    onDirect = false; // 직접입력 변수(true: 직접입력)
     showCalendar = false;
     selectedDay = DateTime.now();
     focusedDay = DateTime.now();
@@ -43,6 +44,25 @@ class NewPostViewModel extends ChangeNotifier {
     toggleCalendar();
   }
 
+  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    this.selectedDay = selectedDay;
+    this.focusedDay = focusedDay;
+    notifyListeners();
+  }
+
+  void onPromiseDurationChanged(int? value) {
+    // 직접입력
+    if (value == -3) {
+      onDirect = true;
+    } else {
+      onDirect = false;
+      // 다짐 일 값 저장
+      promiseDuration = value!;
+    }
+
+    notifyListeners();
+  }
+
   Future<void> savePost(BuildContext context) async {
     try {
       final post = Post(
@@ -51,13 +71,17 @@ class NewPostViewModel extends ChangeNotifier {
         content: contentController.text,
         promise: promiseController.text,
         date: selectedDay,
-        promiseEndDate: selectedDay.add(Duration(days: promiseDuration)),
+        // True: 직접 입력 날을 추가, False: 정해진 날을 추가
+        promiseEndDate: onDirect
+            ? selectedDay
+                .add(Duration(days: int.parse(directInputController.text)))
+            : selectedDay.add(Duration(days: promiseDuration)),
       );
 
       _postRepository.addPost(post);
 
       // 모든 입력칸을 초기화
-      initController();
+      delControllerValue();
 
       Navigator.pushNamed(context, "/post");
     } catch (e) {
@@ -81,20 +105,5 @@ class NewPostViewModel extends ChangeNotifier {
         },
       );
     }
-  }
-
-  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    this.selectedDay = selectedDay;
-    this.focusedDay = focusedDay;
-    notifyListeners();
-  }
-
-  void onPromiseDurationChanged(int? value) {
-    if (value == -3) {
-      onDirect = true;
-    } else {
-      onDirect = false;
-    }
-    notifyListeners();
   }
 }

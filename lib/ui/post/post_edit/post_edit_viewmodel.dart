@@ -13,24 +13,30 @@ class PostEditViewModel extends ChangeNotifier {
 
   final TextEditingController contentController = TextEditingController();
   final TextEditingController promiseController = TextEditingController();
+  final TextEditingController durationController = TextEditingController();
 
-  int promiseDuration = 1;
   bool showCalendar = false;
+  int postId = -1;
 
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+
   List<String> days = ['_', '월', '화', '수', '목', '금', '토', '일'];
 
-  void initController() {
-    contentController.text = "";
-    promiseController.text = "";
-    promiseDuration = 1;
-    showCalendar = false;
-    selectedDay = DateTime.now();
-    focusedDay = DateTime.now();
-  }
-
   String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
+
+  void setPost(Post post) {
+    //post ID 저장
+    postId = post.id;
+
+    // 기존 post값 동기화
+    contentController.text = post.content;
+    promiseController.text = post.promise;
+    durationController.text =
+        post.promiseEndDate.difference(post.date).inDays.abs().toString();
+    selectedDay = post.date;
+    focusedDay = post.date;
+  }
 
   void toggleCalendar() {
     showCalendar = !showCalendar;
@@ -41,23 +47,21 @@ class PostEditViewModel extends ChangeNotifier {
     toggleCalendar();
   }
 
-  Future<void> savePost(BuildContext context) async {
+  Future<void> editPost(BuildContext context) async {
     try {
       final post = Post(
         // id는 local_datasource에서 길이 + 1 로 재정의
-        id: 0,
+        id: postId,
         content: contentController.text,
         promise: promiseController.text,
         date: selectedDay,
-        promiseEndDate: selectedDay.add(Duration(days: promiseDuration)),
+        promiseEndDate:
+            selectedDay.add(Duration(days: int.parse(durationController.text))),
       );
 
-      _postRepository.addPost(post);
+      _postRepository.updatePost(post);
 
-      // 모든 입력칸을 초기화
-      initController();
-
-      Navigator.pushNamed(context, "/post");
+      Navigator.pushNamed(context, "/post/detail", arguments: postId);
     } catch (e) {
       // 실패시 경고 알림
       print(e);

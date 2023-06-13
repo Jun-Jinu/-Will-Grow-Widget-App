@@ -30,7 +30,6 @@ class PostDetailView extends StatelessWidget {
           }
 
           final viewModel = Provider.of<PostDetailViewModel>(context);
-          final dDayText = viewModel.getDDayText(post);
 
           return Scaffold(
             appBar: AppBar(
@@ -53,7 +52,7 @@ class PostDetailView extends StatelessWidget {
                   itemBuilder: (context) => [
                     PopupMenuItem<String>(
                       value: 'edit',
-                      child: Text(post.id.toString()),
+                      child: Text('수정'),
                     ),
                     PopupMenuItem<String>(
                       value: 'delete',
@@ -91,7 +90,7 @@ class PostDetailView extends StatelessWidget {
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          dDayText,
+                          viewModel.getDDayText(post),
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.grey,

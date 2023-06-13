@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:board_widget/data/model/post/post.dart';
 
 import './post_edit_viewmodel.dart';
-import 'package:board_widget/ui/widgets/menu_bottom.dart';
 
 class PostEditView extends StatefulWidget {
   const PostEditView({Key? key}) : super(key: key);
@@ -18,13 +18,14 @@ class _PostEditView extends State<PostEditView>
 
   @override
   Widget build(BuildContext context) {
+    final Post post = ModalRoute.of(context)!.settings.arguments as Post;
+
     viewModel = Provider.of<PostEditViewModel>(context);
+    viewModel.setPost(post);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('오늘의 일기'),
-      ),
-      bottomNavigationBar: MenuBottom(
-        selectedIndex: 0,
+        title: Text('일기 수정하기'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -124,8 +125,9 @@ class _PostEditView extends State<PostEditView>
                   Container(
                     width: 80,
                     height: 40,
-                    margin: EdgeInsets.only(left: 30.0, right: 5.0),
+                    margin: EdgeInsets.only(right: 5.0),
                     child: TextField(
+                      controller: viewModel.durationController,
                       maxLines: 1,
                       maxLength: 5,
                       keyboardType: TextInputType.number,
@@ -140,7 +142,7 @@ class _PostEditView extends State<PostEditView>
                   Container(
                     width: 120,
                     child: Text(
-                      '의 다짐',
+                      '일의 다짐',
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -154,7 +156,7 @@ class _PostEditView extends State<PostEditView>
                   height: 40,
                   child: OutlinedButton(
                     onPressed: () async {
-                      await viewModel.savePost(context);
+                      await viewModel.editPost(context);
                     },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(

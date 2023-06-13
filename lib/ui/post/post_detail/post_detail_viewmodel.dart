@@ -18,7 +18,6 @@ class PostDetailViewModel extends ChangeNotifier {
 
   Future<Post?> getPostById(int id) async {
     try {
-      print(id);
       return _postRepository.getPostById(id);
     } catch (e) {
       // 예외 처리

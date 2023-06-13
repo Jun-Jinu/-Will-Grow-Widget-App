@@ -158,6 +158,7 @@ class _NewPostView extends State<NewPostView>
                       height: 40,
                       margin: EdgeInsets.only(left: 30.0, right: 5.0),
                       child: TextField(
+                        controller: viewModel.directInputController,
                         maxLines: 1,
                         maxLength: 5,
                         keyboardType: TextInputType.number,
