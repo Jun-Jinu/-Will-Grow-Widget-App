@@ -8,7 +8,7 @@ class PostListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('일기')),
+      appBar: AppBar(title: const Text('나의 일기')),
       bottomNavigationBar: MenuBottom(selectedIndex: 1),
       body: FutureBuilder<List<Post>?>(
         future: Provider.of<PostListViewModel>(context).loadItems(),

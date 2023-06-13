@@ -21,7 +21,7 @@ class _NewPostView extends State<NewPostView>
     viewModel = Provider.of<NewPostViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('오늘의 일기'),
+        title: Text('일기 쓰기'),
       ),
       bottomNavigationBar: MenuBottom(
         selectedIndex: 0,
@@ -191,7 +191,6 @@ class _NewPostView extends State<NewPostView>
                     },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
-                        color: Colors.lightBlue,
                         width: 1.0,
                       ),
                       shape: RoundedRectangleBorder(

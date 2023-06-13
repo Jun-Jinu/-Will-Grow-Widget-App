@@ -16,6 +16,8 @@ class MenuBottom extends StatefulWidget {
 
 class _MenuBottomState extends State<MenuBottom> {
   late int _selectedIndex;
+  Color iconColor = Color(0xff333333);
+  Color borderColor = Color(0xff666666);
 
   @override
   void initState() {
@@ -33,23 +35,37 @@ class _MenuBottomState extends State<MenuBottom> {
 
     return ConvexAppBar(
       initialActiveIndex: _selectedIndex,
+      color: iconColor,
+      activeColor: Color(0xbbffffff),
+      backgroundColor: Color(0xffecf0f1),
+      shadowColor: borderColor,
       style: TabStyle.reactCircle,
+      height: 50,
       onTap: (int index) {
         if (index >= 0 && index < routes.length && _selectedIndex != index) {
           Navigator.pushNamed(context, routes[index]);
         }
       },
-      items: const [
+      items: [
         TabItem(
-          icon: Icon(Icons.edit),
+          icon: Icon(
+            Icons.edit,
+            color: iconColor,
+          ),
           title: '일기 쓰기',
         ),
         TabItem(
-          icon: Icon(Icons.book_outlined),
+          icon: Icon(
+            Icons.book_outlined,
+            color: iconColor,
+          ),
           title: '나의 일기',
         ),
         TabItem(
-          icon: Icon(Icons.settings),
+          icon: Icon(
+            Icons.settings,
+            color: iconColor,
+          ),
           title: '설정',
         ),
       ],
