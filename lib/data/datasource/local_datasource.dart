@@ -43,11 +43,13 @@ class LocalDataSource {
     var postIndexBox = Hive.box<int>('postIndexBox');
     int currentCounter = postIndexBox.isEmpty ? 1 : postIndexBox.getAt(0)!;
 
-    // id를 1씩 올리면서 부여(삭제할 경우 비는 id가 됨)
-    newPost.id = currentCounter++;
+    // 이전 값에서 id를 1씩 올리면서 부여(삭제할 경우 비는 id가 됨)
+    newPost.id = currentCounter + 1;
 
     // 새로운 일기 추가
     await postBox.add(newPost);
+    // Index Hive 업데이트
+    await postIndexBox.put(0, newPost.id);
   }
 
   // -------------------------------- //

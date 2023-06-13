@@ -53,7 +53,7 @@ class PostDetailView extends StatelessWidget {
                   itemBuilder: (context) => [
                     PopupMenuItem<String>(
                       value: 'edit',
-                      child: Text('수정'),
+                      child: Text(post.id.toString()),
                     ),
                     PopupMenuItem<String>(
                       value: 'delete',
