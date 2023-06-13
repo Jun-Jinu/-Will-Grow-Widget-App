@@ -21,10 +21,10 @@ class WidgetSettings {
   int isTextChangeHour;
 
   @HiveField(2)
-  Color fontColor;
+  String fontColor;
 
   @HiveField(3)
-  Color backgroundColor;
+  String backgroundColor;
 
   @HiveField(4)
   String fontFamily;
@@ -36,8 +36,8 @@ class WidgetSettings {
     return WidgetSettings(
       isTextChangeHourly: json['isTextChangeHourly'],
       isTextChangeHour: json['isTextChangeHour'],
-      fontColor: Color(json['fontColor']),
-      backgroundColor: Color(json['backgroundColor']),
+      fontColor: json['fontColor'],
+      backgroundColor: json['backgroundColor'],
       fontFamily: json['fontFamily'],
       fontSize: json['fontSize'],
     );

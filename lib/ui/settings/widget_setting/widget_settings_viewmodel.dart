@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
 import 'package:board_widget/data/repository/widget_settings_repository.dart';
+import 'dart:convert';
 
 class WidgetSettingsViewModel extends ChangeNotifier {
   late final WidgetSettingsRepository _widgetSettingsRepository;
@@ -10,8 +11,8 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     isTextChangeHourly: true,
     isTextChangeHour: 24,
     fontColor: Colors.black,
-    backgroundColor: Colors.white,
-    fontFamily: "KyoboHandwriting",
+    backgroundColor: Colors.grey,
+    fontFamily: "KyoboHandwriting2019",
     fontSize: 24.0,
   );
 
@@ -66,8 +67,13 @@ class WidgetSettingsViewModel extends ChangeNotifier {
   }
 
   void setFontFamily(String value) {
-    _widgetSettingsRepository.updateFontFamily(value);
-    _widgetSettings.fontFamily = value;
+    // _widgetSettingsRepository.updateFontFamily(value);
+    // _widgetSettings.fontFamily = value;
+
+    WidgetKit.setItem(
+        'widgetData', jsonEncode(_widgetSettings), 'group.boardwidget');
+    WidgetKit.reloadAllTimelines();
+
     notifyListeners();
   }
 

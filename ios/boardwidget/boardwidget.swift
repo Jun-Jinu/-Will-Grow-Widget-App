@@ -1,30 +1,29 @@
-//
-//  boardwidget.swift
-//  boardwidget
-//
-//  Created by 전진우 on 2023/06/03.
-//
-
 import WidgetKit
 import SwiftUI
 import Intents
 
 struct WidgetData: Decodable, Hashable {
     let text: String
+    let isTextChangeHourly: String
+    let isTextChangeHour: String
+    let fontColor: String
+    let backgroundColor: String
+    let fontFamily: String
+    let fontSize: Double
 }
 
 struct FlutterEntry: TimelineEntry {
     let date: Date
-    let widgetData: WidgetData? 
+    let widgetData: WidgetData?
 }
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> FlutterEntry {
-        FlutterEntry(date: Date(), widgetData: WidgetData(text:"Flutter IOS widget입니다."))
+        FlutterEntry(date: Date(), widgetData: WidgetData(text: "Flutter IOS widget입니다.", isTextChangeHourly: "", isTextChangeHour: "", fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 0.0))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (FlutterEntry) -> ()) {
-        let entry = FlutterEntry(date: Date(), widgetData: WidgetData(text: "Flutter IOS widget입니다."))
+        let entry = FlutterEntry(date: Date(), widgetData: WidgetData(text: "Flutter IOS widget입니다.", isTextChangeHourly: "", isTextChangeHour: "", fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 0.0))
         completion(entry)
     }
 
@@ -53,35 +52,27 @@ struct iosWidgetView: View {
     var entry: Provider.Entry
 
     var body: some View {
-        ZStack {
-        ContainerRelativeShape().fill(.gray.gradient)
-        }
-    
+        let backgroundColor = Color(entry.widgetData?.backgroundColor ?? "")
+        let fontColor = Color(entry.widgetData?.fontColor ?? "")
 
-        // TODO: 텍스트 폰트 변경, 배경 색 설정 추가
-        Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
-            .font(Font.custom("KyoboHandwriting2019", size: 20))
-            .foregroundColor(.white.opacity(0.8))
-        
-        VStack {
-            Spacer()
-            
-            HStack {
+        ZStack {
+            ContainerRelativeShape().fill(backgroundColor)
+
+            Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
+                .font(Font.custom(entry.widgetData?.fontFamily ?? "KyoboHandwriting2019", size: CGFloat(entry.widgetData?.fontSize ?? 24.0)))
+                .foregroundColor(fontColor)
+
+            VStack {
                 Spacer()
-                Text("우측하단")
-                    .font(Font.custom("KyoboHandwriting2019", size: 20))
-                    .foregroundColor(.white.opacity(0.8))
-                    .padding(14)
-//                    .onAppear {
-//                        for family: String in UIFont.familyNames {
-//                            print(family)
-//                            for names: String in UIFont.fontNames(forFamilyName: family) {
-//                                print("=== \(names)")
-//                            }
-//                        }
-//                }
+
+                HStack {
+                    Spacer()
+                    Text("우측하단")
+                        .font(Font.custom(entry.widgetData?.fontFamily ?? "KyoboHandwriting2019", size: CGFloat(entry.widgetData?.fontSize ?? 24.0)))
+                        .foregroundColor(fontColor)
+                        .padding(14)
+                }
             }
-            
         }
     }
 }

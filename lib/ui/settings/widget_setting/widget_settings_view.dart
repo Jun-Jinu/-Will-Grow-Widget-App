@@ -29,18 +29,24 @@ class WidgetSettingBody extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: double.infinity,
-          height: 140,
-          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          decoration: BoxDecoration(
-            color: viewModel.backgroundColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: Text(
-              '파이팅 해야지!',
-              style: TextStyle(
-                  color: viewModel.fontColor, fontSize: viewModel.fontSize),
+          // 위젯 밖의 배경 색
+          color: Colors.black12,
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+          child: Container(
+            width: double.infinity,
+            height: 140,
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            decoration: BoxDecoration(
+              color: viewModel.backgroundColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(
+              child: Text(
+                '오랫동안 꿈을 그리는 사람은 \n마침내 그 꿈을 닮아간다',
+                style: TextStyle(
+                    color: viewModel.fontColor, fontSize: viewModel.fontSize),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
@@ -183,13 +189,13 @@ class WidgetSettingBody extends StatelessWidget {
                   SettingsTile(
                     title: const Text('폰트1'),
                     onPressed: (BuildContext context) {
-                      // Handle version settings
+                      viewModel.setFontFamily("KyoboHandwriting2019");
                     },
                   ),
                   SettingsTile(
                     title: const Text('폰트2'),
                     onPressed: (BuildContext context) {
-                      // Handle developer settings
+                      viewModel.setFontFamily("KyoboHandwriting2019");
                     },
                     // TODO: 요일 표시 체크박스 만들기
                   ),
