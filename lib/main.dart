@@ -51,7 +51,7 @@ Future<void> initHive() async {
   if (appBox.isEmpty) {
     final appSettings = AppSettings(
         isDarkModeEnabled: false,
-        backgroundColor: Colors.white,
+        primaryColor: Colors.white,
         fontFamily: "KyoboHandwriting",
         fontSize: 1.0,
         dateFormat: "");

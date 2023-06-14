@@ -18,7 +18,7 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
     };
     return AppSettings(
       isDarkModeEnabled: fields[0] as bool,
-      backgroundColor: fields[1] as Color,
+      primaryColor: fields[1] as Color,
       fontFamily: fields[2] as String,
       fontSize: fields[3] as double,
       dateFormat: fields[4] as String,
@@ -32,7 +32,7 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
       ..writeByte(0)
       ..write(obj.isDarkModeEnabled)
       ..writeByte(1)
-      ..write(obj.backgroundColor)
+      ..write(obj.primaryColor)
       ..writeByte(2)
       ..write(obj.fontFamily)
       ..writeByte(3)

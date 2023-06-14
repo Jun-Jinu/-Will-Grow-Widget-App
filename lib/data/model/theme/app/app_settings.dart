@@ -7,7 +7,7 @@ part 'app_settings.g.dart';
 class AppSettings {
   AppSettings({
     required this.isDarkModeEnabled,
-    required this.backgroundColor,
+    required this.primaryColor,
     required this.fontFamily,
     required this.fontSize,
     required this.dateFormat,
@@ -17,7 +17,7 @@ class AppSettings {
   bool isDarkModeEnabled;
 
   @HiveField(1)
-  Color backgroundColor;
+  Color primaryColor;
 
   @HiveField(2)
   String fontFamily;
@@ -31,7 +31,7 @@ class AppSettings {
   factory AppSettings.fromJson(Map<String, dynamic> json) {
     return AppSettings(
       isDarkModeEnabled: json['isDarkModeEnabled'],
-      backgroundColor: Color(json['backgroundColor']),
+      primaryColor: Color(json['primaryColor']),
       fontFamily: json['fontFamily'],
       fontSize: json['fontSize'],
       dateFormat: json['dateFormat'],

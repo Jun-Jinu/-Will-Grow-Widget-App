@@ -99,7 +99,7 @@ class LocalDataSource {
         settings.isDarkModeEnabled = isDarkModeEnabled;
       }
       if (backgroundColor != null) {
-        settings.backgroundColor = backgroundColor;
+        settings.primaryColor = backgroundColor;
       }
       if (fontFamily != null) {
         settings.fontFamily = fontFamily;

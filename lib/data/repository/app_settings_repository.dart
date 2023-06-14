@@ -18,9 +18,9 @@ class AppSettingsRepository {
     return settings.isDarkModeEnabled;
   }
 
-  Future<Color> getBackgroundColor() async {
+  Future<Color> getPrimaryColor() async {
     AppSettings settings = await _localDataSource.getAppSettings();
-    return settings.backgroundColor;
+    return settings.primaryColor;
   }
 
   Future<String> getFontFamily() async {
@@ -45,7 +45,7 @@ class AppSettingsRepository {
   }
 
   /// 배경색 설정 업데이트
-  Future<void> updateBackgroundColor(Color backgroundColor) {
+  Future<void> updatePrimaryColor(Color backgroundColor) {
     return _localDataSource.updateAppSettings(backgroundColor: backgroundColor);
   }
 

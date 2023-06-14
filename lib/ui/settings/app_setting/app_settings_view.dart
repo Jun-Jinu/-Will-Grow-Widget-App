@@ -46,6 +46,27 @@ class _AppSettingBodyState extends State<AppSettingBody> {
       );
     }).toList();
 
+    List<SettingsTile> primaryColorSettingsTiles =
+        viewModel.primaryColorList.map((color) {
+      return SettingsTile(
+        leading: Container(
+          width: 25,
+          height: 25,
+          decoration: BoxDecoration(
+            color: color['primaryColor'],
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+        ),
+        title: Text(color['title']),
+        onPressed: (BuildContext context) {
+          viewModel.selectPrimaryColor(color['primaryColor']);
+        },
+        trailing: viewModel.primaryColor == color['primaryColor']
+            ? Icon(Icons.check, color: Colors.blue)
+            : null,
+      );
+    }).toList();
+
     return SettingsList(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
@@ -66,36 +87,8 @@ class _AppSettingBodyState extends State<AppSettingBody> {
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
-          title: const Text('배경색'),
-          tiles: [
-            SettingsTile(
-              title: Text('흰색'),
-              onPressed: (BuildContext context) {
-                viewModel.selectBackground(Colors.white);
-              },
-              trailing: viewModel.backgroundColor == Colors.white
-                  ? Icon(Icons.check, color: Colors.blue)
-                  : null,
-            ),
-            SettingsTile(
-              title: Text('연한 노란색'),
-              onPressed: (BuildContext context) {
-                viewModel.selectBackground(Colors.yellowAccent);
-              },
-              trailing: viewModel.backgroundColor == Colors.yellowAccent
-                  ? Icon(Icons.check, color: Colors.blue)
-                  : null,
-            ),
-            SettingsTile(
-              title: Text('하늘색'),
-              onPressed: (BuildContext context) {
-                viewModel.selectBackground(Colors.lightBlue);
-              },
-              trailing: viewModel.backgroundColor == Colors.lightBlue
-                  ? Icon(Icons.check, color: Colors.blue)
-                  : null,
-            ),
-          ],
+          title: const Text('강조색'),
+          tiles: primaryColorSettingsTiles,
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),

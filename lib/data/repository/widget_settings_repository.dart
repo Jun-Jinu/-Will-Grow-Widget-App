@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '../model/theme/widget/widget_settings.dart';
 import '../datasource/local_datasource.dart';
 

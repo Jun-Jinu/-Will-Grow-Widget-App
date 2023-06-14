@@ -7,7 +7,7 @@ class AppSettingsViewModel extends ChangeNotifier {
 
   final AppSettings _appSettings = AppSettings(
       isDarkModeEnabled: false,
-      backgroundColor: Colors.white,
+      primaryColor: Colors.white,
       fontFamily: "KyoboHandwriting",
       fontSize: 1.0,
       dateFormat: "");
@@ -17,6 +17,11 @@ class AppSettingsViewModel extends ChangeNotifier {
     getAllSettingsData();
   }
 
+  List<Map<String, dynamic>> primaryColorList = [
+    {'title': "라벤더", 'primaryColor': Color(0xff9b59b6)},
+    {'title': "흰색 (🌙 다크모드에 추천)", 'primaryColor': Color(0xffffffff)},
+    {'title': "검정색", 'primaryColor': Color(0xff000000)},
+  ];
   List<Map<String, dynamic>> fontList = [
     {
       'title': "교보손글씨 2019",
@@ -60,15 +65,14 @@ class AppSettingsViewModel extends ChangeNotifier {
   Future<void> getAllSettingsData() async {
     _appSettings.isDarkModeEnabled =
         await _appSettingsRepository.getIsDarkModeEnabled();
-    _appSettings.backgroundColor =
-        await _appSettingsRepository.getBackgroundColor();
+    _appSettings.primaryColor = await _appSettingsRepository.getPrimaryColor();
     _appSettings.fontFamily = await _appSettingsRepository.getFontFamily();
     _appSettings.fontSize = await _appSettingsRepository.getFontSize();
     _appSettings.dateFormat = await _appSettingsRepository.getDateFormat();
   }
 
   bool get isDarkModeEnabled => _appSettings.isDarkModeEnabled;
-  Color get backgroundColor => _appSettings.backgroundColor;
+  Color get primaryColor => _appSettings.primaryColor;
   String get fontFamily => _appSettings.fontFamily;
   double get fontSize => _appSettings.fontSize;
   String get dateFormat => _appSettings.dateFormat;
@@ -79,9 +83,9 @@ class AppSettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectBackground(Color value) {
-    _appSettingsRepository.updateBackgroundColor(value);
-    _appSettings.backgroundColor = value;
+  void selectPrimaryColor(Color value) {
+    _appSettingsRepository.updatePrimaryColor(value);
+    _appSettings.primaryColor = value;
     notifyListeners();
   }
 

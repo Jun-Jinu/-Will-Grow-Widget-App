@@ -50,6 +50,10 @@ class MyApp extends StatelessWidget {
             create: (_) => AppSettingsViewModel(), child: AppSettingsView()),
         ChangeNotifierProvider<AppSettingsViewModel>(
             create: (_) => AppSettingsViewModel(), child: AppContainer()),
+        ChangeNotifierProvider<AppSettingsViewModel>(
+            create: (_) => AppSettingsViewModel(), child: SettingsMainView()),
+        ChangeNotifierProvider<AppSettingsViewModel>(
+            create: (_) => AppSettingsViewModel(), child: WidgetSettingView()),
       ],
       child: const AppContainer(),
     );
