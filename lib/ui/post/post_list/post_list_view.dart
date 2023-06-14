@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
+import 'package:board_widget/ui/widgets/weather_icon.dart';
 import 'package:board_widget/data/model/post/post.dart';
 import './post_list_viewmodel.dart';
 
@@ -33,8 +34,6 @@ class PostListView extends StatelessWidget {
         final post = postList[postList.length - 1 - index];
         final formattedDate =
             "${post.date.year}.${post.date.month}.${post.date.day}";
-        final formattedEndDate =
-            "${post.promiseEndDate.month}월 ${post.promiseEndDate.day}일까지 다짐";
 
         return InkWell(
           onTap: () {
@@ -48,14 +47,15 @@ class PostListView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 2.0, horizontal: 4.0),
                   child: ListTile(
+                    leading: WeatherIcon(index: post.weatherIndex),
                     title: Text(post.promise),
-                    subtitle: Text(formattedDate),
-                    trailing: Text(formattedEndDate),
+                    trailing: Text(formattedDate),
                   ),
                 ),
                 Container(
+                  margin: EdgeInsets.symmetric(horizontal: 8.0),
                   height: 1.0,
-                  color: Colors.grey,
+                  color: Colors.grey[300],
                 ),
               ],
             ),

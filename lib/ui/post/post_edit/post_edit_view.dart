@@ -120,34 +120,6 @@ class _PostEditView extends State<PostEditView>
                 color: Colors.grey,
                 margin: EdgeInsets.symmetric(vertical: 4.0),
               ),
-              Row(
-                children: [
-                  Container(
-                    width: 80,
-                    height: 40,
-                    margin: EdgeInsets.only(right: 5.0),
-                    child: TextField(
-                      controller: viewModel.durationController,
-                      maxLines: 1,
-                      maxLength: 5,
-                      keyboardType: TextInputType.number,
-                      textAlign: TextAlign.right,
-                      decoration: InputDecoration(
-                        counterText: "",
-                        border: OutlineInputBorder(),
-                        labelStyle: TextStyle(fontSize: 14),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 120,
-                    child: Text(
-                      '일의 다짐',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(height: 16.0),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 40.0),

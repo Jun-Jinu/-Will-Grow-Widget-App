@@ -19,16 +19,6 @@ class _NewPostView extends State<NewPostView>
     with SingleTickerProviderStateMixin {
   late NewPostViewModel viewModel;
 
-  int selectedIndex = -1;
-  bool isChecked = false; // 체크박스의 초기 상태
-
-// 체크박스의 상태 변경 시 호출되는 콜백 함수
-  void onCheckboxChanged(bool value) {
-    setState(() {
-      isChecked = value; // 체크박스의 상태 변경
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     viewModel = Provider.of<NewPostViewModel>(context);
@@ -136,59 +126,45 @@ class _NewPostView extends State<NewPostView>
                   mainAxisAlignment: MainAxisAlignment.center, // 중간 정렬
                   children: [
                     IconButton(
-                      icon: Icon(selectedIndex == 3
+                      icon: Icon(viewModel.selectedIndex == 0
                           ? CupertinoIcons.flame_fill
                           : CupertinoIcons.flame),
-                      color: selectedIndex == 3 ? Colors.amber : null,
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = 3;
-                        });
-                      },
+                      color: viewModel.selectedIndex == 0
+                          ? Colors.deepOrange
+                          : null,
+                      onPressed: () => viewModel.onChangeWeather(0),
                     ),
                     IconButton(
-                      icon: Icon(selectedIndex == 0
+                      icon: Icon(viewModel.selectedIndex == 1
                           ? CupertinoIcons.sun_max_fill
                           : CupertinoIcons.sun_min),
-                      color: selectedIndex == 0 ? Colors.amber : null,
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = 0;
-                        });
-                      },
+                      color:
+                          viewModel.selectedIndex == 1 ? Colors.orange : null,
+                      onPressed: () => viewModel.onChangeWeather(1),
                     ),
                     IconButton(
-                      icon: Icon(selectedIndex == 1
+                      icon: Icon(viewModel.selectedIndex == 2
                           ? CupertinoIcons.cloud_sun_fill
                           : CupertinoIcons.cloud_sun),
-                      color: selectedIndex == 1 ? Colors.amber : null,
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = 1;
-                        });
-                      },
+                      color: viewModel.selectedIndex == 2
+                          ? Colors.lightBlue
+                          : null,
+                      onPressed: () => viewModel.onChangeWeather(2),
                     ),
                     IconButton(
-                      icon: Icon(selectedIndex == 2
+                      icon: Icon(viewModel.selectedIndex == 3
                           ? CupertinoIcons.cloud_rain_fill
                           : CupertinoIcons.cloud_rain),
-                      color: selectedIndex == 2 ? Colors.amber : null,
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = 2;
-                        });
-                      },
+                      color:
+                          viewModel.selectedIndex == 3 ? Colors.blueGrey : null,
+                      onPressed: () => viewModel.onChangeWeather(3),
                     ),
                     IconButton(
-                      icon: Icon(selectedIndex == 4
+                      icon: Icon(viewModel.selectedIndex == 4
                           ? CupertinoIcons.moon_stars_fill
                           : CupertinoIcons.moon_stars),
-                      color: selectedIndex == 4 ? Colors.amber : null,
-                      onPressed: () {
-                        setState(() {
-                          selectedIndex = 4;
-                        });
-                      },
+                      color: viewModel.selectedIndex == 4 ? Colors.amber : null,
+                      onPressed: () => viewModel.onChangeWeather(4),
                     ),
                   ]),
               Container(
@@ -229,23 +205,26 @@ class _NewPostView extends State<NewPostView>
                 margin: EdgeInsets.symmetric(vertical: 4.0),
               ),
               SizedBox(height: 16.0),
-              Row(
-                children: [
-                  GFCheckbox(
-                    customBgColor: Theme.of(context).primaryColor,
-                    size: GFSize.SMALL,
-                    type: GFCheckboxType.custom,
-                    onChanged: onCheckboxChanged,
-                    value: isChecked,
-                    inactiveIcon: null,
-                  ),
-                  Container(
-                    child: Text(
-                      '해당 다짐을 나의 핵심 목표로 선택합니다.',
-                      style: TextStyle(fontSize: 18),
+              GestureDetector(
+                onTap: viewModel.toggleCheckbox,
+                child: Row(
+                  children: [
+                    GFCheckbox(
+                      customBgColor: Theme.of(context).primaryColor,
+                      size: GFSize.SMALL,
+                      type: GFCheckboxType.custom,
+                      onChanged: viewModel.onCheckboxChanged,
+                      value: viewModel.isChecked,
+                      inactiveIcon: null,
                     ),
-                  ),
-                ],
+                    Container(
+                      child: Text(
+                        '해당 다짐을 나의 핵심 목표로 선택합니다.',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),

@@ -89,13 +89,6 @@ class PostDetailView extends StatelessWidget {
                           style: TextStyle(fontSize: 24.0),
                         ),
                         SizedBox(height: 8.0),
-                        Text(
-                          viewModel.getDDayText(post),
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.grey,
-                          ),
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 60.0),
                           child: Text(

@@ -13,7 +13,6 @@ class PostEditViewModel extends ChangeNotifier {
 
   final TextEditingController contentController = TextEditingController();
   final TextEditingController promiseController = TextEditingController();
-  final TextEditingController durationController = TextEditingController();
 
   bool showCalendar = false;
   int postId = -1;
@@ -32,8 +31,6 @@ class PostEditViewModel extends ChangeNotifier {
     // 기존 post값 동기화
     contentController.text = post.content;
     promiseController.text = post.promise;
-    durationController.text =
-        post.promiseEndDate.difference(post.date).inDays.abs().toString();
     selectedDay = post.date;
     focusedDay = post.date;
   }
@@ -52,11 +49,10 @@ class PostEditViewModel extends ChangeNotifier {
       final post = Post(
         // id는 local_datasource에서 길이 + 1 로 재정의
         id: postId,
+        weatherIndex: 0,
         content: contentController.text,
         promise: promiseController.text,
         date: selectedDay,
-        promiseEndDate:
-            selectedDay.add(Duration(days: int.parse(durationController.text))),
       );
 
       _postRepository.updatePost(post);

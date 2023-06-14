@@ -13,11 +13,11 @@ class NewPostViewModel extends ChangeNotifier {
 
   final TextEditingController contentController = TextEditingController();
   final TextEditingController promiseController = TextEditingController();
-  final TextEditingController directInputController = TextEditingController();
 
-  int promiseDuration = 1;
-  bool onDirect = false;
-  bool showCalendar = false;
+  bool showCalendar = false; // 캘린더 토글 변수
+
+  int selectedIndex = 0;
+  bool isChecked = false; // 체크박스의 초기 상태
 
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
@@ -26,11 +26,11 @@ class NewPostViewModel extends ChangeNotifier {
   void delControllerValue() {
     contentController.text = "";
     promiseController.text = "";
-    promiseDuration = 1;
-    onDirect = false; // 직접입력 변수(true: 직접입력)
     showCalendar = false;
     selectedDay = DateTime.now();
     focusedDay = DateTime.now();
+    selectedIndex = 0;
+    isChecked = false;
   }
 
   String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
@@ -44,22 +44,26 @@ class NewPostViewModel extends ChangeNotifier {
     toggleCalendar();
   }
 
-  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    this.selectedDay = selectedDay;
-    this.focusedDay = focusedDay;
+  // 체크박스의 상태 변경 시 호출되는 콜백 함수
+  void onCheckboxChanged(bool value) {
+    isChecked = value; // 체크박스의 상태 변경
     notifyListeners();
   }
 
-  void onPromiseDurationChanged(int? value) {
-    // 직접입력
-    if (value == -3) {
-      onDirect = true;
-    } else {
-      onDirect = false;
-      // 다짐 일 값 저장
-      promiseDuration = value!;
-    }
+  // 체크박스의 토글시 호출되는 콜백 함수
+  void toggleCheckbox() {
+    isChecked = !isChecked; // 체크박스의 상태 변경
+    notifyListeners();
+  }
 
+  void onChangeWeather(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
+
+  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    this.selectedDay = selectedDay;
+    this.focusedDay = focusedDay;
     notifyListeners();
   }
 
@@ -68,14 +72,10 @@ class NewPostViewModel extends ChangeNotifier {
       final post = Post(
         // id는 local_datasource에서 길이값으로 재정의
         id: 0,
+        weatherIndex: selectedIndex,
         content: contentController.text,
         promise: promiseController.text,
         date: selectedDay,
-        // True: 직접 입력 날을 추가, False: 정해진 날을 추가
-        promiseEndDate: onDirect
-            ? selectedDay
-                .add(Duration(days: int.parse(directInputController.text)))
-            : selectedDay.add(Duration(days: promiseDuration)),
       );
 
       _postRepository.addPost(post);

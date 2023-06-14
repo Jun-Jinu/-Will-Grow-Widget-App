@@ -18,10 +18,10 @@ class PostAdapter extends TypeAdapter<Post> {
     };
     return Post(
       id: fields[0] as int,
-      content: fields[1] as String,
-      promise: fields[2] as String,
-      date: fields[3] as DateTime,
-      promiseEndDate: fields[4] as DateTime,
+      weatherIndex: fields[1] as int,
+      content: fields[2] as String,
+      promise: fields[3] as String,
+      date: fields[4] as DateTime,
     );
   }
 
@@ -32,13 +32,13 @@ class PostAdapter extends TypeAdapter<Post> {
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.content)
+      ..write(obj.weatherIndex)
       ..writeByte(2)
-      ..write(obj.promise)
+      ..write(obj.content)
       ..writeByte(3)
-      ..write(obj.date)
+      ..write(obj.promise)
       ..writeByte(4)
-      ..write(obj.promiseEndDate);
+      ..write(obj.date);
   }
 
   @override

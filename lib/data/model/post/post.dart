@@ -6,34 +6,34 @@ part 'post.g.dart';
 class Post {
   Post({
     required this.id,
+    required this.weatherIndex,
     required this.content,
     required this.promise,
     required this.date,
-    required this.promiseEndDate,
   });
 
   @HiveField(0)
   int id;
 
   @HiveField(1)
-  String content;
+  int weatherIndex;
 
   @HiveField(2)
-  String promise;
+  String content;
 
   @HiveField(3)
-  DateTime date;
+  String promise;
 
   @HiveField(4)
-  DateTime promiseEndDate;
+  DateTime date;
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
       id: json['id'],
+      weatherIndex: json['weatherIndex'],
       content: json['content'],
       promise: json['promise'],
       date: DateTime.parse(json['date']),
-      promiseEndDate: DateTime.parse(json['promiseEndDate']),
     );
   }
 }

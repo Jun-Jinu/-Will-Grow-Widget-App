@@ -10,12 +10,6 @@ class PostDetailViewModel extends ChangeNotifier {
     _postRepository = PostRepository();
   }
 
-  String getDDayText(Post post) {
-    final now = DateTime.now();
-    final daysLeft = post.promiseEndDate.difference(now).inDays + 1;
-    return daysLeft > 0 ? 'D-${daysLeft}' : 'D+${daysLeft.abs()}';
-  }
-
   Future<Post?> getPostById(int id) async {
     try {
       return _postRepository.getPostById(id);
