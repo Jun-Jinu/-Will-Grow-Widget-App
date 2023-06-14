@@ -23,6 +23,9 @@ import 'ui/settings/app_setting/app_settings_viewmodel.dart';
 import 'ui/post/post_edit/post_edit_view.dart';
 import 'ui/post/post_edit/post_edit_viewmodel.dart';
 
+import 'package:board_widget/themes/light_theme.dart';
+import 'package:board_widget/themes/dark_theme.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -64,17 +67,8 @@ class AppContainer extends StatelessWidget {
       locale: Locale('ko', "KR"),
       onGenerateRoute: (route) => onGenerateRoute(route),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: const Color(0xff9b59b6),
-        scaffoldBackgroundColor: appSettingsViewModel.backgroundColor,
-        appBarTheme: const AppBarTheme(
-          elevation: 0.5,
-          foregroundColor: Color(0xff333333), // 글자 색
-          backgroundColor: Colors.white,
-        ),
-        fontFamily: appSettingsViewModel.fontFamily,
-      ),
-      darkTheme: ThemeData.dark(),
+      theme: LightTheme.getThemeData(appSettingsViewModel),
+      darkTheme: DarkTheme.getThemeData(appSettingsViewModel),
       themeMode: appSettingsViewModel.isDarkModeEnabled
           ? ThemeMode.dark
           : ThemeMode.light,

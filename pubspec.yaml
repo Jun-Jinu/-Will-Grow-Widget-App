@@ -130,4 +130,7 @@ flutter:
         - asset: assets/fonts/TAEBAEK_milkyway.ttf
           weight: 600
         
-        
+    - family: NotoSansKR
+      fonts:
+        - asset: assets/fonts/NotoSansKR-Regular.otf
+          weight: 600

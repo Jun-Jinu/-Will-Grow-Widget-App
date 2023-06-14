@@ -23,16 +23,20 @@ class AppSettingsViewModel extends ChangeNotifier {
       'fontFamily': "KyoboHandwriting",
     },
     {
+      'title': "삼립호빵체 Outline",
+      'fontFamily': "Samliphopangche",
+    },
+    {
+      'title': "Noto Sans KR",
+      'fontFamily': "NotoSansKR",
+    },
+    {
       'title': "어비 뒤죽박죽체",
       'fontFamily': "UhBee_GEN_WOO_Bold",
     },
     {
       'title': "어비 라미체",
       'fontFamily': "UhBee_Rami",
-    },
-    {
-      'title': "삼립호빵체 Outline",
-      'fontFamily': "Samliphopangche",
     },
     {
       'title': "손편지체",
