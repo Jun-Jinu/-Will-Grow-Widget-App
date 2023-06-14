@@ -94,12 +94,40 @@ flutter:
       fonts:
         - asset: assets/fonts/KyoboHandwriting2019.ttf
           weight: 600
-          
-    # - family: Trajan Pro
-    #   fonts:
-    #     - asset: fonts/TrajanPro.ttf
-    #     - asset: fonts/TrajanPro_Bold.ttf
-    #       weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+
+    - family: UhBee_Rami
+      fonts:
+        - asset: assets/fonts/UhBee_Rami.ttf
+          weight: 600
+
+    - family: UhBee_GEN_WOO_Bold
+      fonts:
+        - asset: assets/fonts/UhBee_GEN_WOO_Bold.ttf
+          weight: 600
+
+    - family: Samliphopangche
+      fonts:
+        - asset: assets/fonts/SDSamliphopangcheTTFOutline.ttf
+          weight: 600
+
+    - family: naver_handwriting
+      fonts:
+        - asset: assets/fonts/naver_handwriting.ttf
+          weight: 600
+
+    - family: naver_goding_not_godic
+      fonts:
+        - asset: assets/fonts/naver_godic.ttf
+          weight: 600
+
+    - family: KOTRA_HOPE
+      fonts:
+        - asset: assets/fonts/KOTRA_HOPE.ttf
+          weight: 600
+
+    - family: TAEBAEK_milkyway
+      fonts:
+        - asset: assets/fonts/TAEBAEK_milkyway.ttf
+          weight: 600
+        
+        

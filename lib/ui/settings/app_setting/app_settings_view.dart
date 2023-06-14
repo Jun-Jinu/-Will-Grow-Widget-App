@@ -30,6 +30,22 @@ class _AppSettingBodyState extends State<AppSettingBody> {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<AppSettingsViewModel>(context);
 
+    // 폰트 메뉴에 사용하는 위젯
+    List<SettingsTile> fontSettingsTiles = viewModel.fontList.map((font) {
+      return SettingsTile(
+        title: Text(
+          font['title'],
+          style: TextStyle(fontFamily: font['fontFamily']),
+        ),
+        onPressed: (BuildContext context) {
+          viewModel.selectFont(context, font['fontFamily']);
+        },
+        trailing: viewModel.fontFamily == font['fontFamily']
+            ? Icon(Icons.check, color: Colors.blue)
+            : null,
+      );
+    }).toList();
+
     return SettingsList(
       contentPadding:
           const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
@@ -84,30 +100,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('폰트'),
-          tiles: [
-            SettingsTile(
-              title: Text(
-                "교보손글씨 2019",
-                style: TextStyle(fontFamily: "KyoboHandwriting"),
-              ),
-              onPressed: (BuildContext context) {
-                viewModel.selectFont(context, "KyoboHandwriting");
-              },
-              trailing: viewModel.fontFamily == "KyoboHandwriting"
-                  ? Icon(Icons.check, color: Colors.blue)
-                  : null,
-            ),
-            SettingsTile(
-              title: Text("Montserrat",
-                  style: TextStyle(fontFamily: "Montserrat")),
-              onPressed: (BuildContext context) {
-                viewModel.selectFont(context, "Montserrat");
-              },
-              trailing: viewModel.fontFamily == "Montserrat"
-                  ? Icon(Icons.check, color: Colors.blue)
-                  : null,
-            ),
-          ],
+          tiles: fontSettingsTiles,
         ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
@@ -142,22 +135,6 @@ class _AppSettingBodyState extends State<AppSettingBody> {
             ),
           ],
         ),
-        //TODO: 날짜 형식 선택 추가(보류)
-        // SettingsSection(
-        //   margin: EdgeInsetsDirectional.only(bottom: 20.0),
-        //   title: const Text('날짜 형식'),
-        //   tiles: [
-        //     SettingsTile(
-        //       title: Text("2023/03/02"),
-        //       onPressed: (BuildContext context) {
-        //         viewModel.selectDateFormat("22");
-        //       },
-        //       trailing: viewModel.dateFormat == "22"
-        //           ? Icon(Icons.check, color: Colors.blue)
-        //           : null,
-        //     ),
-        //   ],
-        // ),
       ],
     );
   }

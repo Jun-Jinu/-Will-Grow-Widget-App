@@ -17,6 +17,41 @@ class AppSettingsViewModel extends ChangeNotifier {
     getAllSettingsData();
   }
 
+  List<Map<String, dynamic>> fontList = [
+    {
+      'title': "교보손글씨 2019",
+      'fontFamily': "KyoboHandwriting",
+    },
+    {
+      'title': "어비 뒤죽박죽체",
+      'fontFamily': "UhBee_GEN_WOO_Bold",
+    },
+    {
+      'title': "어비 라미체",
+      'fontFamily': "UhBee_Rami",
+    },
+    {
+      'title': "삼립호빵체 Outline",
+      'fontFamily': "Samliphopangche",
+    },
+    {
+      'title': "손편지체",
+      'fontFamily': "naver_handwriting",
+    },
+    {
+      'title': "고딕 아니고 고딩",
+      'fontFamily': "naver_goding_not_godic",
+    },
+    {
+      'title': "코트라 희망체",
+      'fontFamily': "KOTRA_HOPE",
+    },
+    {
+      'title': "태백 은하수체",
+      'fontFamily': "TAEBAEK_milkyway",
+    },
+  ];
+
   // 앱 세팅 값을 받아와서 해당 변수에 저장합니다
   Future<void> getAllSettingsData() async {
     _appSettings.isDarkModeEnabled =
