@@ -14,7 +14,7 @@ import './app.dart';
 
 void main() async {
   // Hive(로컬스토리지) 초기화
-  initHive();
+  await initHive();
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -28,7 +28,7 @@ void main() async {
 }
 
 // Hive(로컬스토리지) 초기화
-void initHive() async {
+Future<void> initHive() async {
   await Hive.initFlutter();
 
   // HIVE Color 추가(등록은 type ID 순)
@@ -41,9 +41,13 @@ void initHive() async {
   Hive.registerAdapter(HomeWidgetAdapter());
 
   // 로컬스토리지(HIVE) 불러오기
+  await Hive.openBox<Post>('postbox');
+  await Hive.openBox<int>('postIndexBox');
+  var appBox = await Hive.openBox<AppSettings>('appSettingsBox');
+  var widgetBox = await Hive.openBox<WidgetSettings>('widgetSettingsBox');
+  var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
 
   // 앱 세팅 초기값 설정
-  var appBox = await Hive.openBox<AppSettings>('appSettingsBox');
   if (appBox.isEmpty) {
     final appSettings = AppSettings(
         isDarkModeEnabled: false,
@@ -56,7 +60,6 @@ void initHive() async {
   }
 
 // 위젯 세팅 초기값 설정
-  var widgetBox = await Hive.openBox<WidgetSettings>('widgetSettingsBox');
   if (widgetBox.isEmpty) {
     final widgetSettings = WidgetSettings(
       isTextChangeHourly: true,
@@ -70,7 +73,6 @@ void initHive() async {
   }
 
 // 홈 위젯 초기값 설정
-  var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
   if (homeWidgetBox.isEmpty) {
     final homeWidget = HomeWidget(
         postId: 0, homeWidgetText: "아직 설정한 목표가 없습니다!\n일기를 작성하고 목표를 설정해보세요");
