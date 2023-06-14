@@ -25,7 +25,7 @@ class PostRepository {
   }
 
   /// 일기를 수정함
-  Future<void> updatePost(Post updatedPost) {
+  Future<int> updatePost(Post updatedPost) {
     return _localDataSource.updatePost(updatedPost);
   }
 
@@ -37,5 +37,10 @@ class PostRepository {
   // 대표 일기를 변경함
   Future<void> updateWidgetText(HomeWidget homeWidget) {
     return _localDataSource.updateWidgetText(homeWidget);
+  }
+
+  // 대표 일기를 변경함
+  Future<int> getWidgetId() {
+    return _localDataSource.getWidgetId();
   }
 }

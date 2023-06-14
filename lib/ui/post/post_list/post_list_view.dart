@@ -29,11 +29,15 @@ class PostListView extends StatelessWidget {
   }
 
   Widget _buildPostList(List<Post> postList, BuildContext context) {
+    late PostListViewModel viewModel;
+
     return ListView.builder(
       itemBuilder: (context, index) {
+        viewModel = Provider.of<PostListViewModel>(context);
         final post = postList[postList.length - 1 - index];
         final formattedDate =
             "${post.date.year}.${post.date.month}.${post.date.day}";
+        viewModel.onCheckWidgetText(post.id);
 
         return InkWell(
           onTap: () {
@@ -48,7 +52,19 @@ class PostListView extends StatelessWidget {
                       vertical: 2.0, horizontal: 4.0),
                   child: ListTile(
                     leading: WeatherIcon(index: post.weatherIndex),
-                    title: Text(post.promise),
+                    title: Row(
+                      children: [
+                        if (viewModel.isWidgetText(post.id))
+                          Text(
+                            "[목표]",
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        Text(post.promise),
+                      ],
+                    ),
                     trailing: Text(formattedDate),
                   ),
                 ),

@@ -31,9 +31,11 @@ class LocalDataSource {
   }
 
   /// 일기를 수정함
-  Future<void> updatePost(Post updatedPost) async {
+  Future<int> updatePost(Post updatedPost) async {
     var postBox = Hive.box<Post>('postBox');
     await postBox.put(updatedPost.id, updatedPost);
+
+    return updatedPost.id;
   }
 
   /// 일기를 추가함
@@ -60,6 +62,16 @@ class LocalDataSource {
     var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
 
     await homeWidgetBox.put(0, homeWidget);
+  }
+
+  // 홈 위젯 ID 반환
+  Future<int> getWidgetId() async {
+    var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
+
+    var homeWidget = homeWidgetBox.getAt(0);
+    var postId = homeWidget!.postId;
+
+    return postId;
   }
 
   // -------------------------------- //

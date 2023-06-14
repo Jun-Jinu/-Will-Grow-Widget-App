@@ -9,11 +9,29 @@ class PostListViewModel with ChangeNotifier {
     _postRepository = PostRepository();
   }
 
+  int widgetId = -1;
+  int _previousCheckedWidgetId = -1;
+
   Future<List<Post>?> loadItems() async {
     try {
       return _postRepository.getPosts();
     } catch (e) {
       return null;
     }
+  }
+
+  void onCheckWidgetText(int postId) async {
+    // 목표 위젯 ID 받기
+    widgetId = await _postRepository.getWidgetId();
+
+    // // 과도한 State업데이트 방지
+    if (widgetId != _previousCheckedWidgetId) {
+      notifyListeners();
+      _previousCheckedWidgetId = widgetId;
+    }
+  }
+
+  bool isWidgetText(int postId) {
+    return postId == widgetId ? true : false;
   }
 }

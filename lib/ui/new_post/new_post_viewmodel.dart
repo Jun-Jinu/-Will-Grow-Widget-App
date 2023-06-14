@@ -12,21 +12,22 @@ class NewPostViewModel extends ChangeNotifier {
     _postRepository = PostRepository();
   }
 
-  final TextEditingController contentController = TextEditingController();
-  final TextEditingController promiseController = TextEditingController();
-
-  bool showCalendar = false; // 캘린더 토글 변수
-
-  int selectedIndex = 0;
-  bool isCheckedWidgetText = false; // 체크박스의 초기 상태
-
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   List<String> days = ['_', '월', '화', '수', '목', '금', '토', '일'];
 
+  bool showCalendar = false; // 캘린더 토글 변수
+  int selectedIndex = 0;
+  String contentText = "";
+  String promiseText = "";
+
+  bool isCheckedWidgetText = false; // 주요 목표 체크박스
+
+  String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
+
   void delControllerValue() {
-    contentController.text = "";
-    promiseController.text = "";
+    contentText = "";
+    promiseText = "";
     showCalendar = false;
     selectedDay = DateTime.now();
     focusedDay = DateTime.now();
@@ -34,15 +35,21 @@ class NewPostViewModel extends ChangeNotifier {
     isCheckedWidgetText = false;
   }
 
-  String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
-
-  void toggleCalendar() {
+  void onToggleCalendar() {
     showCalendar = !showCalendar;
     notifyListeners();
   }
 
-  void onConfirmPressed() {
-    toggleCalendar();
+  void onPressdConfirm() {
+    onToggleCalendar();
+  }
+
+  void onSavedContent(String? value) {
+    contentText = value!;
+  }
+
+  void onSavedPromise(String? value) {
+    promiseText = value!;
   }
 
   // 체크박스의 상태 변경 시 호출되는 콜백 함수
@@ -68,14 +75,28 @@ class NewPostViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? validateContent(String? value) {
+    if (value == null || value.isEmpty) {
+      return '오늘 당신을 짧게나마 기록해보세요';
+    }
+    return null;
+  }
+
+  String? validatePromise(String? value) {
+    if (value == null || value.isEmpty) {
+      return '당신의 오늘 다짐을 알고싶어요';
+    }
+    return null;
+  }
+
   Future<void> savePost(BuildContext context) async {
     try {
       final post = Post(
         // id는 local_datasource에서 길이값으로 재정의
         id: 0,
         weatherIndex: selectedIndex,
-        content: contentController.text,
-        promise: promiseController.text,
+        content: contentText,
+        promise: promiseText,
         date: selectedDay,
       );
 
@@ -84,12 +105,12 @@ class NewPostViewModel extends ChangeNotifier {
       // 새로운 핵심 목표일 경우 홈위젯 업데이트
       if (isCheckedWidgetText)
         _postRepository.updateWidgetText(
-            HomeWidget(postId: postId, homeWidgetText: promiseController.text));
+            HomeWidget(postId: postId, homeWidgetText: promiseText));
+
+      Navigator.pushNamed(context, "/post");
 
       // 모든 입력칸을 초기화
       delControllerValue();
-
-      Navigator.pushNamed(context, "/post");
     } catch (e) {
       // 실패시 경고 알림
       print(e);
