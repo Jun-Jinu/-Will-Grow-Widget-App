@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'ui/post/post_list/post_list_viewmodel.dart';
 import 'ui/post/post_list/post_list_view.dart';
@@ -72,6 +73,8 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  await initializeDateFormatting();
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(const MyApp());
@@ -118,6 +121,7 @@ class AppContainer extends StatelessWidget {
     final appSettingsViewModel = Provider.of<AppSettingsViewModel>(context);
 
     return MaterialApp(
+      locale: Locale('ko', "KR"),
       onGenerateRoute: (route) => onGenerateRoute(route),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

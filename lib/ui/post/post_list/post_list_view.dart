@@ -30,7 +30,7 @@ class PostListView extends StatelessWidget {
   Widget _buildPostList(List<Post> postList, BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        final post = postList[index];
+        final post = postList[postList.length - 1 - index];
         final formattedDate =
             "${post.date.year}.${post.date.month}.${post.date.day}";
         final formattedEndDate =
