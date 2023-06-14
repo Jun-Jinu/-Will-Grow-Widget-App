@@ -1,4 +1,5 @@
 import '../model/post/post.dart';
+import '../model/home_widget/home_widget.dart';
 import '../datasource/local_datasource.dart';
 
 class PostRepository {
@@ -29,7 +30,12 @@ class PostRepository {
   }
 
   /// 일기를 추가함
-  Future<void> addPost(Post newPost) {
+  Future<int> addPost(Post newPost) {
     return _localDataSource.addPost(newPost);
+  }
+
+  // 대표 일기를 변경함
+  Future<void> updateWidgetText(HomeWidget homeWidget) {
+    return _localDataSource.updateWidgetText(homeWidget);
   }
 }

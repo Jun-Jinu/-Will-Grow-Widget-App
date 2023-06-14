@@ -30,25 +30,28 @@ import 'package:board_widget/data/model/post/post.dart';
 import 'package:board_widget/data/model/theme/app/app_settings.dart';
 import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
 import 'package:board_widget/data/model/adapters/color_apapter.dart';
+import 'package:board_widget/data/model/home_widget/home_widget.dart';
 
 import 'package:board_widget/routes/routes.dart';
 
 void main() async {
   await Hive.initFlutter();
 
-  // HIVE Color 추가
+  // HIVE Color 추가(등록은 type ID 순)
   Hive.registerAdapter<Color>(ColorAdapter());
 
   // HIVE Adapter 등록
   Hive.registerAdapter(PostAdapter());
   Hive.registerAdapter(AppSettingsAdapter());
   Hive.registerAdapter(WidgetSettingsAdapter());
+  Hive.registerAdapter(HomeWidgetAdapter());
 
   // 로컬스토리지(HIVE) 불러오기
   await Hive.openBox<Post>('postbox');
   await Hive.openBox<int>('postIndexBox');
   var appBox = await Hive.openBox<AppSettings>('appSettingsBox');
   var widgetBox = await Hive.openBox<WidgetSettings>('widgetSettingsBox');
+  var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
 
   // 앱 설정 로드
   final appSettings = AppSettings(
@@ -67,12 +70,17 @@ void main() async {
     fontSize: 24.0,
   );
 
+  final homeWidget = HomeWidget(
+      postId: 0, homeWidgetText: "아직 설정한 목표가 없습니다!\n일기를 작성하고 목표를 설정해보세요");
+
   // 초기값 설정
   appBox.put(0, appSettings);
   widgetBox.put(0, widgetSettings);
+  homeWidgetBox.put(0, homeWidget);
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  // locale 을 위한 초기화
   await initializeDateFormatting();
 
   SystemChrome.setPreferredOrientations(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../model/post/post.dart';
 import '../model/theme/app/app_settings.dart';
 import '../model/theme/widget/widget_settings.dart';
+import '../model/home_widget/home_widget.dart';
 import 'package:hive/hive.dart';
 
 class LocalDataSource {
@@ -36,7 +37,7 @@ class LocalDataSource {
   }
 
   /// 일기를 추가함
-  Future<void> addPost(Post newPost) async {
+  Future<int> addPost(Post newPost) async {
     var postBox = Hive.box<Post>('postBox');
 
     // post의 index만 기록하는 LOCAL STORAGE
@@ -50,6 +51,15 @@ class LocalDataSource {
     await postBox.add(newPost);
     // Index Hive 업데이트
     await postIndexBox.put(0, newPost.id);
+
+    return newPost.id;
+  }
+
+  // 홈 위젯 텍스트 변경(대표 일기 변경)
+  Future<void> updateWidgetText(HomeWidget homeWidget) async {
+    var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
+
+    await homeWidgetBox.put(0, homeWidget);
   }
 
   // -------------------------------- //

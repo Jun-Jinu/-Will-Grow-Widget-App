@@ -1,3 +1,4 @@
+import 'package:board_widget/data/model/home_widget/home_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:board_widget/data/model/post/post.dart';
@@ -17,7 +18,7 @@ class NewPostViewModel extends ChangeNotifier {
   bool showCalendar = false; // 캘린더 토글 변수
 
   int selectedIndex = 0;
-  bool isChecked = false; // 체크박스의 초기 상태
+  bool isCheckedWidgetText = false; // 체크박스의 초기 상태
 
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
@@ -30,7 +31,7 @@ class NewPostViewModel extends ChangeNotifier {
     selectedDay = DateTime.now();
     focusedDay = DateTime.now();
     selectedIndex = 0;
-    isChecked = false;
+    isCheckedWidgetText = false;
   }
 
   String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
@@ -46,13 +47,13 @@ class NewPostViewModel extends ChangeNotifier {
 
   // 체크박스의 상태 변경 시 호출되는 콜백 함수
   void onCheckboxChanged(bool value) {
-    isChecked = value; // 체크박스의 상태 변경
+    isCheckedWidgetText = value; // 체크박스의 상태 변경
     notifyListeners();
   }
 
   // 체크박스의 토글시 호출되는 콜백 함수
   void toggleCheckbox() {
-    isChecked = !isChecked; // 체크박스의 상태 변경
+    isCheckedWidgetText = !isCheckedWidgetText; // 체크박스의 상태 변경
     notifyListeners();
   }
 
@@ -78,7 +79,12 @@ class NewPostViewModel extends ChangeNotifier {
         date: selectedDay,
       );
 
-      _postRepository.addPost(post);
+      int postId = await _postRepository.addPost(post);
+
+      // 새로운 핵심 목표일 경우 홈위젯 업데이트
+      if (isCheckedWidgetText)
+        _postRepository.updateWidgetText(
+            HomeWidget(postId: postId, homeWidgetText: promiseController.text));
 
       // 모든 입력칸을 초기화
       delControllerValue();

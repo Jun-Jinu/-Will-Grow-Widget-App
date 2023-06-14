@@ -214,7 +214,7 @@ class _NewPostView extends State<NewPostView>
                       size: GFSize.SMALL,
                       type: GFCheckboxType.custom,
                       onChanged: viewModel.onCheckboxChanged,
-                      value: viewModel.isChecked,
+                      value: viewModel.isCheckedWidgetText,
                       inactiveIcon: null,
                     ),
                     Container(
