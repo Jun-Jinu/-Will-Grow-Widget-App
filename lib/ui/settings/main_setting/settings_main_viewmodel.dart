@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsMainViewModel extends ChangeNotifier {
   // 프리미엄 혜택
@@ -18,12 +19,19 @@ class SettingsMainViewModel extends ChangeNotifier {
   // 앱 리뷰남기기
   // 의견 보내기
 
+  Future<String> getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
+
   Future<String> getEmailBody() async {
+    String appInfo = await getAppVersion();
+
     String body = "";
 
     body += "==============\n";
-    body += "아래 내용을 함께 보내주시면 큰 도움이 됩니다\n";
-
+    body += "아래 내용을 함께 보내주시면 큰 도움이 됩니다!\n";
+    body += "앱 버전: $appInfo";
     body += "==============\n";
 
     return body;
@@ -46,7 +54,7 @@ class SettingsMainViewModel extends ChangeNotifier {
       await FlutterEmailSender.send(email);
     } catch (error) {
       String title =
-          "기본 메일 앱을 사용할 수 없기 때문에 앱에서 바로 문의를 전송하기 어려운 상황입니다.\n\n아래 이메일로 연락주시면 친절하게 답변해드릴게요 :)\n\nonionfamily.official@gmail.com";
+          "기본 메일 앱을 사용할 수 없기 때문에 앱에서 바로 문의를 전송하기 어려운 상황입니다.\n\n아래 이메일로 연락주시면 최선을 다해 답변해드리고 반영해보겠습니다 :)\n\nyouwillgrow.official@gmail.com";
       String message = "";
       // _showErrorAlert(title: title, message: message);
     }

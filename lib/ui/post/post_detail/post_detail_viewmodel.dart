@@ -65,9 +65,15 @@ class PostDetailViewModel extends ChangeNotifier {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(
-                CupertinoIcons.clear,
-                color: Colors.black,
+              // child: Icon(
+              //   CupertinoIcons.clear,
+              //   color: Colors.black,
+              // ),
+              child: Text(
+                "취소",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
               ),
             ),
             TextButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:getwidget/getwidget.dart';
 
 import './new_post_viewmodel.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
@@ -16,12 +17,22 @@ class _NewPostView extends State<NewPostView>
     with SingleTickerProviderStateMixin {
   late NewPostViewModel viewModel;
 
+  bool isChecked = false; // 체크박스의 초기 상태
+
+// 체크박스의 상태 변경 시 호출되는 콜백 함수
+  void onCheckboxChanged(bool value) {
+    setState(() {
+      isChecked = value; // 체크박스의 상태 변경
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     viewModel = Provider.of<NewPostViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('일기 쓰기'),
+        automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: MenuBottom(
         selectedIndex: 0,
@@ -46,7 +57,7 @@ class _NewPostView extends State<NewPostView>
               ),
               AnimatedContainer(
                 height: viewModel.showCalendar ? 400 : 0,
-                duration: Duration(milliseconds: 150),
+                duration: Duration(milliseconds: 300),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -121,6 +132,14 @@ class _NewPostView extends State<NewPostView>
               ),
               Row(
                 children: [
+                  GFCheckbox(
+                    customBgColor: Theme.of(context).primaryColor,
+                    size: GFSize.SMALL,
+                    type: GFCheckboxType.custom,
+                    onChanged: onCheckboxChanged,
+                    value: isChecked,
+                    inactiveIcon: null,
+                  ),
                   SizedBox(width: 8.0),
                   Container(
                     width: 100,
@@ -191,6 +210,7 @@ class _NewPostView extends State<NewPostView>
                     },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
+                        color: Theme.of(context).primaryColor,
                         width: 1.0,
                       ),
                       shape: RoundedRectangleBorder(
@@ -199,7 +219,8 @@ class _NewPostView extends State<NewPostView>
                     ),
                     child: Text(
                       '기록하기',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                          fontSize: 20, color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ),

@@ -121,7 +121,7 @@ class AppContainer extends StatelessWidget {
       onGenerateRoute: (route) => onGenerateRoute(route),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: const Color(0xffe6e6fa),
+        primaryColor: const Color(0xff9b59b6),
         scaffoldBackgroundColor: appSettingsViewModel.backgroundColor,
         appBarTheme: const AppBarTheme(
           elevation: 0.5,

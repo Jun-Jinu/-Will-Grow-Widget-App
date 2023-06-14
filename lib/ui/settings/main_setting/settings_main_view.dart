@@ -15,6 +15,7 @@ class SettingsMainView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('설정'),
+        automaticallyImplyLeading: false,
       ),
       bottomNavigationBar: MenuBottom(
         selectedIndex: 2,

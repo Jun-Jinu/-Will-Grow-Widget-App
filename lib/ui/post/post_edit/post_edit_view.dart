@@ -47,7 +47,7 @@ class _PostEditView extends State<PostEditView>
               ),
               AnimatedContainer(
                 height: viewModel.showCalendar ? 400 : 0,
-                duration: Duration(milliseconds: 150),
+                duration: Duration(milliseconds: 300),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -160,7 +160,7 @@ class _PostEditView extends State<PostEditView>
                     },
                     style: OutlinedButton.styleFrom(
                       side: BorderSide(
-                        color: Colors.lightBlue,
+                        color: Theme.of(context).primaryColor,
                         width: 1.0,
                       ),
                       shape: RoundedRectangleBorder(
@@ -168,8 +168,9 @@ class _PostEditView extends State<PostEditView>
                       ),
                     ),
                     child: Text(
-                      '기록하기',
-                      style: TextStyle(fontSize: 20),
+                      '수정하기',
+                      style: TextStyle(
+                          fontSize: 20, color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ),
