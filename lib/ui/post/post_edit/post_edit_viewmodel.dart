@@ -37,7 +37,8 @@ class PostEditViewModel extends ChangeNotifier {
     isCheckedWidgetText = false;
   }
 
-  void setPost(Post post) async {
+// post를 불러오는 함수
+  void onLoadPost(Post post) async {
     //post ID 저장
     postId = post.id;
 

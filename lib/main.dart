@@ -50,14 +50,17 @@ Future<void> initHive() async {
   // 앱 세팅 초기값 설정
   if (appBox.isEmpty) {
     final appSettings = AppSettings(
-        isDarkModeEnabled: false,
-        primaryColor: Color(0xff9b59b6),
-        secondaryColor: Color(0xffa374db),
-        fontFamily: "KyoboHandwriting",
-        fontSize: 1.0,
-        dateFormat: "");
+      isDarkModeEnabled: false,
+      primaryColor: Color(0xff9b59b6),
+      secondaryColor: Color(0xffa374db),
+      fontFamily: "KyoboHandwriting",
+      fontSize: 1.0,
+      dateFormat: "", // 미사용 - 추후 적용 예정
+    );
 
     appBox.put(0, appSettings);
+  } else {
+    appBox.get(0);
   }
 
 // 위젯 세팅 초기값 설정

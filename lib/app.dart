@@ -25,6 +25,7 @@ import 'ui/post/post_edit/post_edit_viewmodel.dart';
 
 import 'package:board_widget/themes/light_theme.dart';
 import 'package:board_widget/themes/dark_theme.dart';
+import 'package:board_widget/data/model/theme/app/app_settings.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -50,39 +51,63 @@ class MyApp extends StatelessWidget {
             create: (_) => AppSettingsViewModel(), child: AppSettingsView()),
         ChangeNotifierProvider<AppSettingsViewModel>(
             create: (_) => AppSettingsViewModel(), child: AppContainer()),
-        ChangeNotifierProvider<AppSettingsViewModel>(
-            create: (_) => AppSettingsViewModel(), child: SettingsMainView()),
-        ChangeNotifierProvider<AppSettingsViewModel>(
-            create: (_) => AppSettingsViewModel(), child: WidgetSettingView()),
       ],
       child: const AppContainer(),
     );
   }
 }
 
-class AppContainer extends StatelessWidget {
-  const AppContainer({super.key});
+class AppContainer extends StatefulWidget {
+  const AppContainer({Key? key});
+
+  @override
+  _AppContainerState createState() => _AppContainerState();
+}
+
+class _AppContainerState extends State<AppContainer> {
+  late Future<AppSettings> _appSettingsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    final appSettingsViewModel =
+        Provider.of<AppSettingsViewModel>(context, listen: false);
+    _appSettingsFuture = appSettingsViewModel.getAllSettingsData();
+  }
 
   @override
   Widget build(BuildContext context) {
     final appSettingsViewModel = Provider.of<AppSettingsViewModel>(context);
 
-    return MaterialApp(
-      locale: Locale('ko', "KR"),
-      onGenerateRoute: (route) => onGenerateRoute(route),
-      debugShowCheckedModeBanner: false,
-      theme: LightTheme.getThemeData(appSettingsViewModel),
-      darkTheme: DarkTheme.getThemeData(appSettingsViewModel),
-      themeMode: appSettingsViewModel.isDarkModeEnabled
-          ? ThemeMode.dark
-          : ThemeMode.light,
-      initialRoute: '/',
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(
-          textScaleFactor: appSettingsViewModel.fontSize,
-        ),
-        child: child!,
-      ),
+    return FutureBuilder<AppSettings>(
+      future: _appSettingsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final appSettings = snapshot.data!;
+
+          return MaterialApp(
+            locale: Locale('ko', 'KR'),
+            onGenerateRoute: (route) => onGenerateRoute(route),
+            debugShowCheckedModeBanner: false,
+            theme: LightTheme.getThemeData(appSettings),
+            darkTheme: DarkTheme.getThemeData(appSettings),
+            themeMode: appSettingsViewModel.isDarkModeEnabled
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            initialRoute: '/',
+            builder: (context, child) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaleFactor: appSettingsViewModel.fontSize,
+              ),
+              child: child!,
+            ),
+          );
+        }
+      },
     );
   }
 }

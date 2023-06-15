@@ -16,7 +16,7 @@ class PostEditView extends StatelessWidget {
 
     return Consumer<PostEditViewModel>(
       builder: (context, viewModel, _) {
-        viewModel.setPost(post);
+        viewModel.onLoadPost(post);
 
         // TODO: viewModel로 옮길경우 여러번 호출 문제 해결
         final GlobalKey<FormState> formKey = GlobalKey<FormState>();

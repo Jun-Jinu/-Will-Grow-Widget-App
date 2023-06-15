@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive/hive.dart';
 
 import 'package:board_widget/ui/post/post_list/post_list_view.dart';
 import 'package:board_widget/ui/post/post_detail/post_detail_view.dart';
@@ -50,18 +48,18 @@ class deleteAnimationPageRoute extends PageRouteBuilder {
   Duration get transitionDuration => const Duration(milliseconds: 0);
 }
 
-Future<void> initializeAppSettings() async {
-  final appSettingsBox = await Hive.openBox<AppSettings>('appSettingsBox');
+// Future<void> initializeAppSettings() async {
+//   final appSettingsBox = await Hive.openBox<AppSettings>('appSettingsBox');
 
-  // 앱 설정 로드
-  final appSettings = AppSettings(
-      isDarkModeEnabled: false,
-      primaryColor: Colors.white,
-      secondaryColor: Colors.white,
-      fontFamily: "",
-      fontSize: 1.0,
-      dateFormat: "");
+//   // 앱 설정 로드
+//   final appSettings = AppSettings(
+//       isDarkModeEnabled: false,
+//       primaryColor: Colors.white,
+//       secondaryColor: Colors.white,
+//       fontFamily: "",
+//       fontSize: 1.0,
+//       dateFormat: "");
 
-  // 초기값 설정
-  appSettingsBox.put(0, appSettings);
-}
+//   // 초기값 설정
+//   appSettingsBox.put(0, appSettings);
+// }

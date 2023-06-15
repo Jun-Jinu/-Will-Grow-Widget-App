@@ -59,14 +59,14 @@ class LocalDataSource {
 
   // 홈 위젯 텍스트 변경(대표 일기 변경)
   Future<void> updateWidgetText(HomeWidget homeWidget) async {
-    var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
+    var homeWidgetBox = Hive.box<HomeWidget>('homeWidgetBox');
 
     await homeWidgetBox.put(0, homeWidget);
   }
 
   // 홈 위젯 ID 반환
   Future<int> getWidgetId() async {
-    var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
+    var homeWidgetBox = Hive.box<HomeWidget>('homeWidgetBox');
 
     var homeWidget = homeWidgetBox.getAt(0);
     var postId = homeWidget!.postId;

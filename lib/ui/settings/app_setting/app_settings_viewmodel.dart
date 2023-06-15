@@ -91,15 +91,20 @@ class AppSettingsViewModel extends ChangeNotifier {
   ];
 
   // 앱 세팅 값을 받아와서 해당 변수에 저장합니다
-  Future<void> getAllSettingsData() async {
+  Future<AppSettings> getAllSettingsData() async {
     _appSettings.isDarkModeEnabled =
         await _appSettingsRepository.getIsDarkModeEnabled();
     _appSettings.primaryColor = await _appSettingsRepository.getPrimaryColor();
+    _appSettings.secondaryColor =
+        await _appSettingsRepository.getSecondaryColor();
     _appSettings.fontFamily = await _appSettingsRepository.getFontFamily();
     _appSettings.fontSize = await _appSettingsRepository.getFontSize();
     _appSettings.dateFormat = await _appSettingsRepository.getDateFormat();
+
+    return _appSettings;
   }
 
+  AppSettings get appSettings => _appSettings;
   bool get isDarkModeEnabled => _appSettings.isDarkModeEnabled;
   Color get primaryColor => _appSettings.primaryColor;
   Color get secondaryColor => _appSettings.secondaryColor; // 아직 쓰지 않음
