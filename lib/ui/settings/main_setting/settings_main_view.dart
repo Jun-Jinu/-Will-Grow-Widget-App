@@ -36,17 +36,17 @@ class SettingsMainBody extends StatelessWidget {
       contentPadding:
           const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
       sections: [
-        SettingsSection(
-          margin: EdgeInsetsDirectional.only(bottom: 20.0),
-          tiles: [
-            SettingsTile(
-              title: const Text('프리미엄 혜택'),
-              onPressed: (BuildContext context) {
-                // Handle premium benefits settings
-              },
-            ),
-          ],
-        ),
+        // SettingsSection(
+        //   margin: EdgeInsetsDirectional.only(bottom: 20.0),
+        //   tiles: [
+        //     SettingsTile(
+        //       title: const Text('프리미엄 혜택'),
+        //       onPressed: (BuildContext context) {
+        //         // Handle premium benefits settings
+        //       },
+        //     ),
+        //   ],
+        // ),
         SettingsSection(
           margin: EdgeInsetsDirectional.only(bottom: 20.0),
           title: const Text('테마 설정'),
@@ -93,17 +93,13 @@ class SettingsMainBody extends StatelessWidget {
               enabled: false,
               title: const Text('버전'),
               value: const Text('v1.0.0'),
-              onPressed: (BuildContext context) {
-                // Handle version settings
-              },
+              onPressed: (BuildContext context) {},
             ),
             SettingsTile(
               enabled: false,
               title: const Text('개발자'),
               value: Text('Jinu'), // Displayed on the right side
-              onPressed: (BuildContext context) {
-                // Handle developer settings
-              },
+              onPressed: (BuildContext context) {},
             ),
           ],
         ),

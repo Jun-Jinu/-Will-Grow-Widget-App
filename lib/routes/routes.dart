@@ -13,7 +13,9 @@ import 'package:board_widget/data/model/theme/app/app_settings.dart';
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
-      return NoAnimationPageRoute(builder: (context) => NewPostView());
+      return NoAnimationPageRoute(
+        builder: (context) => NewPostView(),
+      );
     case '/post':
       return NoAnimationPageRoute(
           builder: (context) => PostListView(), maintainState: false);

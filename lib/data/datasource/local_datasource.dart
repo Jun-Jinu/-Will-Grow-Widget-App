@@ -176,6 +176,20 @@ class LocalDataSource {
       }
 
       await widgetSettingsBox.put(0, settings);
+
+      WidgetKit.setItem(
+          'WidgetSettings',
+          jsonEncode(WidgetSettings(
+            isTextChangeHourly: settings.isTextChangeHourly,
+            isTextChangeHour: settings.isTextChangeHour,
+            fontColor: settings.fontColor,
+            backgroundColor: settings.backgroundColor,
+            fontFamily: settings.fontFamily,
+            fontSize: settings.fontSize,
+          )),
+          'group.boardwidget');
+
+      WidgetKit.reloadAllTimelines();
     }
   }
 }

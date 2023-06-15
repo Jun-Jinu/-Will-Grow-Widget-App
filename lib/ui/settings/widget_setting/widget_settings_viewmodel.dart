@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
 import 'package:board_widget/data/repository/widget_settings_repository.dart';
-import 'dart:convert';
 
 class WidgetSettingsViewModel extends ChangeNotifier {
   late final WidgetSettingsRepository _widgetSettingsRepository;
@@ -10,7 +8,7 @@ class WidgetSettingsViewModel extends ChangeNotifier {
   final WidgetSettings _widgetSettings = WidgetSettings(
     isTextChangeHourly: true,
     isTextChangeHour: 24,
-    fontColor: 'black',
+    fontColor: 'white',
     backgroundColor: 'grey',
     fontFamily: "KyoboHandwriting2019",
     fontSize: 24.0,
@@ -42,9 +40,9 @@ class WidgetSettingsViewModel extends ChangeNotifier {
   String get fontFamily => _widgetSettings.fontFamily;
   double get fontSize => _widgetSettings.fontSize;
 
-  Color get fontColorExample => getColorFromString(_widgetSettings.fontColor);
+  Color get fontColorExample => getColorFromName(_widgetSettings.fontColor);
   Color get backgroundColorExample =>
-      getColorFromString(_widgetSettings.backgroundColor);
+      getColorFromName(_widgetSettings.backgroundColor);
 
   void setIsTextChangeHourly(bool value) {
     _widgetSettingsRepository.updateIsTextChangeHourly(value);
@@ -74,19 +72,6 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     // _widgetSettingsRepository.updateFontFamily(value);
     // _widgetSettings.fontFamily = value;
 
-    WidgetKit.setItem(
-        'WidgetSettings',
-        jsonEncode(WidgetSettings(
-          isTextChangeHourly: _widgetSettings.isTextChangeHourly,
-          isTextChangeHour: _widgetSettings.isTextChangeHour,
-          fontColor: _widgetSettings.fontColor,
-          backgroundColor: _widgetSettings.backgroundColor,
-          fontFamily: _widgetSettings.fontFamily,
-          fontSize: _widgetSettings.fontSize,
-        )),
-        'group.boardwidget');
-    WidgetKit.reloadAllTimelines();
-
     notifyListeners();
   }
 
@@ -96,17 +81,23 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Color getColorFromString(String colorString) {
-    switch (colorString.toLowerCase()) {
+  Color getColorFromName(String name) {
+    switch (name) {
       case 'black':
-        return Colors.black;
+        return Color(0xFF000000);
       case 'grey':
-        return Colors.grey;
+        return Color(0xFF909090);
       case 'white':
-        return Colors.white;
+        return Color(0xFFFFFFFF);
+      case 'navy':
+        return Color(0xFF000080);
+      case 'yellow':
+        return Color(0xFFEEEE00);
+      case 'light_grey':
+        return Color(0xFFD3D3D3);
       default:
-        // 기본적으로 검정색을 반환합니다.
-        return Colors.black;
+        // 기본적으로 검정색(0xFF000000)을 반환합니다.
+        return Color(0xFF000000);
     }
   }
 }

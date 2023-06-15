@@ -10,6 +10,8 @@ struct WidgetSettings: Decodable, Hashable {
     let fontFamily: String
     let fontSize: Double
     
+
+    
     func getFontColor() -> Color {
             return getColor(from: fontColor)
         }
@@ -30,6 +32,7 @@ struct WidgetSettings: Decodable, Hashable {
                 return Color.gray
             case "white":
                 return Color.white
+                
             default:
                 return Color.black
             }

@@ -25,7 +25,8 @@ class AppSettingsView extends StatelessWidget {
                 viewModel.selectFont(context, font['fontFamily']);
               },
               trailing: viewModel.fontFamily == font['fontFamily']
-                  ? Icon(Icons.check, color: Colors.blue)
+                  ? Icon(Icons.check,
+                      color: Theme.of(context).colorScheme.primary)
                   : null,
             );
           }).toList();
@@ -47,7 +48,8 @@ class AppSettingsView extends StatelessWidget {
                 viewModel.selectSecondaryColor(color['secondaryColor']);
               },
               trailing: viewModel.primaryColor == color['primaryColor']
-                  ? Icon(Icons.check, color: Colors.blue)
+                  ? Icon(Icons.check,
+                      color: Theme.of(context).colorScheme.primary)
                   : null,
             );
           }).toList();
@@ -90,7 +92,8 @@ class AppSettingsView extends StatelessWidget {
                       viewModel.selectFontSize(0.8);
                     },
                     trailing: viewModel.fontSize == 0.8
-                        ? Icon(Icons.check, color: Colors.blue)
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
                         : null,
                   ),
                   SettingsTile(
@@ -99,7 +102,8 @@ class AppSettingsView extends StatelessWidget {
                       viewModel.selectFontSize(1.0);
                     },
                     trailing: viewModel.fontSize == 1.0
-                        ? Icon(Icons.check, color: Colors.blue)
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
                         : null,
                   ),
                   SettingsTile(
@@ -108,7 +112,8 @@ class AppSettingsView extends StatelessWidget {
                       viewModel.selectFontSize(1.2);
                     },
                     trailing: viewModel.fontSize == 1.2
-                        ? Icon(Icons.check, color: Colors.blue)
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
                         : null,
                   ),
                 ],
