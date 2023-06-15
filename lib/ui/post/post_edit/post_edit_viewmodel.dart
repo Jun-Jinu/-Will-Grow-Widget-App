@@ -132,22 +132,21 @@ class PostEditViewModel extends ChangeNotifier {
   Future<void> updatePost(BuildContext context) async {
     try {
       final post = Post(
-        // id는 local_datasource에서 길이값으로 재정의
-        id: 0,
+        id: postId,
         weatherIndex: selectedWeatherIndex,
         content: contentController.text,
         promise: promiseController.text,
         date: selectedDay,
       );
 
-      int postId = await _postRepository.updatePost(post);
+      int updatedPostId = await _postRepository.updatePost(post);
 
       // 새로운 핵심 목표일 경우 홈위젯 업데이트
       if (isCheckedWidgetText)
-        _postRepository.updateWidgetText(
-            HomeWidget(postId: postId, homeWidgetText: promiseController.text));
+        _postRepository.updateWidgetText(HomeWidget(
+            postId: updatedPostId, homeWidgetText: promiseController.text));
 
-      Navigator.pushNamed(context, "/post/detail", arguments: postId);
+      Navigator.pop(context);
 
       // 모든 입력칸을 초기화
       delControllerValue();
