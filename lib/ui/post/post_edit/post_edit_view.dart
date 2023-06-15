@@ -47,7 +47,7 @@ class PostEditView extends StatelessWidget {
                     ),
                     AnimatedContainer(
                       height: viewModel.showCalendar ? 400 : 0,
-                      duration: Duration(milliseconds: 300),
+                      duration: Duration(milliseconds: 250),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
@@ -61,7 +61,12 @@ class PostEditView extends StatelessWidget {
                               },
                               calendarStyle: CalendarStyle(
                                 selectedDecoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  shape: BoxShape.circle,
+                                ),
+                                todayDecoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -70,11 +75,11 @@ class PostEditView extends StatelessWidget {
                                 titleCentered: true,
                                 leftChevronIcon: Icon(
                                   Icons.chevron_left,
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                                 rightChevronIcon: Icon(
                                   Icons.chevron_right,
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
                               calendarBuilders: CalendarBuilders(
@@ -94,7 +99,9 @@ class PostEditView extends StatelessWidget {
                                     '확인',
                                     style: TextStyle(
                                         fontSize: 16.0,
-                                        color: Theme.of(context).primaryColor),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary),
                                   ),
                                 ),
                               ],
@@ -212,7 +219,7 @@ class PostEditView extends StatelessWidget {
                         hintText: "오늘의 다짐",
                         errorStyle: TextStyle(
                             fontSize: 16,
-                            color: Theme.of(context).primaryColor),
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                       validator: viewModel.validatePromise,
                       onSaved: viewModel.onSavedPromise,
@@ -229,7 +236,8 @@ class PostEditView extends StatelessWidget {
                       child: Row(
                         children: [
                           GFCheckbox(
-                            customBgColor: Theme.of(context).primaryColor,
+                            customBgColor:
+                                Theme.of(context).colorScheme.secondary,
                             size: GFSize.SMALL,
                             type: GFCheckboxType.custom,
                             onChanged: viewModel.onCheckboxChanged,
@@ -260,7 +268,7 @@ class PostEditView extends StatelessWidget {
                           },
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                               width: 1.0,
                             ),
                             shape: RoundedRectangleBorder(
@@ -268,10 +276,10 @@ class PostEditView extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            '기록하기',
+                            '수정하기',
                             style: TextStyle(
                                 fontSize: 20,
-                                color: Theme.of(context).primaryColor),
+                                color: Theme.of(context).colorScheme.primary),
                           ),
                         ),
                       ),

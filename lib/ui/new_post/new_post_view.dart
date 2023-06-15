@@ -55,7 +55,7 @@ class _NewPostViewState extends State<NewPostView>
                 ),
                 AnimatedContainer(
                   height: viewModel.showCalendar ? 400 : 0,
-                  duration: Duration(milliseconds: 300),
+                  duration: Duration(milliseconds: 250),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -69,7 +69,11 @@ class _NewPostViewState extends State<NewPostView>
                           },
                           calendarStyle: CalendarStyle(
                             selectedDecoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            todayDecoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondary,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -78,11 +82,11 @@ class _NewPostViewState extends State<NewPostView>
                             titleCentered: true,
                             leftChevronIcon: Icon(
                               Icons.chevron_left,
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             rightChevronIcon: Icon(
                               Icons.chevron_right,
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                           calendarBuilders: CalendarBuilders(
@@ -102,7 +106,8 @@ class _NewPostViewState extends State<NewPostView>
                                 '확인',
                                 style: TextStyle(
                                     fontSize: 16.0,
-                                    color: Theme.of(context).primaryColor),
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                               ),
                             ),
                           ],
@@ -191,7 +196,8 @@ class _NewPostViewState extends State<NewPostView>
                     ),
                     hintText: "일기",
                     errorStyle: TextStyle(
-                        fontSize: 16, color: Theme.of(context).primaryColor),
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                   maxLines: 10,
                   validator: viewModel.validateContent,
@@ -210,7 +216,8 @@ class _NewPostViewState extends State<NewPostView>
                     ),
                     hintText: "오늘의 다짐",
                     errorStyle: TextStyle(
-                        fontSize: 16, color: Theme.of(context).primaryColor),
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                   validator: viewModel.validatePromise,
                   onSaved: viewModel.onSavedPromise,
@@ -236,15 +243,24 @@ class _NewPostViewState extends State<NewPostView>
                       ),
                       Container(
                         child: Text(
-                          '해당 다짐을 나의 핵심 목표로 선택합니다.',
+                          '나의 주요 목표로 설정합니다.',
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
                     ],
                   ),
                 ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.only(left: 40.0),
+                  child: Text(
+                    '홈화면 위젯을 추가해서 목표를 이뤄보세요!',
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                  ),
+                ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(vertical: 30.0),
                   child: SizedBox(
                     width: double.infinity,
                     height: 40,

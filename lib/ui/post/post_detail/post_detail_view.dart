@@ -34,7 +34,7 @@ class PostDetailView extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                '${post.date.year}.${post.date.month}.${post.date.day}',
+                '${post.date.year}.${post.date.month}.${post.date.day} 일기',
               ),
               actions: [
                 PopupMenuButton<String>(
@@ -86,7 +86,7 @@ class PostDetailView extends StatelessWidget {
                         SizedBox(height: 8.0),
                         Text(
                           '${post.promise}',
-                          style: TextStyle(fontSize: 24.0),
+                          style: TextStyle(fontSize: 28.0),
                         ),
                         SizedBox(height: 8.0),
                         Padding(

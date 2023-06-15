@@ -31,8 +31,8 @@ class AppSettingsViewModel extends ChangeNotifier {
     },
     {
       'title': "오렌지색",
-      'primaryColor': Color(0xfff39c12),
-      'secondaryColor': Color(0xffe67e22)
+      'primaryColor': Color(0xffe67e22),
+      'secondaryColor': Color(0xfff39c12)
     },
     {
       'title': "파란색",
