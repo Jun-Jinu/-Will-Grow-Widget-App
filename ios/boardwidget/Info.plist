@@ -10,6 +10,9 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>KyoboHandwriting2019.otf</string>
+		<string>KOTRA_HOPE.otf</string>
+		<string>NotoSansKR-Medium.otf</string>
+		<string>TAEBAEK_milkyway.otf</string>
 	</array>
 </dict>
 </plist>

@@ -196,17 +196,69 @@ class WidgetSettingBody extends StatelessWidget {
                 title: const Text('폰트'),
                 tiles: [
                   SettingsTile(
-                    title: const Text('폰트1'),
+                    title: const Text(
+                      '애플 산돌고딕 NEO',
+                      style: TextStyle(fontFamily: "AppleSDGothicNeo-Medium"),
+                    ),
                     onPressed: (BuildContext context) {
-                      viewModel.setFontFamily("KyoboHandwriting2019");
+                      viewModel.setFontFamily("AppleSDGothicNeo-Medium");
                     },
+                    trailing: viewModel.fontFamily == "AppleSDGothicNeo-Medium"
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
+                        : null,
                   ),
                   SettingsTile(
-                    title: const Text('폰트2'),
+                    title: const Text(
+                      '노토산스(NotoSansKR)',
+                      style: TextStyle(fontFamily: "NotoSansKR"),
+                    ),
+                    onPressed: (BuildContext context) {
+                      viewModel.setFontFamily("NotoSansKR-Medium");
+                    },
+                    trailing: viewModel.fontFamily == "NotoSansKR-Medium"
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
+                        : null,
+                  ),
+                  SettingsTile(
+                    title: const Text(
+                      '교보손글씨 2019',
+                      style: TextStyle(fontFamily: "KyoboHandwriting2019"),
+                    ),
                     onPressed: (BuildContext context) {
                       viewModel.setFontFamily("KyoboHandwriting2019");
                     },
-                    // TODO: 요일 표시 체크박스 만들기
+                    trailing: viewModel.fontFamily == "KyoboHandwriting2019"
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
+                        : null,
+                  ),
+                  SettingsTile(
+                    title: const Text(
+                      '코트라 희망체',
+                      style: TextStyle(fontFamily: "KOTRAHOPE"),
+                    ),
+                    onPressed: (BuildContext context) {
+                      viewModel.setFontFamily("KOTRAHOPE");
+                    },
+                    trailing: viewModel.fontFamily == "KOTRAHOPE"
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
+                        : null,
+                  ),
+                  SettingsTile(
+                    title: const Text(
+                      '태백 은하수체',
+                      style: TextStyle(fontFamily: "TAEBAEK-milkyway"),
+                    ),
+                    onPressed: (BuildContext context) {
+                      viewModel.setFontFamily("TAEBAEK-milkyway");
+                    },
+                    trailing: viewModel.fontFamily == "TAEBAEK-milkyway"
+                        ? Icon(Icons.check,
+                            color: Theme.of(context).colorScheme.primary)
+                        : null,
                   ),
                 ],
               ),

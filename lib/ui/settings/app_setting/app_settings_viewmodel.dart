@@ -54,7 +54,7 @@ class AppSettingsViewModel extends ChangeNotifier {
   List<Map<String, dynamic>> fontList = [
     {
       'title': "교보손글씨 2019",
-      'fontFamily': "KyoboHandwriting",
+      'fontFamily': "KyoboHandwriting2019",
     },
     {
       'title': "삼립호빵체 Outline",
@@ -62,7 +62,7 @@ class AppSettingsViewModel extends ChangeNotifier {
     },
     {
       'title': "Noto Sans KR",
-      'fontFamily': "NotoSansKR",
+      'fontFamily': "NotoSansKR-Medium",
     },
     {
       'title': "어비 뒤죽박죽체",
@@ -82,11 +82,11 @@ class AppSettingsViewModel extends ChangeNotifier {
     },
     {
       'title': "코트라 희망체",
-      'fontFamily': "KOTRA_HOPE",
+      'fontFamily': "KOTRAHOPE",
     },
     {
       'title': "태백 은하수체",
-      'fontFamily': "TAEBAEK_milkyway",
+      'fontFamily': "TAEBAEK-milkyway",
     },
   ];
 

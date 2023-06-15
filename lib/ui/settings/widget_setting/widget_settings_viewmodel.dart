@@ -69,8 +69,8 @@ class WidgetSettingsViewModel extends ChangeNotifier {
   }
 
   void setFontFamily(String value) {
-    // _widgetSettingsRepository.updateFontFamily(value);
-    // _widgetSettings.fontFamily = value;
+    _widgetSettingsRepository.updateFontFamily(value);
+    _widgetSettings.fontFamily = value;
 
     notifyListeners();
   }
