@@ -258,7 +258,7 @@ class _NewPostViewState extends State<NewPostView>
                       },
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).colorScheme.primary,
                           width: 1.0,
                         ),
                         shape: RoundedRectangleBorder(
@@ -269,7 +269,7 @@ class _NewPostViewState extends State<NewPostView>
                         '기록하기',
                         style: TextStyle(
                             fontSize: 20,
-                            color: Theme.of(context).primaryColor),
+                            color: Theme.of(context).colorScheme.primary),
                       ),
                     ),
                   ),
