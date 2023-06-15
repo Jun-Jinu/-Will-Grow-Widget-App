@@ -2,6 +2,16 @@ import WidgetKit
 import SwiftUI
 import Intents
 
+extension Color {
+    static let black = Color("black")
+    static let grey = Color("grey")
+    static let navy = Color("navy")
+    
+    static let white = Color("white")
+    static let light_grey = Color("light_grey")
+    static let yellow = Color("yellow")
+}
+
 struct WidgetSettings: Decodable, Hashable {
     let isTextChangeHourly: Bool
     let isTextChangeHour: Int
@@ -10,38 +20,42 @@ struct WidgetSettings: Decodable, Hashable {
     let fontFamily: String
     let fontSize: Double
     
-
-    
     func getFontColor() -> Color {
             return getColor(from: fontColor)
         }
-        
-        func getBackgroundColor() -> Color {
+    
+    func getBackgroundColor() -> Color {
             return getColor(from: backgroundColor)
         }
         
-        private func getColor(from value: String?) -> Color {
-            guard let colorString = value?.lowercased() else {
-                return Color.black
-            }
+    private func getColor(from value: String?) -> Color {
+        guard let colorString = value?.lowercased() else {
+            return Color.white
+        }
             
             switch colorString {
             case "black":
-                return Color.black
+                return .black
             case "grey":
-                return Color.gray
-            case "white":
-                return Color.white
+                return .grey
+            case "navy":
+                return .navy
                 
+            case "white":
+                return .white
+            case "light_grey":
+                return .light_grey
+            case "yellow":
+                return .yellow
             default:
                 return Color.black
             }
         }
+
 }
 
 struct WidgetData: Decodable, Hashable {
-    let postId: Int
-    let homeWidgetText: String
+    let text: String
     
 }
 
@@ -53,11 +67,11 @@ struct FlutterEntry: TimelineEntry {
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> FlutterEntry {
-        FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(postId: 0, homeWidgetText: "IOS테스트입니당"))
+        FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(text: "IOS테스트입니당"))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (FlutterEntry) -> ()) {
-        let entry = FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(postId: 0, homeWidgetText: "IOS테스트입니당"))
+        let entry = FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(text: "IOS테스트입니당"))
         completion(entry)
     }
 
@@ -80,7 +94,6 @@ struct boardwidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in iosWidgetView(entry: entry)
         }
-        .supportedFamilies([.systemMedium])
     }
 }
 
@@ -88,13 +101,13 @@ struct iosWidgetView: View {
     var entry: Provider.Entry
 
     var body: some View {
-        let backgroundColor = entry.WidgetSettings?.getBackgroundColor() ?? Color.white
-        let fontColor = entry.WidgetSettings?.getFontColor() ?? Color.black
+        let backgroundColor = entry.WidgetSettings?.getBackgroundColor() ?? Color.black
+        let fontColor = entry.WidgetSettings?.getFontColor() ?? Color.white
 
         ZStack {
             ContainerRelativeShape().fill(backgroundColor)
 
-            Text(entry.widgetData?.homeWidgetText ?? "탭해서 텍스트를 설정하세요!")
+            Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
                 .font(Font.custom(entry.WidgetSettings?.fontFamily ?? "KyoboHandwriting2019", size: CGFloat(entry.WidgetSettings?.fontSize ?? 24.0)))
                 .foregroundColor(fontColor)
 
@@ -103,10 +116,10 @@ struct iosWidgetView: View {
 
                 HStack {
                     Spacer()
-                    Text("우측하단")
-                        .font(Font.custom(entry.WidgetSettings?.fontFamily ?? "KyoboHandwriting2019", size: CGFloat(entry.WidgetSettings?.fontSize ?? 24.0)))
-                        .foregroundColor(fontColor)
-                        .padding(14)
+//                    Text("우측하단")
+//                        .font(Font.custom(entry.WidgetSettings?.fontFamily ?? "KyoboHandwriting2019", size: CGFloat(entry.WidgetSettings?.fontSize ?? 24.0)))
+//                        .foregroundColor(fontColor)
+//                        .padding(14)
                 }
             }
         }

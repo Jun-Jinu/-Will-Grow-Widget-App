@@ -84,20 +84,20 @@ class WidgetSettingsViewModel extends ChangeNotifier {
   Color getColorFromName(String name) {
     switch (name) {
       case 'black':
-        return Color(0xFF000000);
+        return Color(0xFF333333);
       case 'grey':
-        return Color(0xFF909090);
+        return Color(0xFF939597);
       case 'white':
-        return Color(0xFFFFFFFF);
+        return Color(0xFFe9e9e9);
       case 'navy':
-        return Color(0xFF000080);
+        return Color(0xFF11264f);
       case 'yellow':
-        return Color(0xFFEEEE00);
+        return Color(0xFFf5df4d);
       case 'light_grey':
         return Color(0xFFD3D3D3);
       default:
         // 기본적으로 검정색(0xFF000000)을 반환합니다.
-        return Color(0xFF000000);
+        return Color(0xFF333333);
     }
   }
 }
