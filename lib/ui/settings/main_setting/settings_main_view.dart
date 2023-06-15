@@ -70,17 +70,23 @@ class SettingsMainBody extends StatelessWidget {
           title: const Text('지원'),
           tiles: [
             SettingsTile(
+              enabled: false,
               title: const Text('앱 리뷰 남기기'),
+              value: Text('곧 업데이트 예정입니다'),
               onPressed: (BuildContext context) {},
             ),
             SettingsTile(
+              enabled: false,
               title: const Text('의견 보내기'),
+              value: Text('곧 업데이트 예정입니다'),
               onPressed: (BuildContext context) {
                 viewModel.sendEmail();
               },
             ),
             SettingsTile(
+              enabled: false,
               title: const Text('앱 공유하기'),
+              value: Text('곧 업데이트 예정입니다'),
               onPressed: (BuildContext context) {},
             ),
           ],
@@ -98,7 +104,7 @@ class SettingsMainBody extends StatelessWidget {
             SettingsTile(
               enabled: false,
               title: const Text('개발자'),
-              value: Text('Jinu'), // Displayed on the right side
+              value: Text('Jinu'),
               onPressed: (BuildContext context) {},
             ),
           ],

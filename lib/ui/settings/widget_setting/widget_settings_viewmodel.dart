@@ -9,7 +9,7 @@ class WidgetSettingsViewModel extends ChangeNotifier {
     isTextChangeHourly: true,
     isTextChangeHour: 24,
     fontColor: 'white',
-    backgroundColor: 'grey',
+    backgroundColor: 'black',
     fontFamily: "KyoboHandwriting2019",
     fontSize: 24.0,
   );

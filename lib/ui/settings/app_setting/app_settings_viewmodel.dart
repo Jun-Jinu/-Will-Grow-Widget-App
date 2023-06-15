@@ -9,9 +9,9 @@ class AppSettingsViewModel extends ChangeNotifier {
       isDarkModeEnabled: false,
       primaryColor: Color(0xff9b59b6),
       secondaryColor: Color(0xffa374db),
-      fontFamily: "KyoboHandwriting",
+      fontFamily: "KyoboHandwriting2019",
       fontSize: 1.0,
-      dateFormat: "");
+      dateFormat: "notUsed");
 
   AppSettingsViewModel() {
     _appSettingsRepository = AppSettingsRepository();

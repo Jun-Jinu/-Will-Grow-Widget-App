@@ -55,7 +55,7 @@ Future<void> initHive() async {
       secondaryColor: Color(0xffa374db),
       fontFamily: "KyoboHandwriting",
       fontSize: 1.0,
-      dateFormat: "", // 미사용 - 추후 적용 예정
+      dateFormat: "notUsed", // 미사용 - 추후 적용 예정
     );
 
     appBox.put(0, appSettings);
@@ -68,9 +68,9 @@ Future<void> initHive() async {
     final widgetSettings = WidgetSettings(
       isTextChangeHourly: true,
       isTextChangeHour: 24,
-      fontColor: "black",
-      backgroundColor: "white",
-      fontFamily: "KyoboHandwriting",
+      fontColor: "white",
+      backgroundColor: "black",
+      fontFamily: "KyoboHandwriting2019",
       fontSize: 24.0,
     );
     widgetBox.put(0, widgetSettings);
