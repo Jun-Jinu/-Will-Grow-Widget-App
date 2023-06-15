@@ -37,7 +37,8 @@ struct WidgetSettings: Decodable, Hashable {
 }
 
 struct WidgetData: Decodable, Hashable {
-    let text: String
+    let postId: Int
+    let homeWidgetText: String
     
 }
 
@@ -49,11 +50,11 @@ struct FlutterEntry: TimelineEntry {
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> FlutterEntry {
-        FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(text: "IOS테스트입니당"))
+        FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(postId: 0, homeWidgetText: "IOS테스트입니당"))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (FlutterEntry) -> ()) {
-        let entry = FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(text: "IOS테스트입니당"))
+        let entry = FlutterEntry(date: Date(), WidgetSettings: WidgetSettings( isTextChangeHourly: false, isTextChangeHour: 6, fontColor: "", backgroundColor: "", fontFamily: "", fontSize: 24.0), widgetData: WidgetData(postId: 0, homeWidgetText: "IOS테스트입니당"))
         completion(entry)
     }
 
@@ -76,6 +77,7 @@ struct boardwidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in iosWidgetView(entry: entry)
         }
+        .supportedFamilies([.systemMedium])
     }
 }
 
@@ -89,7 +91,7 @@ struct iosWidgetView: View {
         ZStack {
             ContainerRelativeShape().fill(backgroundColor)
 
-            Text(entry.widgetData?.text ?? "탭해서 텍스트를 설정하세요!")
+            Text(entry.widgetData?.homeWidgetText ?? "탭해서 텍스트를 설정하세요!")
                 .font(Font.custom(entry.WidgetSettings?.fontFamily ?? "KyoboHandwriting2019", size: CGFloat(entry.WidgetSettings?.fontSize ?? 24.0)))
                 .foregroundColor(fontColor)
 

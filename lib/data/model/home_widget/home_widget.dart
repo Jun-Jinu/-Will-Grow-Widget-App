@@ -21,4 +21,11 @@ class HomeWidget {
       homeWidgetText: json['homeWidgetText'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "postId": postId,
+      "homeWidgetText": homeWidgetText,
+    };
+  }
 }

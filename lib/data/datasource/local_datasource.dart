@@ -4,6 +4,11 @@ import '../model/post/post.dart';
 import '../model/theme/app/app_settings.dart';
 import '../model/theme/widget/widget_settings.dart';
 import '../model/home_widget/home_widget.dart';
+
+import 'package:board_widget/data/model/home_widget/home_widget.dart';
+import 'dart:convert';
+
+import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:hive/hive.dart';
 
 class LocalDataSource {
@@ -62,6 +67,17 @@ class LocalDataSource {
     var homeWidgetBox = Hive.box<HomeWidget>('homeWidgetBox');
 
     await homeWidgetBox.put(0, homeWidget);
+
+    // Widget 텍스트 업데이트
+    WidgetKit.setItem(
+        'WidgetData',
+        jsonEncode(HomeWidget(
+          postId: homeWidget.postId,
+          homeWidgetText: homeWidget.homeWidgetText,
+        )),
+        'group.boardwidget');
+
+    WidgetKit.reloadAllTimelines();
   }
 
   // 홈 위젯 ID 반환
