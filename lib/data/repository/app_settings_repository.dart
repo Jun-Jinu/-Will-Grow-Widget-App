@@ -23,6 +23,11 @@ class AppSettingsRepository {
     return settings.primaryColor;
   }
 
+  Future<Color> getSecondaryColor() async {
+    AppSettings settings = await _localDataSource.getAppSettings();
+    return settings.secondaryColor;
+  }
+
   Future<String> getFontFamily() async {
     AppSettings settings = await _localDataSource.getAppSettings();
     return settings.fontFamily;
@@ -44,9 +49,14 @@ class AppSettingsRepository {
         isDarkModeEnabled: isDarkModeEnabled);
   }
 
-  /// 배경색 설정 업데이트
-  Future<void> updatePrimaryColor(Color backgroundColor) {
-    return _localDataSource.updateAppSettings(backgroundColor: backgroundColor);
+  /// 주요색 설정 업데이트
+  Future<void> updatePrimaryColor(Color primaryColor) {
+    return _localDataSource.updateAppSettings(primaryColor: primaryColor);
+  }
+
+  /// 보조색 설정 업데이트
+  Future<void> updateSecondaryColor(Color secondaryColor) {
+    return _localDataSource.updateAppSettings(secondaryColor: secondaryColor);
   }
 
   /// 폰트 패밀리 설정 업데이트

@@ -8,6 +8,7 @@ class AppSettingsViewModel extends ChangeNotifier {
   final AppSettings _appSettings = AppSettings(
       isDarkModeEnabled: false,
       primaryColor: Colors.white,
+      secondaryColor: Colors.white,
       fontFamily: "KyoboHandwriting",
       fontSize: 1.0,
       dateFormat: "");
@@ -18,10 +19,38 @@ class AppSettingsViewModel extends ChangeNotifier {
   }
 
   List<Map<String, dynamic>> primaryColorList = [
-    {'title': "라벤더", 'primaryColor': Color(0xff9b59b6)},
-    {'title': "흰색 (🌙 다크모드에 추천)", 'primaryColor': Color(0xffffffff)},
-    {'title': "검정색", 'primaryColor': Color(0xff000000)},
+    {
+      'title': "라벤더",
+      'primaryColor': Color(0xff9b59b6),
+      'secondaryColor': Color(0xffa374db)
+    },
+    {
+      'title': "청록색",
+      'primaryColor': Color(0xff1abc9c),
+      'secondaryColor': Color(0xff48c9b0)
+    },
+    {
+      'title': "오렌지색",
+      'primaryColor': Color(0xfff39c12),
+      'secondaryColor': Color(0xffe67e22)
+    },
+    {
+      'title': "파란색",
+      'primaryColor': Color(0xff0040ff),
+      'secondaryColor': Color(0xff006aff)
+    },
+    {
+      'title': "흰색 (🌙 다크모드에 추천)",
+      'primaryColor': Color(0xffeeeeee),
+      'secondaryColor': Color(0xffaaaaaa)
+    },
+    {
+      'title': "검정색 (🌞 라이트모드에 추천)",
+      'primaryColor': Color(0xff000000),
+      'secondaryColor': Color(0xff444444)
+    },
   ];
+
   List<Map<String, dynamic>> fontList = [
     {
       'title': "교보손글씨 2019",
@@ -73,6 +102,7 @@ class AppSettingsViewModel extends ChangeNotifier {
 
   bool get isDarkModeEnabled => _appSettings.isDarkModeEnabled;
   Color get primaryColor => _appSettings.primaryColor;
+  Color get secondaryColor => _appSettings.secondaryColor; // 아직 쓰지 않음
   String get fontFamily => _appSettings.fontFamily;
   double get fontSize => _appSettings.fontSize;
   String get dateFormat => _appSettings.dateFormat;
@@ -88,6 +118,12 @@ class AppSettingsViewModel extends ChangeNotifier {
     _appSettings.primaryColor = value;
     notifyListeners();
   }
+
+  void selectSecondaryColor(Color value) {
+    _appSettingsRepository.updateSecondaryColor(value);
+    _appSettings.secondaryColor = value;
+    notifyListeners();
+  } //
 
   void selectFont(BuildContext context, String value) {
     _appSettingsRepository.updateFontFamily(value);

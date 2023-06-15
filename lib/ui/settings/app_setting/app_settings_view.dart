@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'app_settings_viewmodel.dart';
-import 'package:board_widget/data/model/theme/app/app_settings.dart';
 
 class AppSettingsView extends StatelessWidget {
   const AppSettingsView({Key? key}) : super(key: key);
@@ -60,6 +59,7 @@ class _AppSettingBodyState extends State<AppSettingBody> {
         title: Text(color['title']),
         onPressed: (BuildContext context) {
           viewModel.selectPrimaryColor(color['primaryColor']);
+          viewModel.selectSecondaryColor(color['secondaryColor']);
         },
         trailing: viewModel.primaryColor == color['primaryColor']
             ? Icon(Icons.check, color: Colors.blue)

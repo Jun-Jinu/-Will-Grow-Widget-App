@@ -57,6 +57,7 @@ Future<void> initializeAppSettings() async {
   final appSettings = AppSettings(
       isDarkModeEnabled: false,
       primaryColor: Colors.white,
+      secondaryColor: Colors.white,
       fontFamily: "",
       fontSize: 1.0,
       dateFormat: "");

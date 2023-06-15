@@ -227,7 +227,7 @@ class _NewPostViewState extends State<NewPostView>
                   child: Row(
                     children: [
                       GFCheckbox(
-                        customBgColor: Theme.of(context).primaryColor,
+                        customBgColor: Theme.of(context).colorScheme.secondary,
                         size: GFSize.SMALL,
                         type: GFCheckboxType.custom,
                         onChanged: viewModel.onCheckboxChanged,

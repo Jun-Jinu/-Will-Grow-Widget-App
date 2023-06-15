@@ -86,7 +86,8 @@ class LocalDataSource {
   /// 앱 세팅을 업데이트
   Future<void> updateAppSettings({
     bool? isDarkModeEnabled,
-    Color? backgroundColor,
+    Color? primaryColor,
+    Color? secondaryColor,
     String? fontFamily,
     double? fontSize,
     String? dateFormat,
@@ -98,8 +99,11 @@ class LocalDataSource {
       if (isDarkModeEnabled != null) {
         settings.isDarkModeEnabled = isDarkModeEnabled;
       }
-      if (backgroundColor != null) {
-        settings.primaryColor = backgroundColor;
+      if (primaryColor != null) {
+        settings.primaryColor = primaryColor;
+      }
+      if (secondaryColor != null) {
+        settings.secondaryColor = secondaryColor;
       }
       if (fontFamily != null) {
         settings.fontFamily = fontFamily;

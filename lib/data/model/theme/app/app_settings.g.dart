@@ -19,25 +19,28 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
     return AppSettings(
       isDarkModeEnabled: fields[0] as bool,
       primaryColor: fields[1] as Color,
-      fontFamily: fields[2] as String,
-      fontSize: fields[3] as double,
-      dateFormat: fields[4] as String,
+      secondaryColor: fields[2] as Color,
+      fontFamily: fields[3] as String,
+      fontSize: fields[4] as double,
+      dateFormat: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppSettings obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.isDarkModeEnabled)
       ..writeByte(1)
       ..write(obj.primaryColor)
       ..writeByte(2)
-      ..write(obj.fontFamily)
+      ..write(obj.secondaryColor)
       ..writeByte(3)
-      ..write(obj.fontSize)
+      ..write(obj.fontFamily)
       ..writeByte(4)
+      ..write(obj.fontSize)
+      ..writeByte(5)
       ..write(obj.dateFormat);
   }
 

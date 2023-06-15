@@ -8,6 +8,7 @@ class AppSettings {
   AppSettings({
     required this.isDarkModeEnabled,
     required this.primaryColor,
+    required this.secondaryColor,
     required this.fontFamily,
     required this.fontSize,
     required this.dateFormat,
@@ -20,18 +21,22 @@ class AppSettings {
   Color primaryColor;
 
   @HiveField(2)
-  String fontFamily;
+  Color secondaryColor;
 
   @HiveField(3)
-  double fontSize;
+  String fontFamily;
 
   @HiveField(4)
+  double fontSize;
+
+  @HiveField(5)
   String dateFormat;
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
     return AppSettings(
       isDarkModeEnabled: json['isDarkModeEnabled'],
       primaryColor: Color(json['primaryColor']),
+      secondaryColor: Color(json['secondaryColor']),
       fontFamily: json['fontFamily'],
       fontSize: json['fontSize'],
       dateFormat: json['dateFormat'],
