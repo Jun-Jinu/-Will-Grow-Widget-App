@@ -61,6 +61,8 @@ class PostListView extends StatelessWidget {
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
                           ),
                         Text(post.promise),
                       ],
