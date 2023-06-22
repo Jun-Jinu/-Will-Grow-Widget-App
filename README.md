@@ -3,8 +3,7 @@
 기분 일기는 일상 속에서의 감정을 기록하고, 다짐을 담은 한 문장을 작성하여 자신의 감정과 성장을 추적하는데 도움을 주는 어플입니다. 매일 일기를 작성하고 감정 변화를 시각화하여 개인적인 성장을 이룰 수 있습니다. 목표를 홈화면 위젯에 업데이트 해주며 반복적으로 목표를 상기할 수 있도록 도움을 줍니다. 당신의 더 나은 하루를 함께 만들어가요.
 
 <img width="1696" alt="스크린샷 2023-06-16 오전 3 20 47" src="https://github.com/Jun-Jinu/-Will-Grow-Widget-App/assets/81470586/d6ac3ac1-81bd-4d52-bc6f-48c61eee8ef3">
-<br /><br />
-<img width="1389" alt="스크린샷 2023-06-16 오전 3 21 28" src="https://github.com/Jun-Jinu/-Will-Grow-Widget-App/assets/81470586/c6a467db-cc61-49e8-9ad9-c93eca9fa951">
+
 
 
 ## 기술 스택
