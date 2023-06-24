@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsMainViewModel extends ChangeNotifier {
   // 프리미엄 혜택
@@ -19,19 +18,13 @@ class SettingsMainViewModel extends ChangeNotifier {
   // 앱 리뷰남기기
   // 의견 보내기
 
-  Future<String> getAppVersion() async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.version;
-  }
 
   Future<String> getEmailBody() async {
-    String appInfo = await getAppVersion();
 
     String body = "";
 
     body += "==============\n";
     body += "아래 내용을 함께 보내주시면 큰 도움이 됩니다!\n";
-    body += "앱 버전: $appInfo";
     body += "==============\n";
 
     return body;
