@@ -19,16 +19,16 @@ class HomeScreenWidgetProvider : HomeWidgetProvider() {
                         MainActivity::class.java)
                 setOnClickPendingIntent(R.id.widget_root, pendingIntent)
 
-                val counter = widgetData.getInt("_counter", 0)
+                // val counter = widgetData.getInt("_counter", 0)
 
-                setTextViewText(R.id.tv_goal, "123")
+                // setTextViewText(R.id.tv_goal, "123")
 
                 // Pending intent to update counter on button click
-                val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context,
-                        Uri.parse("myAppWidget://updatecounter"))
+                // val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context,
+                //         Uri.parse("myAppWidget://updatecounter"))
                 // setOnClickPendingIntent(R.id.bt_update, backgroundIntent)
             }
-            // appWidgetManager.updateAppWidget(widgetId, views)
+            appWidgetManager.updateAppWidget(widgetId, views)
         }
     }
 }
