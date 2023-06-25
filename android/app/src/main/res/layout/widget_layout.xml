@@ -11,7 +11,7 @@
         android:background="#1f303d">
 
         <TextView
-            android:id="@+id/tv_goal"
+            android:id="@+id/text_promise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

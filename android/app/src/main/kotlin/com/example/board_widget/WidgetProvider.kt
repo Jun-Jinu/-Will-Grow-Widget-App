@@ -21,14 +21,12 @@ class HomeScreenWidgetProvider : HomeWidgetProvider() {
                 setOnClickPendingIntent(R.id.widget_root, pendingIntent)
 
                 val text = widgetData.getString("mainText", "기본값")
-                setTextViewText(R.id.tv_goal, text)
+                setTextViewText(R.id.text_promise, text)
 
-                val color = widgetData.getString("color", "#ffffff")
+                val backgroundColor = widgetData.getString("backgroundColor", "#ffffff")
                 setInt(R.id.background_color, "setBackgroundColor", Color.parseColor(color))
-                // Pending intent to update counter on button click
-                // val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context,
-                //         Uri.parse("myAppWidget://updatecounter"))
-                // setOnClickPendingIntent(R.id.bt_update, backgroundIntent)
+
+                
             }
             appWidgetManager.updateAppWidget(widgetId, views)
         }

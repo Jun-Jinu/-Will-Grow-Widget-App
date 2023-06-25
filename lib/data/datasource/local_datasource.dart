@@ -9,6 +9,7 @@ import 'dart:convert';
 
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:hive/hive.dart';
+import 'package:home_widget/home_widget.dart';
 
 class LocalDataSource {
   /// 일기를 가져옴
@@ -67,7 +68,13 @@ class LocalDataSource {
 
     await homeWidgetBox.put(0, homeWidget);
 
-    // Widget 텍스트 업데이트
+    // (Android) Widget 텍스트 업데이트)
+    await HomeWidget.saveWidgetData<String>(
+        'mainText', homeWidget.homeWidgetText);
+    await HomeWidget.updateWidget(
+        name: 'HomeScreenWidgetProvider', iOSName: 'HomeScreenWidgetProvider');
+
+    // (IOS) Widget 텍스트 업데이트
     WidgetKit.setItem(
         'WidgetData',
         jsonEncode(HomeWidgetInfo(
@@ -163,9 +170,12 @@ class LocalDataSource {
       }
       if (fontColor != null) {
         settings.fontColor = fontColor;
+        await HomeWidget.saveWidgetData<String>('backgroundColor', "#ff0000");
       }
       if (backgroundColor != null) {
         settings.backgroundColor = backgroundColor;
+        await HomeWidget.saveWidgetData<String>(
+            'backgroundColor', getColorFromName(backgroundColor));
       }
       if (fontFamily != null) {
         settings.fontFamily = fontFamily;
@@ -175,6 +185,10 @@ class LocalDataSource {
       }
 
       await widgetSettingsBox.put(0, settings);
+
+      await HomeWidget.updateWidget(
+          name: 'HomeScreenWidgetProvider',
+          iOSName: 'HomeScreenWidgetProvider');
 
       WidgetKit.setItem(
           'WidgetSettings',
@@ -190,5 +204,25 @@ class LocalDataSource {
 
       WidgetKit.reloadAllTimelines();
     }
+  }
+}
+
+String getColorFromName(String name) {
+  switch (name) {
+    case 'black':
+      return "#333333";
+    case 'grey':
+      return "#939597";
+    case 'white':
+      return "#e9e9e9";
+    case 'navy':
+      return "#11264f";
+    case 'yellow':
+      return "#f5df4d";
+    case 'light_grey':
+      return "#D3D3D3";
+    default:
+      // 기본적으로 검정색("#000000")을 반환합니다.
+      return "#333333";
   }
 }
