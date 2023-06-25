@@ -1,9 +1,11 @@
-import 'package:board_widget/data/model/home_widget/home_widget.dart';
+import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:board_widget/data/model/post/post.dart';
 
 import 'package:board_widget/data/repository/post_repository.dart';
+
+import 'package:home_widget/home_widget.dart';
 
 class NewPostViewModel extends ChangeNotifier {
   late final PostRepository _postRepository;
@@ -24,6 +26,13 @@ class NewPostViewModel extends ChangeNotifier {
   bool isCheckedWidgetText = false; // 주요 목표 체크박스
 
   String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
+
+  Future<void> updateAppWidget() async {
+    await HomeWidget.saveWidgetData<String>('mainText', promiseText);
+    await HomeWidget.saveWidgetData<String>('color', "#ff0000");
+    await HomeWidget.updateWidget(
+        name: 'HomeScreenWidgetProvider', iOSName: 'HomeScreenWidgetProvider');
+  }
 
   void delControllerValue() {
     contentText = "";
@@ -103,9 +112,11 @@ class NewPostViewModel extends ChangeNotifier {
       int postId = await _postRepository.addPost(post);
 
       // 새로운 핵심 목표일 경우 홈위젯 업데이트
-      if (isCheckedWidgetText)
+      if (isCheckedWidgetText) {
         _postRepository.updateWidgetText(
-            HomeWidget(postId: postId, homeWidgetText: promiseText));
+            HomeWidgetInfo(postId: postId, homeWidgetText: promiseText));
+        updateAppWidget();
+      }
 
       Navigator.pushNamed(context, "/post");
 

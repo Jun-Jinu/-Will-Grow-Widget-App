@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import '../model/post/post.dart';
 import '../model/theme/app/app_settings.dart';
 import '../model/theme/widget/widget_settings.dart';
-import '../model/home_widget/home_widget.dart';
+import '../model/home_widget_info/home_widget_info.dart';
 
-import 'package:board_widget/data/model/home_widget/home_widget.dart';
 import 'dart:convert';
 
 import 'package:flutter_widgetkit/flutter_widgetkit.dart';
@@ -63,15 +62,15 @@ class LocalDataSource {
   }
 
   // 홈 위젯 텍스트 변경(대표 일기 변경)
-  Future<void> updateWidgetText(HomeWidget homeWidget) async {
-    var homeWidgetBox = Hive.box<HomeWidget>('homeWidgetBox');
+  Future<void> updateWidgetText(HomeWidgetInfo homeWidget) async {
+    var homeWidgetBox = Hive.box<HomeWidgetInfo>('homeWidgetBox');
 
     await homeWidgetBox.put(0, homeWidget);
 
     // Widget 텍스트 업데이트
     WidgetKit.setItem(
         'WidgetData',
-        jsonEncode(HomeWidget(
+        jsonEncode(HomeWidgetInfo(
           postId: homeWidget.postId,
           homeWidgetText: homeWidget.homeWidgetText,
         )),
@@ -82,7 +81,7 @@ class LocalDataSource {
 
   // 홈 위젯 ID 반환
   Future<int> getWidgetId() async {
-    var homeWidgetBox = Hive.box<HomeWidget>('homeWidgetBox');
+    var homeWidgetBox = Hive.box<HomeWidgetInfo>('homeWidgetBox');
 
     var homeWidget = homeWidgetBox.getAt(0);
     var postId = homeWidget!.postId;

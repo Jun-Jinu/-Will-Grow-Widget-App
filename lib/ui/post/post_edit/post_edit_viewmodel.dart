@@ -1,7 +1,7 @@
-import 'package:board_widget/data/model/home_widget/home_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:board_widget/data/model/post/post.dart';
+import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';
 
 import 'package:board_widget/data/repository/post_repository.dart';
 
@@ -143,7 +143,7 @@ class PostEditViewModel extends ChangeNotifier {
 
       // 새로운 핵심 목표일 경우 홈위젯 업데이트
       if (isCheckedWidgetText)
-        _postRepository.updateWidgetText(HomeWidget(
+        _postRepository.updateWidgetText(HomeWidgetInfo(
             postId: updatedPostId, homeWidgetText: promiseController.text));
 
       Navigator.pop(context);

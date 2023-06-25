@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.widget.RemoteViews
+import android.graphics.Color
 import es.antonborri.home_widget.HomeWidgetBackgroundIntent
 import es.antonborri.home_widget.HomeWidgetLaunchIntent
 import es.antonborri.home_widget.HomeWidgetProvider
@@ -19,10 +20,11 @@ class HomeScreenWidgetProvider : HomeWidgetProvider() {
                         MainActivity::class.java)
                 setOnClickPendingIntent(R.id.widget_root, pendingIntent)
 
-                // val counter = widgetData.getInt("_counter", 0)
+                val text = widgetData.getString("mainText", "기본값")
+                setTextViewText(R.id.tv_goal, text)
 
-                // setTextViewText(R.id.tv_goal, "123")
-
+                val color = widgetData.getString("color", "#ffffff")
+                setInt(R.id.background_color, "setBackgroundColor", Color.parseColor(color))
                 // Pending intent to update counter on button click
                 // val backgroundIntent = HomeWidgetBackgroundIntent.getBroadcast(context,
                 //         Uri.parse("myAppWidget://updatecounter"))

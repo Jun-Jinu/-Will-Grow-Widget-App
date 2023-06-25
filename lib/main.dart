@@ -8,7 +8,7 @@ import 'package:board_widget/data/model/post/post.dart';
 import 'package:board_widget/data/model/theme/app/app_settings.dart';
 import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
 import 'package:board_widget/data/model/adapters/color_apapter.dart';
-import 'package:board_widget/data/model/home_widget/home_widget.dart';
+import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';
 
 import './app.dart';
 
@@ -38,14 +38,14 @@ Future<void> initHive() async {
   Hive.registerAdapter(PostAdapter());
   Hive.registerAdapter(AppSettingsAdapter());
   Hive.registerAdapter(WidgetSettingsAdapter());
-  Hive.registerAdapter(HomeWidgetAdapter());
+  Hive.registerAdapter(HomeWidgetInfoAdapter());
 
   // 로컬스토리지(HIVE) 불러오기
   await Hive.openBox<Post>('postbox');
   await Hive.openBox<int>('postIndexBox');
   var appBox = await Hive.openBox<AppSettings>('appSettingsBox');
   var widgetBox = await Hive.openBox<WidgetSettings>('widgetSettingsBox');
-  var homeWidgetBox = await Hive.openBox<HomeWidget>('homeWidgetBox');
+  var homeWidgetBox = await Hive.openBox<HomeWidgetInfo>('homeWidgetBox');
 
   // 앱 세팅 초기값 설정
   if (appBox.isEmpty) {
@@ -78,7 +78,7 @@ Future<void> initHive() async {
 
 // 홈 위젯 초기값 설정
   if (homeWidgetBox.isEmpty) {
-    final homeWidget = HomeWidget(
+    final homeWidget = HomeWidgetInfo(
         postId: 0, homeWidgetText: "아직 설정한 목표가 없습니다!\n일기를 작성하고 목표를 설정해보세요");
     homeWidgetBox.put(0, homeWidget);
   }

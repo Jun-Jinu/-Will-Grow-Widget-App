@@ -18,9 +18,7 @@ class SettingsMainViewModel extends ChangeNotifier {
   // 앱 리뷰남기기
   // 의견 보내기
 
-
   Future<String> getEmailBody() async {
-
     String body = "";
 
     body += "==============\n";

@@ -1,5 +1,5 @@
 import '../model/post/post.dart';
-import '../model/home_widget/home_widget.dart';
+import '../model/home_widget_info/home_widget_info.dart';
 import '../datasource/local_datasource.dart';
 
 class PostRepository {
@@ -35,7 +35,7 @@ class PostRepository {
   }
 
   // 대표 일기를 변경함
-  Future<void> updateWidgetText(HomeWidget homeWidget) {
+  Future<void> updateWidgetText(HomeWidgetInfo homeWidget) {
     return _localDataSource.updateWidgetText(homeWidget);
   }
 

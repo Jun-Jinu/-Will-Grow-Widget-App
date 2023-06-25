@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
 
-part 'home_widget.g.dart';
+part 'home_widget_info.g.dart';
 
 @HiveType(typeId: 5)
-class HomeWidget {
-  HomeWidget({
+class HomeWidgetInfo {
+  HomeWidgetInfo({
     required this.postId,
     required this.homeWidgetText,
   });
@@ -15,8 +15,8 @@ class HomeWidget {
   @HiveField(1)
   String homeWidgetText;
 
-  factory HomeWidget.fromJson(Map<String, dynamic> json) {
-    return HomeWidget(
+  factory HomeWidgetInfo.fromJson(Map<String, dynamic> json) {
+    return HomeWidgetInfo(
       postId: json['postId'],
       homeWidgetText: json['homeWidgetText'],
     );
