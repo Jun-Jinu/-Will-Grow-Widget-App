@@ -170,7 +170,8 @@ class LocalDataSource {
       }
       if (fontColor != null) {
         settings.fontColor = fontColor;
-        await HomeWidget.saveWidgetData<String>('backgroundColor', "#ff0000");
+        await HomeWidget.saveWidgetData<String>(
+            'fontColor', getColorFromName(fontColor));
       }
       if (backgroundColor != null) {
         settings.backgroundColor = backgroundColor;
@@ -182,6 +183,7 @@ class LocalDataSource {
       }
       if (fontSize != null) {
         settings.fontSize = fontSize;
+        await HomeWidget.saveWidgetData<int>('fontSize', fontSize.toInt());
       }
 
       await widgetSettingsBox.put(0, settings);
