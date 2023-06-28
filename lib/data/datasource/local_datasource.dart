@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../model/post/post.dart';
@@ -69,21 +71,26 @@ class LocalDataSource {
     await homeWidgetBox.put(0, homeWidget);
 
     // (Android) Widget 텍스트 업데이트)
-    await HomeWidget.saveWidgetData<String>(
-        'mainText', homeWidget.homeWidgetText);
-    await HomeWidget.updateWidget(
-        name: 'HomeScreenWidgetProvider', iOSName: 'HomeScreenWidgetProvider');
+    if (Platform.isAndroid) {
+      await HomeWidget.saveWidgetData<String>(
+          'mainText', homeWidget.homeWidgetText);
+      await HomeWidget.updateWidget(
+          name: 'HomeScreenWidgetProvider',
+          iOSName: 'HomeScreenWidgetProvider');
+    }
 
     // (IOS) Widget 텍스트 업데이트
-    WidgetKit.setItem(
-        'WidgetData',
-        jsonEncode(HomeWidgetInfo(
-          postId: homeWidget.postId,
-          homeWidgetText: homeWidget.homeWidgetText,
-        )),
-        'group.boardwidget');
+    if (Platform.isIOS) {
+      WidgetKit.setItem(
+          'WidgetData',
+          jsonEncode(HomeWidgetInfo(
+            postId: homeWidget.postId,
+            homeWidgetText: homeWidget.homeWidgetText,
+          )),
+          'group.boardwidget');
 
-    WidgetKit.reloadAllTimelines();
+      WidgetKit.reloadAllTimelines();
+    }
   }
 
   // 홈 위젯 ID 반환
@@ -170,41 +177,54 @@ class LocalDataSource {
       }
       if (fontColor != null) {
         settings.fontColor = fontColor;
-        await HomeWidget.saveWidgetData<String>(
-            'fontColor', getColorFromName(fontColor));
+
+        if (Platform.isAndroid) {
+          await HomeWidget.saveWidgetData<String>(
+              'fontColor', getColorFromName(fontColor));
+        }
       }
       if (backgroundColor != null) {
         settings.backgroundColor = backgroundColor;
-        await HomeWidget.saveWidgetData<String>(
-            'backgroundColor', getColorFromName(backgroundColor));
+
+        if (Platform.isAndroid) {
+          await HomeWidget.saveWidgetData<String>(
+              'backgroundColor', getColorFromName(backgroundColor));
+        }
       }
       if (fontFamily != null) {
         settings.fontFamily = fontFamily;
       }
       if (fontSize != null) {
         settings.fontSize = fontSize;
-        await HomeWidget.saveWidgetData<int>('fontSize', fontSize.toInt());
+
+        if (Platform.isAndroid) {
+          await HomeWidget.saveWidgetData<int>('fontSize', fontSize.toInt());
+        }
       }
 
       await widgetSettingsBox.put(0, settings);
 
-      await HomeWidget.updateWidget(
-          name: 'HomeScreenWidgetProvider',
-          iOSName: 'HomeScreenWidgetProvider');
+      if (Platform.isAndroid) {
+        await HomeWidget.updateWidget(
+            name: 'HomeScreenWidgetProvider',
+            iOSName: 'HomeScreenWidgetProvider');
+      }
 
-      WidgetKit.setItem(
-          'WidgetSettings',
-          jsonEncode(WidgetSettings(
-            isTextChangeHourly: settings.isTextChangeHourly,
-            isTextChangeHour: settings.isTextChangeHour,
-            fontColor: settings.fontColor,
-            backgroundColor: settings.backgroundColor,
-            fontFamily: settings.fontFamily,
-            fontSize: settings.fontSize,
-          )),
-          'group.boardwidget');
+      if (Platform.isIOS) {
+        WidgetKit.setItem(
+            'WidgetSettings',
+            jsonEncode(WidgetSettings(
+              isTextChangeHourly: settings.isTextChangeHourly,
+              isTextChangeHour: settings.isTextChangeHour,
+              fontColor: settings.fontColor,
+              backgroundColor: settings.backgroundColor,
+              fontFamily: settings.fontFamily,
+              fontSize: settings.fontSize,
+            )),
+            'group.boardwidget');
 
-      WidgetKit.reloadAllTimelines();
+        WidgetKit.reloadAllTimelines();
+      }
     }
   }
 }
