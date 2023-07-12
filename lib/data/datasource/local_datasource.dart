@@ -244,7 +244,6 @@ String getColorFromName(String name) {
     case 'light_grey':
       return "#D3D3D3";
     default:
-      // 기본적으로 검정색("#000000")을 반환합니다.
       return "#333333";
   }
 }

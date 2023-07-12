@@ -49,6 +49,7 @@ dependencies:
   flutter_email_sender: ^6.0.0
   getwidget: ^3.1.1
   home_widget: ^0.2.1
+  google_mobile_ads: ^3.0.0
 
 dev_dependencies:
   flutter_test:
