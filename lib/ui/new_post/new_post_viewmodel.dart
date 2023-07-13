@@ -5,6 +5,9 @@ import 'package:board_widget/data/model/post/post.dart';
 
 import 'package:board_widget/data/repository/post_repository.dart';
 
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:board_widget/api/ad_helper.dart';
+
 class NewPostViewModel extends ChangeNotifier {
   late final PostRepository _postRepository;
 
@@ -16,6 +19,7 @@ class NewPostViewModel extends ChangeNotifier {
   DateTime focusedDay = DateTime.now();
   List<String> days = ['_', '월', '화', '수', '목', '금', '토', '일'];
 
+  // BannerAd? _bannerAd;
   bool showCalendar = false; // 캘린더 토글 변수
   int selectedIndex = 0;
   String contentText = "";
@@ -24,6 +28,25 @@ class NewPostViewModel extends ChangeNotifier {
   bool isCheckedWidgetText = false; // 주요 목표 체크박스
 
   String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
+
+  // void loadBanner() {
+  //   BannerAd(
+  //     adUnitId: AdHelper.bannerAdUnitId,
+  //     request: AdRequest(),
+  //     size: AdSize.banner,
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (ad) {
+  //         setState(() {
+  //           _bannerAd = ad as BannerAd;
+  //         });
+  //       },
+  //       onAdFailedToLoad: (ad, err) {
+  //         print('Failed to load a banner ad: ${err.message}');
+  //         ad.dispose();
+  //       },
+  //     ),
+  //   ).load();
+  // }
 
   void delControllerValue() {
     contentText = "";

@@ -7,6 +7,9 @@ import 'package:getwidget/getwidget.dart';
 import './new_post_viewmodel.dart';
 import 'package:board_widget/ui/widgets/menu_bottom.dart';
 
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:board_widget/api/ad_helper.dart';
+
 class NewPostView extends StatefulWidget {
   const NewPostView({Key? key}) : super(key: key);
 
@@ -18,12 +21,34 @@ class _NewPostViewState extends State<NewPostView>
     with SingleTickerProviderStateMixin {
   late NewPostViewModel viewModel;
 
+  BannerAd? _bannerAd;
+
   // TODO: viewModel로 옮길경우 여러번 호출 문제 해결
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     viewModel = Provider.of<NewPostViewModel>(context);
+
+    @override
+    void initState() {
+      BannerAd(
+        adUnitId: AdHelper.bannerAdUnitId,
+        request: AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+          },
+          onAdFailedToLoad: (ad, err) {
+            print('Failed to load a banner ad: ${err.message}');
+            ad.dispose();
+          },
+        ),
+      ).load();
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -59,6 +84,15 @@ class _NewPostViewState extends State<NewPostView>
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        if (_bannerAd != null)
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Container(
+                              width: _bannerAd!.size.width.toDouble(),
+                              height: _bannerAd!.size.height.toDouble(),
+                              child: AdWidget(ad: _bannerAd!),
+                            ),
+                          ),
                         TableCalendar(
                           locale: 'ko-KR',
                           firstDay: DateTime.utc(2021, 10, 16),
