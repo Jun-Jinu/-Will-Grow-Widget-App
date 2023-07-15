@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsMainViewModel extends ChangeNotifier {
   // 프리미엄 혜택
@@ -16,8 +17,15 @@ class SettingsMainViewModel extends ChangeNotifier {
   }
 
   // 앱 리뷰남기기
-  // 의견 보내기
 
+  Future<void> launchReviewURL() async {
+    if (!await launchUrl(
+        Uri.parse('https://apps.apple.com/app/id6450313724'))) {
+      throw Exception('Could not launch');
+    }
+  }
+
+  // 의견 보내기
   Future<String> getEmailBody() async {
     String body = "";
 
@@ -34,7 +42,7 @@ class SettingsMainViewModel extends ChangeNotifier {
     final Email email = Email(
       body: body,
       subject: '[성장다짐 문의]',
-      recipients: ['youwillgrow.official@gmail.com'],
+      recipients: ['willgrow.official@gmail.com'],
       cc: [],
       bcc: [],
       attachmentPaths: [],
