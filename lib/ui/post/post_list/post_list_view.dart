@@ -19,7 +19,34 @@ class PostListView extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             final List<Post> postList = snapshot.data ?? [];
-            return _buildPostList(postList, context);
+
+            if (postList.isEmpty) {
+              // 리스트가 비어있는 화면일때.
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '아직 일기를 작성하지 않으셨군요!\n당신의 아름다운 오늘을 기록해보세요.',
+                      style: TextStyle(
+                        color: Color(0xFF333333),
+                        fontSize: 22.0,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/');
+                      },
+                      child: Text('일기쓰러가기'),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return _buildPostList(postList, context);
+            }
           } else {
             return Center(child: CircularProgressIndicator());
           }
