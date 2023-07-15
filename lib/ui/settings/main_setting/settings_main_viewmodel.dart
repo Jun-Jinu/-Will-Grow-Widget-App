@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsMainViewModel extends ChangeNotifier {
   // 프리미엄 혜택
@@ -59,6 +60,12 @@ class SettingsMainViewModel extends ChangeNotifier {
     }
   }
 
+  // 앱 공유하기
+  void shareApp() async {
+    Share.share(
+        '끊임없이 성장하는 당신과 함께\n\n 매일 일기를 쓰며 다짐을 기록하는 당신만의 일기장, 윌그로우\n\n당신의 멋진 오늘을 기록하고, 다짐해보세요! 그리고 홈 위젯으로 매일 보며 목표를 이뤄보세요!\n\nhttps://apps.apple.com/app/id6450313724');
+  }
+
 //   void _showErrorAlert({required String title, required String message}) {
 //   showDialog(
 //     context: context,
@@ -78,6 +85,4 @@ class SettingsMainViewModel extends ChangeNotifier {
 //     },
 //   );
 // }
-
-  // 앱 공유하기
 }

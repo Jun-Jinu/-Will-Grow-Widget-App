@@ -82,10 +82,10 @@ class SettingsMainBody extends StatelessWidget {
               },
             ),
             SettingsTile(
-              enabled: false,
               title: const Text('앱 공유하기'),
-              value: Text('곧 업데이트 예정입니다'),
-              onPressed: (BuildContext context) {},
+              onPressed: (BuildContext context) {
+                viewModel.shareApp();
+              },
             ),
           ],
         ),
