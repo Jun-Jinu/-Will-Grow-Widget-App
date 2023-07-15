@@ -14,6 +14,7 @@ import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';
 import './app.dart';
 
 void main() async {
+  var device = ["5426edd56f171031f4a00f68ff16c9a5"];
   // Hive(로컬스토리지) 초기화
   await initHive();
 
@@ -21,6 +22,13 @@ void main() async {
 
   // locale을 위한 초기화
   await initializeDateFormatting();
+
+  // 애드몹 초기화
+  await MobileAds.instance.initialize();
+
+  RequestConfiguration requestConfiguration =
+      RequestConfiguration(testDeviceIds: device);
+  MobileAds.instance.updateRequestConfiguration(requestConfiguration);
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {

@@ -27,28 +27,30 @@ class _NewPostViewState extends State<NewPostView>
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
+          ad.dispose();
+        },
+      ),
+    ).load();
+  }
+
+  @override
   Widget build(BuildContext context) {
     viewModel = Provider.of<NewPostViewModel>(context);
-
-    @override
-    void initState() {
-      BannerAd(
-        adUnitId: AdHelper.bannerAdUnitId,
-        request: AdRequest(),
-        size: AdSize.banner,
-        listener: BannerAdListener(
-          onAdLoaded: (ad) {
-            setState(() {
-              _bannerAd = ad as BannerAd;
-            });
-          },
-          onAdFailedToLoad: (ad, err) {
-            print('Failed to load a banner ad: ${err.message}');
-            ad.dispose();
-          },
-        ),
-      ).load();
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -65,6 +67,18 @@ class _NewPostViewState extends State<NewPostView>
             padding: EdgeInsets.all(16.0),
             child: Column(
               children: [
+                (_bannerAd != null)
+                    ? Align(
+                        alignment: Alignment.topCenter,
+                        child: SizedBox(
+                          width: _bannerAd!.size.width.toDouble(),
+                          height: _bannerAd!.size.height.toDouble(),
+                          child: AdWidget(ad: _bannerAd!),
+                        ),
+                      )
+                    : SizedBox(
+                        height: 50,
+                      ),
                 GestureDetector(
                   onTap: viewModel.onToggleCalendar,
                   child: Container(
@@ -84,15 +98,6 @@ class _NewPostViewState extends State<NewPostView>
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        if (_bannerAd != null)
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Container(
-                              width: _bannerAd!.size.width.toDouble(),
-                              height: _bannerAd!.size.height.toDouble(),
-                              child: AdWidget(ad: _bannerAd!),
-                            ),
-                          ),
                         TableCalendar(
                           locale: 'ko-KR',
                           firstDay: DateTime.utc(2021, 10, 16),
