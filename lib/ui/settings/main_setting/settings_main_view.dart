@@ -96,7 +96,7 @@ class SettingsMainBody extends StatelessWidget {
             SettingsTile(
               enabled: false,
               title: const Text('버전'),
-              value: const Text('v1.0.0'),
+              value: const Text('v1.0.1'),
               onPressed: (BuildContext context) {},
             ),
             SettingsTile(

@@ -33,7 +33,7 @@ class _NewPostViewState extends State<NewPostView>
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
-      size: AdSize.banner,
+      size: AdSize.fullBanner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
           setState(() {
@@ -77,7 +77,7 @@ class _NewPostViewState extends State<NewPostView>
                         ),
                       )
                     : SizedBox(
-                        height: 50,
+                        height: 60,
                       ),
                 GestureDetector(
                   onTap: viewModel.onToggleCalendar,
@@ -86,6 +86,7 @@ class _NewPostViewState extends State<NewPostView>
                     height: 60.0,
                     alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(vertical: 10.0),
+                    margin: EdgeInsets.only(top: 10.0),
                     child: Text(
                       viewModel.formattedDate,
                       style: TextStyle(fontSize: 20.0),
