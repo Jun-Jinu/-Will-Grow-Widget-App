@@ -9,8 +9,7 @@ import 'package:board_widget/data/model/post/post.dart';
 import 'package:board_widget/data/model/theme/app/app_settings.dart';
 import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
 import 'package:board_widget/data/model/adapters/color_apapter.dart';
-import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';
-import 'package:advertising_id/advertising_id.dart';
+import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';\
 
 import './app.dart';
 
