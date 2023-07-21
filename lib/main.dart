@@ -10,11 +10,11 @@ import 'package:board_widget/data/model/theme/app/app_settings.dart';
 import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
 import 'package:board_widget/data/model/adapters/color_apapter.dart';
 import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';
+import 'package:advertising_id/advertising_id.dart';
 
 import './app.dart';
 
 void main() async {
-  var device = ["5426edd56f171031f4a00f68ff16c9a5"];
   // Hive(로컬스토리지) 초기화
   await initHive();
 
@@ -24,10 +24,11 @@ void main() async {
   await initializeDateFormatting();
 
   // 애드몹 초기화
-  await MobileAds.instance.initialize();
+  MobileAds.instance.initialize();
 
+  List<String> testDeviceIds = ['5426edd56f171031f4a00f68ff16c9a5'];
   RequestConfiguration requestConfiguration =
-      RequestConfiguration(testDeviceIds: device);
+      RequestConfiguration(testDeviceIds: testDeviceIds);
   MobileAds.instance.updateRequestConfiguration(requestConfiguration);
 
   SystemChrome.setPreferredOrientations(

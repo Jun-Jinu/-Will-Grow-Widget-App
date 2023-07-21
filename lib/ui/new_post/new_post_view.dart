@@ -30,7 +30,7 @@ class _NewPostViewState extends State<NewPostView>
   void initState() {
     super.initState();
 
-    BannerAd(
+    _bannerAd = BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
       size: AdSize.fullBanner,
@@ -45,7 +45,14 @@ class _NewPostViewState extends State<NewPostView>
           ad.dispose();
         },
       ),
-    ).load();
+    )..load();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _bannerAd?.dispose();
   }
 
   @override
