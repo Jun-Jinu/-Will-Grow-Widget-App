@@ -1,6 +1,4 @@
 PODS:
-  - advertising_id (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - flutter_email_sender (0.0.1):
     - Flutter
@@ -70,11 +68,9 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - advertising_id (from `.symlinks/plugins/advertising_id/ios`)
   - Flutter (from `Flutter`)
   - flutter_email_sender (from `.symlinks/plugins/flutter_email_sender/ios`)
   - flutter_widgetkit (from `.symlinks/plugins/flutter_widgetkit/ios`)
-  - Google-Mobile-Ads-SDK
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -92,8 +88,6 @@ SPEC REPOS:
     - PromisesObjC
 
 EXTERNAL SOURCES:
-  advertising_id:
-    :path: ".symlinks/plugins/advertising_id/ios"
   Flutter:
     :path: Flutter
   flutter_email_sender:
@@ -114,7 +108,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
-  advertising_id: 31c738918c2e04d86d80c293357e61e06e87df74
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_email_sender: 02d7443217d8c41483223627972bfdc09f74276b
   flutter_widgetkit: a0e9b0d50ee9bec366dad36c639509daaafc397a
@@ -131,6 +124,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
 
-PODFILE CHECKSUM: 77cff816029992b52e53d45268cd4a053023da84
+PODFILE CHECKSUM: 46dccd83c2535941a1299ebdecf55e7cfa1559d8
 
 COCOAPODS: 1.12.1

@@ -9,7 +9,7 @@ import 'package:board_widget/data/model/post/post.dart';
 import 'package:board_widget/data/model/theme/app/app_settings.dart';
 import 'package:board_widget/data/model/theme/widget/widget_settings.dart';
 import 'package:board_widget/data/model/adapters/color_apapter.dart';
-import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';\
+import 'package:board_widget/data/model/home_widget_info/home_widget_info.dart';
 
 import './app.dart';
 
@@ -25,9 +25,8 @@ void main() async {
   // 애드몹 초기화
   MobileAds.instance.initialize();
 
-  List<String> testDeviceIds = ['5426edd56f171031f4a00f68ff16c9a5'];
   RequestConfiguration requestConfiguration =
-      RequestConfiguration(testDeviceIds: testDeviceIds);
+      RequestConfiguration(testDeviceIds: ['5426edd56f171031f4a00f68ff16c9a5']);
   MobileAds.instance.updateRequestConfiguration(requestConfiguration);
 
   SystemChrome.setPreferredOrientations(
