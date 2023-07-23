@@ -5,9 +5,6 @@ import 'package:board_widget/data/model/post/post.dart';
 
 import 'package:board_widget/data/repository/post_repository.dart';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:board_widget/api/ad_helper.dart';
-
 class NewPostViewModel extends ChangeNotifier {
   late final PostRepository _postRepository;
 
@@ -26,6 +23,10 @@ class NewPostViewModel extends ChangeNotifier {
   String promiseText = "";
 
   bool isCheckedWidgetText = false; // 주요 목표 체크박스
+
+  // 오늘의 글을 길게 기록하는 위젯 변수
+  String contentNoticeText = "오늘을 자세히 기록하기"; // 긴 텍스트 토글 변수
+  bool isToggledContentText = false; // 긴 텍스트 토글 변수
 
   String get formattedDate => DateFormat('yyyy.MM.dd').format(selectedDay);
 
@@ -56,10 +57,17 @@ class NewPostViewModel extends ChangeNotifier {
     focusedDay = DateTime.now();
     selectedIndex = 0;
     isCheckedWidgetText = false;
+    isToggledContentText = false;
   }
 
   void onToggleCalendar() {
     showCalendar = !showCalendar;
+    notifyListeners();
+  }
+
+  void onToggleContentText() {
+    isToggledContentText = !isToggledContentText;
+
     notifyListeners();
   }
 

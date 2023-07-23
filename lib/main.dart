@@ -25,9 +25,9 @@ void main() async {
   // 애드몹 초기화
   MobileAds.instance.initialize();
 
-  RequestConfiguration requestConfiguration =
-      RequestConfiguration(testDeviceIds: ['5426edd56f171031f4a00f68ff16c9a5']);
-  MobileAds.instance.updateRequestConfiguration(requestConfiguration);
+  // RequestConfiguration requestConfiguration =
+  //     RequestConfiguration(testDeviceIds: ['5426edd56f171031f4a00f68ff16c9a5']);
+  // MobileAds.instance.updateRequestConfiguration(requestConfiguration);
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {

@@ -241,27 +241,7 @@ class _NewPostViewState extends State<NewPostView>
                     border: OutlineInputBorder(
                       borderSide: BorderSide(width: 0, style: BorderStyle.none),
                     ),
-                    hintText: "일기",
-                    errorStyle: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  maxLines: 10,
-                  validator: viewModel.validateContent,
-                  onSaved: viewModel.onSavedContent,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.grey,
-                  margin: EdgeInsets.symmetric(vertical: 4.0),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 0, style: BorderStyle.none),
-                    ),
-                    hintText: "오늘의 다짐",
+                    hintText: "오늘의 한 줄 일기",
                     errorStyle: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.primary),
@@ -269,6 +249,65 @@ class _NewPostViewState extends State<NewPostView>
                   validator: viewModel.validatePromise,
                   onSaved: viewModel.onSavedPromise,
                 ),
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.grey,
+                  margin: EdgeInsets.symmetric(vertical: 4.0),
+                ),
+                // 일기글 작성할 경우 토글할 창
+                GestureDetector(
+                  onTap: viewModel.onToggleContentText,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        viewModel.isToggledContentText
+                            ? "오늘을 여러 줄로 기록하기" // 내용이 보이는 경우
+                            : "한 줄로만 기록하기", // 내용이 숨겨진 경우
+                        key: ValueKey(viewModel.isToggledContentText),
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                      AnimatedBuilder(
+                        animation: viewModel,
+                        builder: (context, child) {
+                          return Transform.rotate(
+                            angle:
+                                viewModel.isToggledContentText ? 3.141592 : 0,
+                            child: Icon(
+                              Icons.expand_more,
+                              size: 30,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+
+                AnimatedContainer(
+                  height: viewModel.isToggledContentText ? 200 : 0,
+                  duration: Duration(milliseconds: 250),
+                  child: SingleChildScrollView(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 0, style: BorderStyle.none),
+                        ),
+                        hintText: "일기를 작성해주세요",
+                        errorStyle: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      maxLines: 10,
+                      validator: viewModel.validateContent,
+                      onSaved: viewModel.onSavedContent,
+                    ),
+                  ),
+                ),
+                // 오늘이 인상깊었나요? 자세한 일기를 쓰고 오늘을 기록해보세요!
+
                 Container(
                   width: double.infinity,
                   height: 1,
@@ -290,7 +329,7 @@ class _NewPostViewState extends State<NewPostView>
                       ),
                       Container(
                         child: Text(
-                          '나의 주요 목표로 설정합니다.',
+                          '오늘의 한 줄 일기를 홈화면 위젯에 표시',
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
@@ -301,7 +340,7 @@ class _NewPostViewState extends State<NewPostView>
                   width: double.infinity,
                   padding: EdgeInsets.only(left: 40.0),
                   child: Text(
-                    '홈화면 위젯을 추가해서 목표를 이뤄보세요!',
+                    '홈화면에서 기억에 남을 오늘을 기록하세요!',
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.primary),
                   ),

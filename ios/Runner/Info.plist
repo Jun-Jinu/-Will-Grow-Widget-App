@@ -6,8 +6,6 @@
 	<string>ca-app-pub-1588327448233580~3755799918</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>https</string>
